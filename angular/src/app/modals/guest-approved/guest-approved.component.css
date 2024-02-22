@@ -1,0 +1,10 @@
+::ng-deep.modal-backdrop {
+  background: rgba(202, 197, 196, 1);
+
+
+}
+
+/* Optionally, you can adjust the opacity of the backdrop */
+::ng-deep.modal-backdrop.show {
+  opacity: 1; /* Adjust the opacity as needed */
+}

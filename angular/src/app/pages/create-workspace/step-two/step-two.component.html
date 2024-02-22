@@ -1,0 +1,45 @@
+<div class="workspace-step-1-page-container">
+  <!--<aside class="workspace-step-aside">
+    <div class="workspace-step-aside-top">
+      <span></span>
+    </div>
+  </aside>-->
+  <div class="page-background w-100">
+<!--    <div class="workspace-step-top"></div>-->
+    <div class="w-100">
+      <div class="workspace-step-1-add-project-details">
+        <div class="workspace-step-1-heading">
+          <p class="workspace-step-pages">Step 2 / 2</p>
+          <h2 class="workspace-step-pages-title">Add members to your workspace</h2>
+        </div>
+        <div class="workspace-step-2-input-group">
+          <div class="workspace-step-2-input-group-title">
+            <p>Add member’s email addresses</p>
+<!--            <a href="#">Add from existing contacts</a>-->
+          </div>
+          <div class="d-flex w-100">
+            <div class="w-75">
+              <input type="email" class="form-control" placeholder="Email, comma separated" [ngbTypeahead]="search"
+                     [inputFormatter]="formatter" [resultFormatter]="formatter" [(ngModel)]="user" name="user">
+            </div>
+           <!-- <div class="add-member-modal-member-box">
+              <div class="add-member-modal-member" *ngFor="let role of workspaceRoles">
+                <input name="role" type="radio" [value]="role.roleName" class="img-24x24" [(ngModel)]="selectedRole">
+                <p class="add-member-modal-member-name">{{role.roleName}}</p>
+              </div>
+            </div>-->
+            <div class="w-25 ms-2">
+              <select class="form-control" name="role" [(ngModel)]="selectedRole">
+                <option *ngFor="let role of workspaceRoles">{{role.roleName}}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="workspace-step-1-add-project-details-btn-group">
+          <button class="workspace-step-1-page-next-page-btn" (click)="inviteMember()">Next</button>
+          <a [routerLink]="['/']">Skip this step</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

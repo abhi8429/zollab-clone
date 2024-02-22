@@ -1,0 +1,654 @@
+/*.open-asidebar {*/
+/*    display: none;*/
+/*}*/
+
+/*@media (max-width:999px) {*/
+/*    .sign-up-page {*/
+/*        padding: 30px;*/
+/*    }*/
+
+/*    .responsive-none {*/
+/*        display: none;*/
+/*    }*/
+
+/*    .left-side-content {*/
+/*        gap: 120px;*/
+/*    }*/
+
+/*    .left-side-content-text {*/
+/*        gap: 44px;*/
+/*    }*/
+
+/*    .set-up-profile-page {*/
+/*        padding: 50px 60px;*/
+/*    }*/
+
+/*    .set-up-profile-content-heading {*/
+/*        padding: 0 30px;*/
+/*    }*/
+
+/*    .workspace-creation-page {*/
+/*        padding: 50px 60px;*/
+/*    }*/
+
+/*    .workspace .leftside-bar {*/
+/*        display: none !important;*/
+/*    }*/
+
+/*    .workspace .leftside-menu {*/
+/*        display: none;*/
+/*    }*/
+
+/*    .main .main-wrapper .user-message-container {*/
+/*        padding: 14px;*/
+/*    }*/
+
+/*    .main .main-wrapper .user-message-container .user-message-box {*/
+/*        padding: 14px 20px;*/
+/*        gap: 12px;*/
+/*    }*/
+
+/*    .main .main-wrapper .user-message-container .user-message-box .user-chat-details {*/
+/*        gap: 6px;*/
+/*    }*/
+
+/*    .main .main-wrapper .user-message-container .user-message-box .user-chat-details .user-chat {*/
+/*        font-size: 14px;*/
+/*        line-height: 18px;*/
+/*    }*/
+
+/*    .editing-page-aside {*/
+/*        display: none;*/
+/*        transition: 0.5s;*/
+/*        -webkit-transition: 0.5s;*/
+/*        -moz-transition: 0.5s;*/
+/*        -ms-transition: 0.5s;*/
+/*        -o-transition: 0.5s;*/
+/*    }*/
+
+/*    .editing-page-wrapper-main-box {*/
+/*        width: 100%;*/
+/*        gap: 35px;*/
+/*    }*/
+
+/*    .delete-workspace-box {*/
+/*        gap: 40px;*/
+/*        padding: 14px;*/
+/*    }*/
+
+/*    .edit-workspace-details-box-content {*/
+/*        gap: 40px;*/
+/*    }*/
+
+/*    .edit-workspace-details-box {*/
+/*        padding: 14px;*/
+/*        width: 100%;*/
+/*    }*/
+
+/*    .workspace-step-aside {*/
+/*        display: none;*/
+/*    }*/
+
+/*    .workspace-step-top {*/
+/*        display: none;*/
+/*    }*/
+
+/*    .edit-profile-container {*/
+/*        padding: 60px 15px;*/
+/*    }*/
+
+/*    .open-asidebar {*/
+/*        display: block;*/
+/*        position: fixed;*/
+/*        top: 50%;*/
+/*        left: 0;*/
+/*        transition: 0.5s;*/
+/*        -webkit-transition: 0.5s;*/
+/*        -moz-transition: 0.5s;*/
+/*        -ms-transition: 0.5s;*/
+/*        -o-transition: 0.5s;*/
+/*    }*/
+
+/*    .open-asidebar img {*/
+/*        width: 32px;*/
+/*        height: 32px;*/
+/*        transition: 0.5s;*/
+/*        -webkit-transition: 0.5s;*/
+/*        -moz-transition: 0.5s;*/
+/*        -ms-transition: 0.5s;*/
+/*        -o-transition: 0.5s;*/
+/*    }*/
+
+/*    .roles-and-permissions-content-section {*/
+/*        flex-direction: row;*/
+/*        gap: 14px;*/
+/*        flex-wrap: wrap;*/
+/*    }*/
+
+/*    .role-name-and-description-section {*/
+/*        width: 100%;*/
+/*        min-width: 100%;*/
+/*    }*/
+
+/*    .edit-role-dropdown {*/
+/*        min-width: 30%;*/
+/*    }*/
+
+/*    .roles-and-permissions-content-section .members-section {*/
+/*        min-width: 30%;*/
+/*    }*/
+
+/*    .roles-and-permissions-content-section .update-section {*/
+/*        min-width: 30%;*/
+/*    }*/
+
+/*    .roles-and-permissions-container {*/
+/*        gap: 20px;*/
+/*    }*/
+
+/*    .mobile-none {*/
+/*        display: none;*/
+/*    }*/
+
+/*}*/
+
+
+/*@media (max-width:450px) {*/
+/*    .sign-up-page {*/
+/*        padding: 60px 5px;*/
+/*    }*/
+
+/*    .left-side-content {*/
+/*        gap: 70px;*/
+/*    }*/
+
+/*    .left-side-content-text {*/
+/*        gap: 30px;*/
+/*    }*/
+
+/*    .set-up-profile-page {*/
+/*        padding: 6px 15px;*/
+/*    }*/
+
+/*    .set-up-profile-content-heading {*/
+/*        padding: 0 15px;*/
+/*    }*/
+
+/*    .workspace-creation-page {*/
+/*        padding: 30px 15px;*/
+/*    }*/
+
+/*    .workspace-creation-user-welcome-section {*/
+/*        flex-wrap: wrap-reverse;*/
+/*        gap: 30px;*/
+/*    }*/
+
+/*    .workspace-creation-user-welcome-img {*/
+/*        margin: 0 auto;*/
+/*    }*/
+
+/*    .workspace-creation-user-welcome-img img {*/
+/*        width: 100%;*/
+/*    }*/
+
+/*    .workspace-step-1-add-project-details {*/
+/*        gap: 20px;*/
+/*    }*/
+
+/*    .workspace-step-1-page {*/
+/*        padding: 215px 10px;*/
+/*    }*/
+
+/*    .workspace-step-2-input-group-title a {*/
+/*        font-size: 12px;*/
+/*    }*/
+
+/*    .workspace-step-2-input-group-title p {*/
+/*        font-size: 12px;*/
+/*    }*/
+
+/*    .main .main-wrapper .user-message-container {*/
+/*        padding: 10px;*/
+/*    }*/
+
+/*    .main .main-wrapper .user-message-container .user-message-box {*/
+/*        padding: 12px 14px;*/
+/*        gap: 12px;*/
+/*    }*/
+
+/*    .main .main-wrapper .user-message-container .user-message-box .user-chat-details .user-chat {*/
+/*        font-size: 14px;*/
+/*        line-height: 18px;*/
+/*    }*/
+
+/*    .main .main-wrapper .user-message-container .user-message-day-and-time span {*/
+/*        font-size: 12px;*/
+/*        padding: 5px 9px;*/
+/*    }*/
+
+/*    .Welcome-to-workspace .main .main-wrapper {*/
+/*        padding: 10px;*/
+/*    }*/
+
+/*    .Welcome-to-workspace .main .main-wrapper .Welcome-to-workspace-box .Welcome-to-workspace-box-heading .Welcome-to-workspace-title {*/
+/*        font-size: 46px;*/
+/*        line-height: 50px;*/
+/*    }*/
+
+/*    .Welcome-to-workspace .main .main-wrapper .Welcome-to-workspace-box .Welcome-to-workspace-box-heading .Welcome-to-workspace-sub-title {*/
+/*        font-size: 14px;*/
+/*        line-height: 20px;*/
+/*    }*/
+
+/*    .Welcome-to-workspace .main .main-wrapper .Welcome-to-workspace-box {*/
+/*        gap: 24px;*/
+/*    }*/
+
+/*    .Welcome-to-workspace .main .main-wrapper .Welcome-to-workspace-box .Welcome-to-workspace-box-nudge-list {*/
+/*        gap: 15px;*/
+/*    }*/
+
+/*    .editing-page-wrapper-content {*/
+/*        padding: 24px 0;*/
+/*    }*/
+
+/*    .editing-page-wrapper-heading {*/
+/*        gap: 10px;*/
+/*    }*/
+
+/*    .editing-page-wrapper-title {*/
+/*        font-size: 26px;*/
+/*    }*/
+
+/*    .editing-page-wrapper-sub-title {*/
+/*        font-size: 13px;*/
+/*        line-height: 19px;*/
+/*    }*/
+
+/*    .edit-workspace-details-box-content {*/
+/*        gap: 20px;*/
+/*    }*/
+
+/*    .delete-workspace-box {*/
+/*        gap: 20px;*/
+/*    }*/
+
+/*    .edit-workspace-details-box {*/
+/*        padding: 5px;*/
+/*    }*/
+
+/*    .editing-page-aside-menu-title {*/
+/*        font-size: 14px;*/
+/*    }*/
+
+/*    .editing-page-aside-menu-link {*/
+/*        font-size: 13px;*/
+/*    }*/
+
+/*    .workspace-step-1-add-project-details {*/
+/*        padding: 140px 15px;*/
+/*    }*/
+
+/*    .leave-workspace-main-content-btn-group {*/
+/*        flex-direction: column;*/
+/*    }*/
+
+/*    .leaveworkspace-btn {*/
+/*        max-width: 100%;*/
+/*        width: 100%;*/
+/*    }*/
+
+/*    .leaveworkspace-cancel-btn {*/
+/*        max-width: 100%;*/
+/*        width: 100%;*/
+/*    }*/
+
+/*    .edit-profile-container {*/
+/*        padding: 30px 4px;*/
+/*    }*/
+
+/*    .main-body-footer-container {*/
+/*        align-items: center;*/
+/*        justify-content: center;*/
+/*    }*/
+
+/*    .body-footer-save-btn {*/
+/*        max-width: 50%;*/
+/*        width: 50%;*/
+/*    }*/
+
+/*    .body-footer-cancel-btn {*/
+/*        max-width: 50%;*/
+/*        width: 50%;*/
+/*    }*/
+/*}*/
+
+
+
+
+/*!*ipad pro*!*/
+/*@media(min-width: 992px) and (max-width: 1200px) {*/
+/*    .workspace-creation-user-welcome-section {*/
+/*        flex-wrap: wrap-reverse;*/
+/*    }*/
+
+/*    .workspace-creation-user-welcome-img {*/
+/*        margin: 0 auto;*/
+/*    }*/
+
+/*    .workspace-step-1-page {*/
+/*        padding: 150px 10px;*/
+/*    }*/
+/*}*/
+
+/*!*ipad*!*/
+/*@media (min-width: 768px) and (max-width: 991.98px) {*/
+/*    .workspace-step-1-page {*/
+/*        padding: 120px 10px;*/
+/*    }*/
+
+/*    .create-role-check-filedset-section .action-section {*/
+/*        min-width: 265px;*/
+/*    }*/
+/*}*/
+
+/*!*tablet*!*/
+/*@media (min-width: 576px) and (max-width: 800px) {*/
+/*    .workspace-creation-user-welcome-section {*/
+/*        flex-wrap: wrap-reverse;*/
+/*        gap: 60px;*/
+/*    }*/
+
+/*    .workspace-creation-user-welcome-img {*/
+/*        margin: 0 auto;*/
+/*    }*/
+
+/*    .workspace-creation-page {*/
+/*        padding: 50px 40px;*/
+/*    }*/
+
+/*}*/
+
+/*!*mobile*!*/
+/*@media (min-width: 451px) and (max-width: 575px) {*/
+/*    .workspace-creation-user-welcome-section {*/
+/*        flex-wrap: wrap-reverse;*/
+/*        gap: 50px;*/
+/*    }*/
+
+/*    .workspace-creation-user-welcome-img {*/
+/*        margin: 0 auto;*/
+/*    }*/
+
+/*    .workspace-creation-page {*/
+/*        padding: 40px 20px;*/
+/*    }*/
+/*}*/
+
+/*@media (min-width: 300px) and (max-width: 410px) {*/
+/*    .workspace .main .main-header .main-header-right-content {*/
+/*        flex-direction: column;*/
+/*    }*/
+
+/*    .m-none {*/
+/*        display: none;*/
+/*    }*/
+/*}*/
+
+/*@media (max-width:380px) {*/
+/*    .workspace-step-2-input-group-title {*/
+/*        flex-wrap: wrap;*/
+/*        gap: 0;*/
+/*    }*/
+/*}*/
+
+/*@media (max-width:650px) {*/
+/*    .workspace .main .main-header {*/
+/*        height: fit-content;*/
+/*        flex-wrap: wrap;*/
+/*        justify-content: center;*/
+/*    }*/
+
+/*    .workspace .main .main-header .main-header-title-box {*/
+/*        align-items: center;*/
+/*    }*/
+
+/*    .workspace .main .main-header .main-header-right-content {*/
+/*        width: 100%;*/
+/*        justify-content: space-between;*/
+/*        gap: 10px;*/
+/*    }*/
+
+/*    .workspace .main .main-header {*/
+/*        gap: 12px;*/
+/*    }*/
+
+/*    .workspace .main .main-header .main-header-title-box {*/
+/*        gap: 3px;*/
+/*    }*/
+
+/*    .workspace .main .main-footer {*/
+/*        height: fit-content;*/
+/*        padding: 14px;*/
+/*    }*/
+
+/*    .workspace .main .main-footer .main-footer-chat-box {*/
+/*        height: 65px;*/
+/*    }*/
+/*     .rosetr-main-creator {*/
+/*        padding: 0 1rem;*/
+/*    }*/
+
+/*    .rosetr-added-creator {*/
+/*        padding: 0.6rem 1rem;*/
+/*    }*/
+
+/*    .rosetr-creator-row {*/
+/*        flex-direction: column;*/
+/*        gap: 2rem;*/
+/*        align-items: center !important;*/
+/*    }*/
+
+/*    .rosetr-creator-row .creator-social-media-platforms {*/
+/*        flex-wrap: wrap;*/
+/*        gap: 1rem;*/
+/*    }*/
+
+/*    .rosetr-creator-row .creator-social-media-platforms .col .mobile-show {*/
+/*        display: block;*/
+/*    }*/
+
+/*    .roster-inputgroup {*/
+/*        padding: 0 12px;*/
+/*    }*/
+/*}*/
+
+
+/*@media (max-width:1333px) {*/
+/*    .edit-workspace-details-box-content {*/
+/*        flex-direction: column-reverse;*/
+/*        align-items: center;*/
+/*        width: 100%;*/
+/*    }*/
+
+/*    .img-120x120 {*/
+/*        width: 120px;*/
+/*        height: 120px;*/
+/*    }*/
+
+/*    .delete-workspace-box {*/
+/*        flex-direction: column;*/
+/*        width: 100%;*/
+/*        justify-content: center;*/
+/*        align-items: center;*/
+/*    }*/
+
+/*    .edit-workspace-details-box {*/
+/*        width: 100%;*/
+/*    }*/
+
+/*    .edit-workspace-details-box-enter-name .form-control {*/
+/*        width: 100%;*/
+/*    }*/
+
+/*    .editing-page-wrapper-content {*/
+/*        align-items: center;*/
+/*    }*/
+/*}*/
+
+/*@media (max-width:500px) {*/
+/*    .add-member-modal-form-input-group {*/
+/*        flex-wrap: wrap;*/
+/*    }*/
+
+/*    .add-member-modal-add-btn {*/
+/*        width: 100%;*/
+/*    }*/
+
+/*    .add-member-modal-form .add-member-modal-form-input-group .form-control {*/
+/*        width: 100%;*/
+/*        max-width: 100%;*/
+/*    }*/
+
+/*    .add-member-modal-link p {*/
+/*        width: calc(100% - 125px)*/
+/*    }*/
+
+/*}*/
+
+
+/*@media (max-width:560px) {*/
+/*    .edit-profile-main-content {*/
+/*        flex-wrap: wrap;*/
+/*        gap: 40px;*/
+/*        align-items: normal;*/
+/*        justify-content: center;*/
+/*    }*/
+
+/*    .user-edit-profile-notification-form {*/
+/*        gap: 17px;*/
+/*    }*/
+
+/*    .user-edit-profile-form-field-sub-title {*/
+/*        line-height: 16px;*/
+/*    }*/
+
+/*    .roles-and-permissions-content-section .members-section, .roles-and-permissions-content-section .update-section, .edit-role-dropdown {*/
+/*        min-width: 28%;*/
+/*        max-width: 28%;*/
+/*        align-items: center;*/
+/*        justify-content: center;*/
+/*    }*/
+
+/*    .roles-and-permissions-page-heading-link {*/
+/*        display: flex;*/
+/*        justify-content: end;*/
+/*        width: 100%;*/
+/*        margin-top: 8px;*/
+/*    }*/
+/*}*/
+
+/*@media (min-width:999px) and (max-width:1100px) {*/
+/*    .responsive-none {*/
+/*        display: none;*/
+/*    }*/
+
+/*    .create-role-check-filedset-section .action-section {*/
+/*        min-width: 260px;*/
+/*    }*/
+/*}*/
+
+/*@media (min-width:600px) and (max-width:767px) {*/
+/*    .create-role-check-filedset-section .action-section {*/
+/*        min-width: 220px;*/
+/*    }*/
+
+/*    .create-role-check-filedset-section .view-section {*/
+/*        min-width: 50px;*/
+/*    }*/
+
+/*    .create-role-check-filedset-section .add-section {*/
+/*        min-width: 50px;*/
+/*    }*/
+
+/*    .create-role-check-filedset-section .edit-and-change-section {*/
+/*        min-width: 50px;*/
+/*    }*/
+
+/*    .create-role-check-filedset-section .delete-section {*/
+/*        min-width: 50px;*/
+/*    }*/
+
+/*    .create-role-check-filedset-section {*/
+/*        gap: 42px;*/
+/*    }*/
+/*}*/
+
+
+/*@media (min-width:500px) and (max-width:600px) {*/
+/*    .create-role-check-filedset-section .action-section {*/
+/*        min-width: 200px;*/
+/*    }*/
+
+/*    .create-role-check-filedset-section .view-section {*/
+/*        min-width: 35px;*/
+/*    }*/
+
+/*    .create-role-check-filedset-section .add-section {*/
+/*        min-width: 35px;*/
+/*    }*/
+
+/*    .create-role-check-filedset-section .edit-and-change-section {*/
+/*        min-width: 35px;*/
+/*    }*/
+
+/*    .create-role-check-filedset-section .delete-section {*/
+/*        min-width: 35px;*/
+/*    }*/
+
+/*    .create-role-check-filedset-section {*/
+/*        gap: 32px;*/
+/*    }*/
+/*}*/
+
+/*@media (max-width:500px) {*/
+/*    .create-role-check-filedset-section {*/
+/*        flex-wrap: wrap;*/
+/*        gap: 10px;*/
+/*    }*/
+
+/*    .create-role-check-filedset-section .action-section {*/
+/*        font-size: 14px;*/
+/*        letter-spacing: 1px;*/
+/*        align-items: center;*/
+/*        min-width: 340px;*/
+/*    }*/
+
+/*    .create-role-check-filedset-section .view-section {*/
+/*        min-width: 20%;*/
+/*        max-width: 20%;*/
+/*        align-items: center;*/
+/*    }*/
+
+/*    .create-role-check-filedset-section .add-section {*/
+/*        min-width: 20%;*/
+/*        max-width: 20%;*/
+/*        align-items: center;*/
+/*    }*/
+
+/*    .create-role-check-filedset-section .edit-and-change-section {*/
+/*        min-width: 20%;*/
+/*        max-width: 20%;*/
+/*        align-items: center;*/
+/*    }*/
+
+/*    .create-role-check-filedset-section .delete-section {*/
+/*        min-width: 20%;*/
+/*        max-width: 20%;*/
+/*        align-items: center;*/
+/*    }*/
+
+/*    .create-role-check-filedset {*/
+/*        gap: 7px;*/
+/*    }*/
+/*}*/

@@ -1,0 +1,34 @@
+::placeholder {
+  color: #000;
+  opacity: 1; /* Firefox */
+}
+
+::-ms-input-placeholder { /* Edge 12-18 */
+  color: #000;
+}
+
+.copied-class {
+  position: absolute !important;
+  top: 0rem;
+  right: 0.3rem;
+  transition: 1s ease-in-out;
+  font-size: 12px;
+  font-weight: 500;
+  /*position: absolute !important;*/
+  /*top: -1.2rem;*/
+  /*right: 0rem;*/
+  /*transition: 1s ease-in-out;*/
+}
+
+.copyClipboard {
+  /*position: absolute !important;*/
+  /*top: -1.2rem;*/
+  /*right: 0rem;*/
+  /*transition: 1s ease-in-out;*/
+  position: absolute !important;
+  top: 0.8rem;
+  right: 2rem;
+  transition: 1s ease-in-out;
+  font-size: 12px;
+  font-weight: 500;
+}

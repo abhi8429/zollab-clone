@@ -1,0 +1,189 @@
+<div class="white-background">
+  <app-header class="d-none d-md-block"></app-header>
+  <hr class="opacity-1 d-none d-md-block mb-5">
+  <div class="body-section-class col-lg-8 offset-lg-2 col-xl-6 offset-xl-3 padding-manage-class pt-3 pt-md-0">
+    <div class="d-flex flex-row justify-content-between col-12">
+      <div class="col-8 d-flex flex-row justify-content-start align-items-center">
+        <img [src]="teamImageUrl" (error)="teamImageError()"
+             class="img-fluid me-2" width="24px" height="24px">
+        <span class="font-size-16 font-weight-500 dark-gray-color">{{team.teamName}} -> New Project</span>
+      </div>
+      <!--      <div class="d-flex flex-row justify-content-end align-items-center">-->
+      <!--        <img src="assets/img/magic-vand.png" class="img-fluid" width="24px" height="24px">-->
+      <!--      </div>-->
+    </div>
+    <div class="d-flex flex-column justify-content-start col-12 mt-4">
+      <label class="d-flex flex-row justify-content-start font-size-12 font-weight-500">Members</label>
+    </div>
+    <div *ngIf="showNoProjectMembersWarning" class="text-danger">
+      At least one project member is required.
+    </div>
+    <div *ngIf="showNoCreatorRoleWarning" class="text-danger">
+      At least one project member must have the role of Creator.
+    </div>
+    <div class="d-flex flex-row justify-content-between align-items-center mt-4 white-profile-input mb-2"
+       *ngIf="showInviteTeam">
+      <div class="d-flex flex-row align-items-center justify-content-start">
+        <div class="d-flex flex-row justify-content-start align-items-center me-2">
+          <img [src]="teamImageUrl"
+               (error)="teamImageError()"
+               class="img-fluid" width="40px" height="40px">
+        </div>
+        <div class="d-flex flex-column align-items-center">
+          <span class="font-weight-500 font-size-14">{{team.teamName}}</span>
+          <span class="font-size-12 font-weight-500 font-gray-dark">{{teamMembers.length}} Members</span>
+        </div>
+      </div>
+      <div class="gray-btn">
+        <span class="font-size-14 font-weight-500" (click)="inviteTeam()">Invite Team</span>
+      </div>
+    </div>
+    <!--Check this out latter -->
+<!--    <div class="d-flex flex-row col-12 modal-padding-class">
+      <div class="mt-3 d-flex flex-row modal-padding-class col-12">
+        <div class="d-flex flex-row align-items-center col-8 col-md-10">
+          <div><img src="../../../../assets/img/foreign-boy-icon.webp"
+                    class="img-fluid"
+                    width="24px;" height="24px">
+          </div>
+          <div class="ms-2">
+            <span class="font-size-14 font-weight-500">John C</span>
+          </div>
+        </div>
+        <div class="col-4 col-md-2">
+          <button type="button" class="btn font-size-14 font-weight-500 col-12 white-button-new text-center">
+            Admin
+          </button>
+        </div>
+      </div>
+    </div>-->
+    <div class="mt-3 d-flex flex-row modal-padding-class col-12"
+         *ngFor="let projectMember of projectMembers; index as i;">
+      <div class="d-flex flex-row align-items-center col-8 col-md-10">
+        <div><img [src]="getMemberImgUrl(projectMember.memberId)"
+                  (error)="onImgError($event, i)"
+                  class="img-fluid"
+                  width="24px;" height="24px">
+        </div>
+        <div class="ms-2"><span
+          class="font-size-14 font-weight-500">{{ projectMember.memberEmail}}</span>
+        </div>
+      </div>
+      <div class="btn-group col-4 col-md-2">
+        <button type="button" class="btn d-flex flex-row justify-content-start align-items-center font-size-14 font-weight-500"
+                data-bs-toggle="dropdown" aria-expanded="false" data-bs-reference="parent"
+                style="background: #e5e0df;border: 0px solid #e5e0df; color: #000;font-size: 14px;font-weight: 500;padding: 10px">
+          {{projectMember?.role?.roleName}}
+        </button>
+        <button type="button" class="btn dropdown-toggle dropdown-toggle-split d-flex flex-row justify-content-end align-items-center"
+                style="background: #e5e0df; border: 0px solid #e5e0df;color: #000; padding: 10px;"
+                data-bs-toggle="dropdown" aria-expanded="false" data-bs-reference="parent">
+          <span class="visually-hidden">Toggle Dropdown</span>
+        </button>
+        <ul class="dropdown-menu col-12 font-size-14 font-weight-500" style="background: #e5e0df; min-width: 7.4rem">
+          <li *ngFor="let projectRole of projectRoles;">
+            <a class="dropdown-item font-size-14 font-weight-500" style="background: #e5e0df"
+               (click)="selectRoles(projectRole, projectMember)">{{projectRole.roleName}}</a>
+          </li>
+          <li>
+            <a class="dropdown-item" style="background: #e5e0df">--</a>
+          </li>
+          <li>
+            <a class="dropdown-item"
+               style="background: #e5e0df"
+               *ngIf="isRemovable(i)"
+               (click)="removeMember(i)">Remove</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+   <!-- <div class="mt-3 d-flex flex-row modal-padding-class col-12">
+      <div class="d-flex flex-row align-items-center col-8 col-md-10">
+        <div><img src="../../../../assets/img/foreign-boy-icon.webp"
+                  class="img-fluid"
+                  width="24px;" height="24px">
+        </div>
+        <div class="ms-2"><span
+          class="font-size-14 font-weight-500 font-gray-dark">danc88@gmail.com</span>
+        </div>
+      </div>
+      <div class="btn-group  col-4 col-md-2">
+        <button type="button" class="btn d-flex flex-row justify-content-start align-items-center"
+                data-bs-toggle="dropdown" aria-expanded="false" data-bs-reference="parent"
+                style="background: #e5e0df;border: 0px solid #e5e0df; color: #000;font-size: 14px;font-weight: 500;padding: 10px">
+          Viewer
+        </button>
+        <button type="button" class="btn dropdown-toggle dropdown-toggle-split d-flex flex-row align-items-center justify-content-end"
+                style="background: #e5e0df; border: 0px solid #e5e0df;color: #000; padding: 10px;"
+                data-bs-toggle="dropdown" aria-expanded="false" data-bs-reference="parent">
+          <span class="visually-hidden">Toggle Dropdown</span>
+        </button>
+        <ul class="dropdown-menu col-12 font-size-14 font-weight-500" style="background: #e5e0df; min-width: 7.4rem">
+          <li>
+            <a class="dropdown-item font-size-14 font-weight-500" style="background: #e5e0df">Admin</a>
+          </li>
+          <li>
+            <a class="dropdown-item font-size-14 font-weight-500" style="background: #e5e0df">Viewer</a>
+          </li>
+          <li>
+            <a class="dropdown-item font-size-14 font-weight-500"
+               style="background: #e5e0df">Creator</a>
+          </li>
+        </ul>
+      </div>
+    </div>-->
+    <hr style="color: #e5e0df; border: 1px solid;opacity: 0.6" class="mb-4">
+    <div *ngIf="duplicateEmailWarning" class="text-danger">
+      {{ duplicateEmailWarning }}
+    </div>
+    <div class="d-flex flex-row modal-padding-class col-12">
+      <div class="d-flex flex-row align-items-center col-8 col-md-10 pe-3">
+        <input type="email" class="col-12 white-input-background" placeholder="Email"
+               [ngbTypeahead]="search"
+               [inputFormatter]="formatter"
+               [resultFormatter]="formatter"
+               [(ngModel)]="user"
+               required email
+               (input)="onEmailInputChange()"
+               [ngClass]="{'border-danger': duplicateEmailWarning}"
+               [class.with-icon]="duplicateEmailWarning">
+      </div>
+      <div class="btn-group  col-4 col-md-2">
+        <button type="button" class="btn d-flex flex-row justify-content-start align-items-center"
+                data-bs-toggle="dropdown" aria-expanded="false" data-bs-reference="parent"
+                style="background: #e5e0df;border: 0px solid #e5e0df; color: #000;font-size: 14px;font-weight: 500;padding: 10px">
+          {{selectedMemberRole}}
+        </button>
+        <button type="button" class="btn dropdown-toggle dropdown-toggle-split d-flex flex-row justify-content-end align-items-center"
+                style="background: #e5e0df; border: 0px solid #e5e0df;color: #000; padding: 10px;"
+                data-bs-toggle="dropdown" aria-expanded="false" data-bs-reference="parent">
+          <span class="visually-hidden">Toggle Dropdown</span>
+        </button>
+        <ul class="dropdown-menu col-12" style="background: #e5e0df; min-width: 7.4rem">
+          <li *ngFor="let projectRole of projectRoles;">
+            <a class="dropdown-item font-size-14 font-weight-500" style="background: #e5e0df"
+               (click)="selectRole(projectRole)">{{projectRole.roleName}}</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-12 d-flex flex-row mt-3 ">
+      <button class="black-btn col-12 font-size-14 font-weight-500"
+              (click)="inviteProjectMember()"
+      >Invite
+      </button>
+    </div>
+    <div class="d-flex flex-row justify-content-between col-12 mb-4 mobile-spacing-class mt-3">
+      <div class="col-6 pe-1">
+        <button type="button" class="btn grey-btn2 col-12" data-bs-dismiss="modal"
+        (click)="back()">Back</button>
+      </div>
+      <div class="col-6 ps-1">
+        <button type="button" class="btn light-green-btn col-12" (click)="saveProject()">Publish</button>
+      </div>
+    </div>
+  </div>
+  <hr class="opacity-1 d-none d-md-block position-absolute" style="bottom: 1rem">
+  <app-footer></app-footer>
+</div>
+

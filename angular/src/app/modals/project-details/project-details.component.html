@@ -1,0 +1,58 @@
+<div class="modal-dialog modal-dialog-centered m-0 modal-lg model-section">
+  <div class="modal-content" style="background: #f7f3f2;max-height: 80vh; overflow-y: auto;">
+    <div class="modal-header" style="border:0px solid #f7f3f2;padding-bottom: 0px">
+      <h1 class="modal-title font-size-16" id="exampleModalLabel">
+        <img src="assets/img/arrow-left.webp" class="img-fluid me-3" width="24px" height="24px" (click)="goBack()">{{selectedProjectDetail.title}}</h1>
+      <img src="assets/img/closebutton-icon.webp" class="img-fluid" width="24px" height="24px"
+           (click)="close(null)">
+    </div>
+    <div class="modal-body mb-4 body-setion" style="border: 0px solid #f7f3f2;padding-bottom:0px;">
+      <div class="d-flex flex-column justify-content-between col-12">
+        <label class="font-size-12 font-weight-400 text-dark mt-2">Deliverables</label>
+        <div class="d-flex flex-row justify-content-between mt-2 align-items-center white-input-background" style="background: #fff; color: #000"  *ngFor="let deliverable of selectedProjectDetail.deliverables"
+             (click)="openInstagramReel(deliverable)" [ngClass]="{
+       'status-not-started': deliverable.status === 'NOT_STARTED',
+       'status-in-review': deliverable.status === 'IN_REVIEW',
+       'status-approved': deliverable.status === 'APPROVED',
+       'status-done': deliverable.status === 'DONE'
+     }">
+          <span class="font-size-14 font-weight-500">{{deliverable.description}}</span>
+          <img src="assets/img/chevron-icon.webp" class="img-fluid" width="16px" height="16px">
+        </div>
+        <!-- <div class="d-flex flex-row justify-content-between mt-3 align-items-center white-input-background"
+             style="background: #fff;">
+          <span class="font-size-14 font-weight-500">YouTube Short</span>
+          <img src="assets/img/chevron-icon.webp" class="img-fluid" width="16px" height="16px">
+        </div> -->
+        <label class="font-size-12 font-weight-400 text-dark mt-4">Payment</label>
+        <div class="d-flex flex-row justify-content-between mt-2 align-items-center white-input-background"
+             style="background: #fff;">
+          <span class="font-size-14 font-weight-500">Budget</span>
+          <span class="font-size-14 font-weight-400 dark-gray-color">${{selectedProjectDetail.budget}}</span>
+        </div>
+        <div class="d-flex flex-row justify-content-between mt-3 align-items-center white-input-background"
+             style="background: #fff;">
+          <span class="font-size-14 font-weight-500">Payment Terms</span>
+         <span class="font-weight-400 font-size-14 dark-gray-color">{{selectedProjectDetail.paymentTerm}}</span>
+        </div>
+        <label class="font-weight-400 font-size-12 text-dark mt-4">Dates</label>
+        <div class="d-flex flex-row justify-content-between mt-2 align-items-center white-input-background"
+             style="background: #fff;">
+          <span class="font-size-14 font-weight-500">Delivery Deadline</span>
+          <span class="font-size-14 font-weight-400 dark-gray-color">{{selectedProjectDetail.firstUseAt ? selectedProjectDetail.firstUseAt.split('T')[0] : ''}}</span>
+        </div>
+        <div class="d-flex flex-row justify-content-between mt-3 align-items-center white-input-background"
+             style="background: #fff;">
+          <span class="font-size-14 font-weight-500">Project End</span>
+          <span class="font-size-14 font-weight-400 dark-gray-color">{{selectedProjectDetail.expirationFromFirstUseAt ? selectedProjectDetail.expirationFromFirstUseAt.split('T')[0] : ''}}</span>
+        </div>
+        <div class="d-flex flex-row justify-content-between mt-3 align-items-center white-input-background"
+             style="background: #fff;">
+          <span class="font-size-14 font-weight-500">Expiration from First Use</span>
+          <span class="font-size-14 font-weight-400 dark-gray-color">{{selectedProjectDetail.expirationFromFirstUseAt ? selectedProjectDetail.expirationFromFirstUseAt.split('T')[0] : ''}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+

@@ -1,0 +1,46 @@
+.modal-container {
+    background: #f7f3f2;
+    max-height: 82vh;
+    overflow-y: auto;
+}
+.modal-header {
+    border: 0px solid #f7f3f2;
+    padding-bottom: 0px
+}
+
+.modal-body {
+    border: 0px solid #f7f3f2;
+    padding-bottom: 0px;
+}
+
+.buttons-container {
+    .toggle-button {
+        display: inline-block;
+        padding: 8px;
+        cursor: pointer;
+        border: 1px solid #e5e0df;
+        border-radius: 8px;
+        margin-right: 10px;
+        margin-bottom: 4px;
+        color: #000;
+        background-color: #e5e0df;
+    }
+@media screen and (max-width: 767px) {
+  .mobile-font{
+    font-size: 12px;
+    font-weight: 500;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .mobile-font{
+    font-size: 14px;
+    font-weight: 500;
+  }
+}
+
+    .active {
+        background-color: #000;
+        color: #fff;
+    }
+}

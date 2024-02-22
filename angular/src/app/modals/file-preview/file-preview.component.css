@@ -1,0 +1,17 @@
+
+.videomodal {
+  min-height: 1px;
+  position: relative;
+  padding-top: 76%;
+  padding-left: 100%;
+}
+
+.videomodal img,
+.videomodal iframe,
+.videomodal video {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  inset: 0;
+  object-fit: cover;
+}

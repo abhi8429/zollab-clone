@@ -1,0 +1,41 @@
+
+<div class="modal-dialog modal-dialog-centered m-0 modal-lg">
+  <div class="modal-content" style="background: #f7f3f2;">
+    <div class="modal-header" style="border:0px solid #f7f3f2;padding-bottom: 0px">
+      <h1 class="modal-title font-size-16 font-weight-500" id="exampleModalLabel">
+        <img src="assets/img/arrow-left.webp" class="img-fluid me-3" width="24px" height="24px" (click)="close(null)">Frequency</h1>
+      <img src="assets/img/closebutton-icon.webp" class="img-fluid" width="24px" height="24px"
+           (click)="close(null)">
+    </div>
+    <div class="modal-body mb-4" style="border: 0px solid #f7f3f2;padding-bottom:0px;">
+      <div class="d-flex flex-column justify-content-between col-12">
+        <div class="d-flex flex-row align-items-center justify-content-start col-12">
+          <div class="black-btn-2 me-2">
+            <span class="font-size-14 font-weight-500">This Week</span>
+          </div>
+          <div class="gray-background-common-class me-2">
+            <span class="font-size-14 font-weight-500 font-gray-dark">Next Week</span>
+          </div>
+          <div class="gray-background-common-class me-2">
+            <span class="font-size-14 font-weight-500 font-gray-dark">12/12 - 12/19</span>
+          </div>
+          <div class="gray-background-common-class me-2 d-none d-md-block">
+            <span class="font-size-14 font-weight-500 font-gray-dark">12/20 - 12/19</span>
+          </div>
+        </div>
+
+      </div>
+      <div class="d-flex flex-column align-items-start justify-content-start col-12 mt-3">
+        <label class="font-size-12 font-weight-400">Due Date</label>
+        <input type="date" class="common-white-input col-12 mt-3">
+      </div>
+      <div class="col-12 d-flex flex-column justify-content-between mt-3">
+        <textarea class="common-white-input col-12" rows="4" placeholder="Message"></textarea>
+      </div>
+      <div class="col-12 d-flex flex-column justify-content-between mt-3">
+        <button class="col-12 light-green-btn font-size-14 font-weight-500" (click)="openImageChatModal()">Change Due Date</button>
+      </div>
+    </div>
+  </div>
+
+

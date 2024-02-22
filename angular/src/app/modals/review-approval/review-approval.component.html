@@ -1,0 +1,92 @@
+
+<div class="modal-dialog modal-dialog-centered m-0 modal-lg box">
+  <div class="modal-content" style="background: #f7f3f2;max-height: 80vh; overflow-y: auto;">
+    <div class="modal-header" style="border:0px solid #f7f3f2;padding-bottom: 0px">
+      <h1 class="modal-title font-size-16 font-weight-500" id="exampleModalLabel">Review Approval</h1>
+      <img src="assets/img/closebutton-icon.webp" class="img-fluid" width="24px" height="24px"
+           (click)="closed()">
+    </div>
+    <div class="modal-body" style="border: 0px solid #f7f3f2;padding-bottom: 0px;">
+      <div class="d-flex flex-row justify-content-between">
+        <span class="font-size-14 font-weight-400">Are you sure you would like to approve the deliverable for {{deliverable?.description}} ({{deliverable?.schedule}})?</span>
+      </div>
+      <div class="d-flex flex-row justify-content-between zip-class my-2" *ngIf="lastDeliverable?.fileName">
+          <div class="d-flex flex-column align-items-center justify-content-center text-center col-12 my-4">
+            <ng-container *ngIf="lastDeliverable
+          && lastDeliverable?.contentId
+          && lastDeliverable?.type === 'IMAGE'">
+              <div class="d-flex flex-row align-items-center chatting-common-div col-12">
+                <img [src]="lastDeliverable?.cdnUrl" class="img-fluid">
+              </div>
+            </ng-container>
+            <ng-container
+              *ngIf="lastDeliverable
+          && lastDeliverable?.contentId
+          && lastDeliverable?.type === 'VIDEO'">
+              <div class="d-flex flex-row align-items-center chatting-common-div col-12">
+                <video controls [src]="lastDeliverable?.cdnUrl" class="img-fluid">
+                </video>
+              </div>
+            </ng-container>
+            <ng-container *ngIf="lastDeliverable
+          && lastDeliverable?.contentId
+          && lastDeliverable?.type === 'APPLICATION'">
+              <!-- <div class="d-flex flex-row justify-content-between align-items-center col-12 chatting-common-div">
+                 <span class="font-size-12 font-weight-400 font-gray-dark">Dan Gona</span>
+                 <span class="font-size-12 font-weight-400 font-gray-dark">5m</span>
+               </div>-->
+              <div class="d-flex flex-row align-items-center chatting-common-div col-12">
+                <div class="col-12 zip-class d-flex flex-column align-items-center">
+                  <img src="assets/img/zip.webp" class="img-fluid mt-3" width="48px" height="48px">
+                  <span class="font-size-14 font-weight-500 mb-4">
+                  <a [href]="lastDeliverable?.cdnUrl" target="_blank">{{lastDeliverable?.fileName}}
+                    .{{lastDeliverable?.ext}}</a>
+                </span>
+                </div>
+              </div>
+            </ng-container>
+          </div>
+      </div>
+     <div class="d-flex flex-column justify-content-between my-3" *ngIf="lastDeliverable?.url">
+      <label class="font-size-12 font-weight-500 mb-1">File Link</label>
+       <div class="white-input-background" style="background: #fff;">
+         <img src="assets/img/link-icon.webp" class="img-fluid" width="16px" height="16px">
+         <input type="text" class="font-size-14 font-weight-500 col-11 ms-2" style="border: 0px solid #fff;outline:none" [value]="lastDeliverable.url" disabled></div>
+     </div>
+      <div class="d-flex flex-column justify-content-between col-12">
+        <label class="font-size-12 font-weight-500 mb-1">Caption</label>
+        <input type="text" class="white-input-background font-size-14 font-weight-400" readonly [(ngModel)]="lastDeliverable.caption">
+
+      </div>
+<!--      <hr style="color: #e5e0df; border: 1px solid;opacity: 0.6">-->
+      <div class="d-flex flex-row  col-12 my-3">
+       <div class="col-6 pe-1">
+         <button type="button" class="btn grey-btn2 col-12"
+                 (click)="callToRejectReview()"><!--close(null)-->
+           Reject
+         </button>
+       </div>
+       <div class="col-6 ps-1">
+         <button type="button" class="btn light-green-btn col-12" (click)="save()">Approve
+         </button>
+       </div>
+      </div>
+      <hr style="color: #e5e0df; border: 1px solid;opacity: 0.6">
+    </div>
+    <div class="modal-footer" style="border-top: 0px solid #f7f3f2;padding-top: 0px;padding-bottom:1rem">
+      <div class="d-flex flex-row col-12 px-2">
+        <span class="font-size-14 font-weight-400">Or send for external approval:</span>
+      </div>
+      <div class="d-flex flex-row  col-12 ps-2">
+        <div class="col-9 pe-1">
+          <input type="text" class="white-input-background col-12 font-size-14 font-weight-400" placeholder="Email">
+        </div>
+        <div class="col-3 ps-1">
+          <button type="button" class="btn black-common-button col-12 font-size-14 font-weight-400">Approve
+          </button>
+        </div>
+      </div>
+  </div>
+</div>
+
+

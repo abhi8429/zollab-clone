@@ -1,0 +1,56 @@
+  <div class="white-background d-flex justify-content-center align-items-center" style="padding: 0px; height: 100vh; overflow-y:hidden;">
+  <div class="position-absolute-class">
+    <img src="assets/img/new-graphic-logo.webp" class="img-fluid d-none d-md-block background-image2">
+    <img src="assets/img/graphic-mobile-logo.webp" class="img-fluid d-block d-md-none hero-image-manage">
+  </div>
+  <div class="text-center d-flex flex-column position-absolute col-12">
+    <div class="col-12">
+      <img src="assets/img/zollab-new-logo.webp" class="img-fluid" width="160px" height="34px"
+           style="margin-top: 10rem;">
+    </div>
+    <div
+      class="d-flex flex-column justify-content-between align-items-center mt-5 col-md-4 offset-md-4 col-10 offset-1">
+
+      <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" class="col-12 col-lg-8">
+        <div class="d-flex flex-column justify-content-between">
+          <label class="d-flex flex-start font-size-12 font-weight-500" style="margin-bottom: 2px">Email</label>
+          <span *ngIf="(registerFormControl.email.touched && submitted) &&
+                       registerFormControl.email.errors?.['required']" class="d-flex flex-row invalid-feedback ">Email is required</span>
+          <span *ngIf="(registerFormControl.email.touched && submitted) &&
+                       registerFormControl.email.errors?.['email']" class="d-flex flex-row invalid-feedback ">Invalid email address</span>
+          <input type="email" class="white-input-background font-size-14 font-weight-400" placeholder="Email"
+                 name="email" formControlName="email" autofocus>
+        </div>
+
+        <div class="d-flex flex-column justify-content-between mt-3">
+          <label class="d-flex flex-start font-size-12 font-weight-500" style="margin-bottom: 2px">Password</label>
+          <span *ngIf="(registerFormControl.password.touched && submitted) &&
+                       registerFormControl.password.errors?.['required']"
+                class="d-flex flex-row invalid-feedback">Password is required</span>
+          <input type="password" class="white-input-background font-size-14 font-weight-400" placeholder="Password"
+                 name="password" formControlName="password">
+        </div>
+
+        <div class="white-btn col-12 col-lg-12 d-flex flex-row justify-content-center align-items-center mt-4" (click)="signInWithGoogle()">
+          <img src="assets/img/google-icon.webp" class="img-fluid me-2" width="12px" height="14px">
+          <button style="background: #fff;color: #000; border: 0px solid #000" class="font-size-14 font-weight-500">Continue with Google</button>
+        </div>
+        <div class="d-flex flex-column justify-content-between mt-4">
+          <!--          <button class="black-btn" id="signin" [disabled]="signinForm.invalid">Sign In</button>-->
+          <button class="black-btn" id="signin">Create Account</button>
+        </div>
+
+        <div class="d-flex flex-column justify-content-between mt-3">
+          <p class="font-size-14 font-weight-500 text-decoration-underline hv-class" routerLink="/reset-password">Forgot your password?</p>
+          <p class="font-size-14 font-weight-500">Already have an account?
+            <a class="hv-class text-decoration-none" routerLink="/signin2" style="color: #000;margin-left: 5px;">Sign In</a>
+          </p>
+          <p class="font-size-12 font-weight-400 mt-1 mb-4 grey-color"><span>Terms</span><span
+            class="px-2">Privacy</span><span>Support</span></p>
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+</div>

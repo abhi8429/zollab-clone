@@ -1,0 +1,55 @@
+<div class="white-background" style="padding:0px;overflow-y:hidden;">
+  <!--  <div  class="col-12 d-flex flex-row justify-content-start align-items-start">-->
+  <!--<img src="assets/img/arrow-left.webp" class="img-fluid" width="24px" height="24px">-->
+  <!--  </div>-->
+  <div class="position-absolute-class">
+    <img src="assets/img/new-graphic-logo.webp" class="img-fluid d-none d-md-block background-image2">
+    <img src="assets/img/graphic-mobile-logo.webp" class="img-fluid d-block d-md-none hero-image-manage">
+  </div>
+  <div class="text-center d-flex flex-column position-absolute col-12">
+    <div class="col-12">
+      <img src="assets/img/arrow-left.webp" class="img-fluid  arrow-manage" width="24px" height="24px"
+           (click)="backButton()">
+      <img src="assets/img/zollab-new-logo.webp" class="img-fluid" width="160px" height="34px"
+           style="margin-top: 10rem;">
+
+    </div>
+    <div
+      class="d-flex flex-column justify-content-between align-items-center mt-5 col-md-4 offset-md-4 col-10 offset-1">
+
+      <form [formGroup]="otpForm" (ngSubmit)="onSubmit()" class="col-12 col-lg-8">
+        <div class="d-flex flex-column justify-content-between align-items-center">
+          <p class="text-center font-size-16 font-weight-500">Verify Your Identity</p>
+          <div *ngIf="isVisible" class="anime-class col-12 my-3 d-flex flex-row justify-content-start align-items-center">
+            <div class="tick-class d-flex flex-row justify-content-center align-items-center">
+              <img src="assets/img/tick-mark.webp" class="img-fluid align-items-center" width="18px" height="18px">
+            </div>
+            <div class="d-flex flex-row justify-content-start align-items-center ms-2">
+              <span class="font-size-14 font-weight-500">OTP has been resent to your email</span></div>
+          </div>
+        </div>
+        <div class="col-12 d-flex flex-column justify-content-start align-items-center my-2">
+          <span class="col-12 d-flex flex-row justify-content-start invalid-feedback"  *ngIf="otpForm.get('otp')?.hasError('required') && otpForm.get('otp')?.touched">
+            Please enter the verification code.
+          </span>
+          <span class="col-12 d-flex flex-row justify-content-start invalid-feedback" *ngIf="otpForm.get('otp')?.hasError('pattern') && otpForm.get('otp')?.touched">
+            Please enter a valid four-digit number.
+          </span>
+        </div>
+        <div class="d-flex flex-column justify-content-between">
+          <input type="tel" class="white-input-background font-size-14 font-weight-400" maxlength="4"
+                 placeholder="Enter Verification Code"
+                 name="otp" formControlName="otp" #otpInput>
+        </div>
+
+        <div class="d-flex flex-column justify-content-between mt-4">
+          <button class="black-btn" id="continue" (click)="resetPassword()">Continue</button>
+          <p class="font-size-14 font-weight-500 mt-3">Didn't receive an email?
+            <a style="color: #000;" class="hv-class text-decoration-underline" (click)="callApiToSendOTP()">Resend</a>
+          </p>
+        </div>
+      </form>
+    </div>
+  </div>
+
+</div>

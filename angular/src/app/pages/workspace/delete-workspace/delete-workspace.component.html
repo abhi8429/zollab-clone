@@ -1,0 +1,65 @@
+<div class="editing-page">
+    <aside class="editing-page-aside" id="asidebar">
+        <div class="editing-page-aside-content">
+            <div class="back-to-workspace">
+                <img src="../../../../assets/img/back_icon.svg"><a href="/angular/src">Back to workspace</a>
+            </div>
+            <div class="editing-page-aside-menu">
+                <h6 class="editing-page-aside-menu-title">SETTINGS</h6>
+                <ul class="editing-page-aside-menu-list">
+                    <li class="editing-page-aside-menu-item"><a href="#" class="editing-page-aside-menu-link">Manage Members</a></li>
+                    <li class="editing-page-aside-menu-item"><a href="#" class="editing-page-aside-menu-link editing-page-aside-menu-link-active">Leave
+                            workspace</a></li>
+                </ul>
+            </div>
+        </div>
+    </aside>
+    <main class="editing-page-wrapper">
+        <div class="editing-page-wrapper-content">
+            <div class="editing-page-wrapper-heading">
+                <h6 class="editing-page-wrapper-title">Delete workspace - {{workspace.name}}</h6>
+            </div>
+            <div class="leave-workspace-main-content">
+                <div class="alert-box">
+                    <img src="../../../../assets/img/triangle.svg">
+                    <p class="alert-box-text">This action cannot be undone. If you want to change your Stella
+                        workspace name, you can do through <a href="./edit-workspace.html" class="link-color">Edit workspace.</a> You may also want to <a href="#" class="link-color">export your data </a>
+                        before deleting your workspace.</p>
+                </div>
+                <div class="leave-workspace-main-content-text">
+                    <p class="delete-workspace-title">Confirm deletion</p>
+                    <div class="delete-workspace-page-conatiner">
+                        <div class="delete-workspace-page-check-from">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="checkOne" [(ngModel)]="checkOne">
+                                <label class="form-check-label" for="checkOne">
+                                    All workspace deals, deliverables, evidences, and files will be deleted
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="checkTwo" [(ngModel)]="checkTwo">
+                                <label class="form-check-label" for="checkTwo">
+                                    All messages and conversation will be lost
+                                </label>
+                            </div>
+                        </div>
+                        <!--<div class="delete-workspace-input-group">
+                            <label>Stella password</label>
+                            <div class="input-group">
+                                <input type="password" class="form-control" placeholder="Enter password">
+                                <span class="input-group-text"><img src="assets/img/eye.svg"></span>
+                            </div>
+                        </div>-->
+                        <div class="leave-workspace-main-content-btn-group">
+                            <button class="leaveworkspace-btn" (click)="deleteWorkspace()">Yes, delete workspace</button>
+                            <button class="leaveworkspace-cancel-btn" [routerLink]="['/editWorkspace']" [state]="{selectedWorkspace: workspace}">cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <div class="open-asidebar" onclick="openasidebar()">
+        <img src="../../../../assets/img/icon_send.svg" id="open_img">
+    </div>
+</div>

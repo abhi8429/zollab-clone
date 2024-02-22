@@ -1,0 +1,246 @@
+<div class="white-background">
+  <!-- <div class="col-12 d-none d-md-block" id="header"> -->
+    <app-header class="d-none d-md-block"></app-header>
+    <hr class="opacity-1 d-none d-md-block">
+  <!-- </div> -->
+  <div *ngIf="isLoading; else content">
+<app-tooltip-splash></app-tooltip-splash>
+  </div>
+  <ng-template #content>
+  <div class="body-section-class col-md-8 offset-md-2 col-xl-6 offset-xl-3 col-12 padding-manage-class pt-3 pt-md-0" id="body">
+    <div class="d-flex flex-row justify-content-between col-12" id="mobile-header">
+      <div class="col-8 d-flex flex-row justify-content-start align-items-center">
+        <img [src]="teamImage"
+             (error)="imageError()" class="img-fluid me-2" width="24px" height="24px">
+        <span class="tmname">{{team?.teamName}} -> New Project</span>
+      </div>
+      <div class="d-flex flex-row justify-content-end align-items-center common-hover-class">
+        <img src="assets/img/magic-vand.webp" class="img-fluid" width="24px" height="24px" (click)="toolTip()">
+      </div>
+    </div>
+   <div id="mobile-body" class="col-12 d-flex flex-column justify-content-center">
+     <div class="d-flex flex-row justify-content-between align-items-center mt-4 purple-div-class col-12"
+          *ngFor="let emailContract of emailContracts;">
+      <div class="d-flex flex-row justify-content-start align-items-center col-md-9 col-7">
+        <span class="font-size-12 font-weight-500">Received: {{emailContract.fileName}}</span>
+      </div>
+      <div class="d-flex flex-row justify-content-end align-items-center col-md-3 col-5">
+        <a class="text-decoration-underline font-size-12 font-weight-500 purple-color me-2"
+           (click)="createWithEmailContract(emailContract)">Fill with AI</a>
+        <a class="text-decoration-underline font-size-12 font-weight-500 purple-color"
+           (click)="removeFile(emailContract)">remove</a>
+      </div>
+     </div>
+     <form #projectForm="ngForm">
+
+       <div class="d-flex flex-column justify-content-start col-12 mt-4">
+         <label class="d-flex flex-row justify-content-start font-size-12 font-weight-500">Title</label>
+         <span
+           class="text-danger font-size-12 font-weight-500"
+           *ngIf="
+                submitted &&
+                title.errors?.['required']">
+              This is required field
+            </span>
+         <input type="text" placeholder="New Project"
+                [class]="submitted && title.errors?.['required'] ? 'white-input-background font-size-14 font-weight-400 change mb-0' : 'white-input-background mt-2 font-size-14 font-weight-400 change mb-0'"
+                name="title" id="newProject"
+                [(ngModel)]="project.title"
+                #title="ngModel"
+                [ngClass]="{ 'is-invalid': submitted && title.invalid }"
+                [class.with-icon]="submitted && title.invalid"
+                required>
+       </div>
+       <div class="d-flex flex-row justify-content-start col-12 mt-4">
+         <span class="font-size-12 font-weight-500">Deliverables</span>
+       </div>
+       <div  [class]="submitted && deliverable.get('description')?.errors?.['required'] ? 'd-flex flex-column col-12 mb-3 modal-padding-class' : 'd-flex flex-column col-12 mt-3 mb-3 modal-padding-class'"
+                   *ngFor="let deliverable of deliverables.controls; index as j;"
+            [formGroup]="$any(deliverable)">
+       <span
+           class="text-danger font-size-12 font-weight-500"
+           *ngIf="submitted && deliverable.get('description')?.errors?.['required']">
+                  This is required field
+                </span>
+        <div class="col-12 d-flex flex-row">
+          <div class="col-md-8 col-7 pe-3">
+            <input type="text" class="col-12 white-input-background font-size-14 font-weight-400"
+                   placeholder="Description" name="description"
+                   formControlName="description"
+                   [ngClass]="{ 'is-invalid': submitted && deliverable.get('description')?.errors?.['required'] }"
+                   [class.with-icon]="submitted && deliverable.get('description')?.errors?.['required']"
+                   required>
+          </div>
+          <div class="col-5 col-md-4 d-flex flex-row justify-content-between">
+            <div class="btn-group col-10" data-bs-toggle="dropdown">
+              <button type="button" class="btn pe-md-5 text-start"
+                      data-bs-toggle="dropdown" aria-expanded="false" data-bs-reference="parent"
+                      style="background: #e5e0df;border: 0px solid #e5e0df; color: #000;font-size: 14px;font-weight: 500; padding: 10px;">
+                {{deliverable.get('schedule')?.value}}
+              </button>
+              <button type="button" class="btn  dropdown-toggle dropdown-toggle-split text-end"
+                      style="background: #e5e0df; border: 0px solid #e5e0df;color: #000;padding: 10px;"
+                      data-bs-toggle="dropdown" aria-expanded="false" data-bs-reference="parent">
+                <span class="visually-hidden">Toggle Dropdown</span>
+              </button>
+              <ul class="dropdown-menu col-12" style="background: #e5e0df; min-width: 7.5rem;">
+                <li *ngFor="let deliverableSchedule of deliverableSchedules; index as i;">
+                  <a class="dropdown-item font-size-14 font-weight-500" style="background: #e5e0df; cursor: pointer;"
+                     (click)="deliverable.get('schedule')?.setValue(deliverableSchedule)"
+                  >{{deliverableSchedule}}</a>
+                </li>
+              </ul>
+            </div>
+            <div class="d-flex flex-row justify-content-start align-items-center ps-2"
+         [class.disabled]="j === 0" 
+         [matTooltip]="j === 0 ? 'You must have at least one project deliverable' : ''"
+         [matTooltipPosition]="'above'"
+         [matTooltipClass]="'custom-tooltip'"
+         (mouseenter)="hoveredIndex = j" (mouseleave)="hoveredIndex = null"
+         (click)="hoveredIndex !== 0 && deleteDeliverable(j)">
+        <img src="assets/img/close-outline.webp" class="img-fluid" width="24px" height="24px">
+         </div>
+        </div>
+        </div>
+       </div>
+       <!-- <div class="d-flex flex-row col-12 mt-3 mb-3 modal-padding-class">
+
+          <div class="col-md-9 col-7 pe-3">
+            &lt;!&ndash;            <span class="text-danger">Invalid email address</span>&ndash;&gt;
+            <input type="email" class="col-12 white-input-background font-size-14 font-weight-400"
+                   placeholder="Instagram Reel"
+                   name="email" email>
+          </div>
+          <div class="btn-group col-md-3 col-5">
+            <button type="button" class="btn pe-md-5 text-start"
+                    data-bs-toggle="dropdown" aria-expanded="false" data-bs-reference="parent"
+                    style="background: #e5e0df;border: 0px solid #e5e0df; color: #000;font-size: 14px;font-weight: 500; padding: 10px;">
+              Weekly
+            </button>
+            <button type="button" class="btn  dropdown-toggle dropdown-toggle-split text-end"
+                    style="background: #e5e0df; border: 0px solid #e5e0df;color: #000;padding: 10px;"
+                    data-bs-toggle="dropdown" aria-expanded="false" data-bs-reference="parent">
+              <span class="visually-hidden">Toggle Dropdown</span>
+            </button>
+            <ul class="dropdown-menu" style="background: #e5e0df">
+              <li>
+                <a class="dropdown-item" style="background: #e5e0df">Yearly</a>
+              </li>
+              <li>
+                <a class="dropdown-item" style="background: #e5e0df">Monthly</a>
+              </li>
+            </ul>
+            &lt;!&ndash;        <div></div>&ndash;&gt;
+            <div class="d-flex flex-row justify-content-start align-items-center ps-2">
+              <img src="assets/img/close-outline.webp" class="img-fluid" width="24px" height="24px">
+            </div>
+          </div>
+
+        </div>-->
+       <div class="col-12 d-flex flex-row ">
+         <button class="black-btn col-12 font-size-14 font-weight-500"
+                 (click)="addDeliverable()">Add Another
+         </button>
+       </div>
+       <hr style="color: #e5e0df; border: 1px solid;opacity: 0.6" class="mb-4">
+       <div class="d-flex flex-row justify-content-between col-12 mb-2" style="line-height: 0.2" id="scrollForm">
+         <div class="col-6 font-weight-500 font-size-12">
+           Budget(USD)
+         </div>
+         <div class="col-6  font-weight-500 font-size-12">
+           Payment Terms
+         </div>
+       </div>
+       <span
+         class="text-danger font-size-12 font-weight-500"
+         *ngIf="
+                submitted &&
+                budget.errors?.['required']">
+              This is required field
+            </span>
+
+       <div [class]="submitted && budget.errors?.['required'] ? 'd-flex flex-row col-12 mb-2 modal-padding-class' : 'd-flex flex-row col-12 mt-3 mb-3 modal-padding-class'"
+                   style="padding-right: 10px;">
+
+         <div class=" col-6 me-2 me-md-2">
+           <!--            <span class="text-danger">Invalid email address</span>-->
+           <input type="number" class="white-input-background font-size-14 font-weight-400" style="width: 98%"
+                  min="1"
+                  step="1"
+                  onkeypress="return event.keyCode === 8 || event.charCode >= 48 && event.charCode <= 57"
+                  name="budget"
+                  placeholder="Budget"
+                  [(ngModel)]="project.budget"
+                  #budget="ngModel" id="budgetId"
+                  [ngClass]="{ 'is-invalid': submitted && budget.invalid }"
+                  [class.with-icon]="submitted && budget.invalid"
+                  required >
+
+         </div>
+         <div class="btn-group  col-6"
+              data-bs-toggle="dropdown" aria-expanded="false" data-bs-reference="parent">
+           <button type="button" class="btn pe-md-5 col-10 text-start"
+                   data-bs-toggle="dropdown" aria-expanded="false" data-bs-reference="parent"
+                   style="background: #e5e0df;border: 0px solid #e5e0df; color: #000;font-size: 14px;font-weight: 500; padding: 10px;">
+             {{project.paymentTerm}}
+           </button>
+           <button type="button" class="btn  dropdown-toggle dropdown-toggle-split text-end"
+                   style="background: #e5e0df; border: 0px solid #e5e0df;color: #000;padding: 10px;"
+                   data-bs-toggle="dropdown" aria-expanded="false" data-bs-reference="parent">
+             <span class="visually-hidden">Toggle Dropdown</span>
+           </button>
+           <ul class="dropdown-menu col-12" style="background: #e5e0df; min-width:10rem;">
+             <li *ngFor="let paymentTerm of paymentTerms;">
+               <a class="dropdown-item font-size-14 font-weight-500" style="background: #e5e0df; cursor: pointer;"
+                  (click)="project.paymentTerm = paymentTerm"
+               >{{paymentTerm}}</a>
+             </li>
+           </ul>
+         </div>
+       </div>
+       <div class="d-flex flex-row justify-content-between mb-3">
+         <div class="font-size-14 font-weight-500">Keep Budget Private</div>
+         <div><label class="switch">
+           <input type="checkbox"
+                  [(ngModel)]="project.budgetPrivate"
+                  [ngModelOptions]="{standalone: true}">
+           <span class="slider round"></span>
+         </label></div>
+       </div>
+       <hr style="color: #e5e0df; border: 1px solid;opacity: 0.6" class="d-none d-md-block">
+     </form>
+   </div>
+    <div class="d-flex flex-row justify-content-between col-12 mb-2 mobile-spacing-class" id="mobile-footer">
+      <div class="col-6 pe-1">
+        <button type="button" class="btn grey-btn2" data-bs-dismiss="modal" style="width: 98%"
+                (click)="cancel()">Cancel
+        </button>
+      </div>
+      <div class="col-6 ps-1">
+        <button type="button" class="btn light-green-btn col-12" id="nextBtn"
+                (click)="next()">Next
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!--  <div class="footer-section-class d-none d-md-block  col-12 padding-manage-class pb-3"-->
+  <!--       style="bottom:2rem; border-top: 1px solid #e4dfdf;margin-top: 5rem;">-->
+  <!--    <div class="d-flex flex-row justify-content-between align-items-center col-lg-10 offset-lg-1">-->
+  <!--      <div class="font-size-12 font-weight-500 dark-gray-color mt-3">-->
+  <!--        © 2024 Zollab-->
+  <!--      </div>-->
+  <!--      <div class="font-size-12 font-weight-500 dark-gray-color mt-3">-->
+  <!--        <span style="margin-right: 1rem;">Terms</span>-->
+  <!--        <span style="margin-right: 1rem">Privacy</span>-->
+  <!--        <span>Supports</span>-->
+  <!--      </div>-->
+  <!--    </div>-->
+  <!--  </div>-->
+  <div class="col-12 d-none d-md-block" id="footer">
+    <hr class="opacity-1 d-none d-md-block position-absolute" style="bottom: 1rem">
+    <app-footer></app-footer>
+  </div>
+  </ng-template>
+</div>
+

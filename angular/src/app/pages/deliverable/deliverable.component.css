@@ -1,0 +1,8 @@
+.filter-selcet{
+	max-width: unset;
+}
+.search-filter-bar {
+    width: 100%;
+    max-width: 400px;
+    min-width: calc(100vw - 75vw);
+}

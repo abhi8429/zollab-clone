@@ -1,0 +1,280 @@
+
+ .sign-up-page {
+     padding: 60px;
+ }
+
+ .left-side-content-text {
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     padding: 0px;
+     gap: 50px;
+     width: 100%;
+ }
+
+ .left-side-content-heading {
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     gap: 15px;
+     width: 100%;
+     max-width: 440px;
+ }
+
+ .left-side-content-heading-title {
+     font-family: var(--font-family);
+     font-style: normal;
+     font-weight: 600;
+     font-size: 40px;
+     line-height: 48px;
+     text-align: center;
+     color: var(--white);
+     margin: 0;
+ }
+
+ .left-side-content-heading-sub-title {
+     font-family: var(--font-family);
+     font-style: normal;
+     font-weight: 400;
+     font-size: 16px;
+     line-height: 24px;
+     text-align: center;
+     color: var(--light-grey);
+     margin: 0;
+ }
+
+ .log-in-btn {
+     width: 100%;
+     height: 52px;
+     background-color: var(--regular-grey);
+     border-radius: 12px;
+     font-family: var(--font-family);
+     font-style: normal;
+     font-weight: 500;
+     font-size: 16px;
+     line-height: 20px;
+     color: var(--white);
+     border: 1px solid var(--transparent);
+     background-image: url("/assets/img/google.svg");
+     background-repeat: no-repeat;
+     background-position: 19px center;
+ }
+
+ .sign-up-page-btn {
+     width: 100%;
+     margin: 0 auto;
+     max-width: 400px;
+     width: 100%;
+ }
+
+ .right-side-content {
+     display: flex;
+     flex-direction: column;
+     justify-content: center;
+     align-items: center;
+     padding: 0px;
+     width: 100%;
+     height: 904px;
+     background: var(--regular-grey);
+     border-radius: 20px;
+     overflow: hidden;
+ }
+
+ .right-side-content img {
+     width: 100%;
+     height: 100%;
+     object-fit: cover;
+ }
+
+ .right-side-text {
+     font-family: var(--font-family);
+     font-style: normal;
+     font-weight: 400;
+     font-size: 40px;
+     line-height: 48px;
+     text-align: center;
+     color: var(--white-02);
+ }
+
+ .sign-up-email-form {
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     padding: 0px;
+     gap: 24px;
+     width: 100%;
+     max-width: 400px;
+ }
+
+ .sign-up-email-form .sign-up-input-group .form-label {
+     font-family: var(--font-family);
+     font-style: normal;
+     font-weight: 400;
+     font-size: 14px;
+     line-height: 20px;
+     color: var(--light-grey);
+     margin: 0;
+ }
+
+ .sign-up-input-group {
+     display: flex;
+     flex-direction: column;
+     align-items: flex-start;
+     padding: 0px;
+     gap: 10px;
+     width: 100%;
+     max-width: 400px;
+ }
+
+ .sign-up-email-form .sign-up-input-group .form-control {
+     display: flex;
+     flex-direction: column;
+     justify-content: center;
+     align-items: flex-start;
+     padding: 15px;
+     gap: 10px;
+     width: 100%;
+     height: 48px;
+     border: 1px solid var(--light-grey);
+     border-radius: 5px;
+     background-color: var(--transparent);
+     color: var(--placeholder);
+ }
+
+
+ .sign-up-email-form .sign-up-input-group .form-control::placeholder {
+     font-family: var(--font-family);
+     font-style: normal;
+     font-weight: 400;
+     font-size: 16px;
+     line-height: 19px;
+     color: var(--placeholder);
+ }
+
+ .sign-up-email-form-btn {
+     width: 100%;
+     max-width: 400px;
+ }
+
+ .sign-up-email-form-continue-btn {
+     display: flex;
+     flex-direction: row;
+     justify-content: center;
+     align-items: center;
+     gap: 20px;
+     width: 100%;
+     height: 49px;
+     background: linear-gradient(0deg, var(--white), var(--white)), var(--purpule);
+     border-radius: 5px;
+     border: 1px solid var(--transparent);
+     outline: none;
+ }
+
+ .left-side-footer-content {
+     margin: 0 auto;
+     text-align: center;
+ }
+
+ .left-side-footer-content-text {
+     font-family: var(--font-family);
+     font-style: normal;
+     font-weight: 400;
+     font-size: 16px;
+     line-height: 24px;
+     color: var(--regular-grey);
+     margin: 0;
+ }
+
+ .left-side-footer-content-text a {
+     color: var(--link-color);
+     text-decoration: none;
+     margin-left: 10px;
+ }
+
+ .sign-up-line {
+     width: 100%;
+ }
+
+ .sign-up-line p {
+     font-family: var(--font-family);
+     font-style: normal;
+     font-weight: 400;
+     font-size: 14px;
+     line-height: 18px;
+     color: var(--grey-2);
+     text-transform: uppercase;
+     position: relative;
+     margin: 0;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     width: 100%;
+     word-wrap: none;
+ }
+
+ .sign-up-line p::before {
+     content: "";
+     display: flex;
+     height: 1px;
+     width: 30%;
+     background-color: var(--regular-grey);
+     margin-right: 8px;
+ }
+
+ .sign-up-line p::after {
+     content: "";
+     display: flex;
+     height: 1px;
+     width: 30%;
+     margin-left: 8px;
+     background-color: var(--regular-grey);
+ }
+
+ .resend-new-code-link {
+     font-family: var(--font-family);
+     font-style: normal;
+     font-weight: 400;
+     font-size: 16px;
+     line-height: 24px;
+     text-align: center;
+     color: var(--link-color);
+     text-decoration: none;
+     margin-bottom: 10px;
+ }
+
+ .send-email-code-container {
+     display: flex;
+     flex-direction: row;
+     justify-content: center;
+     align-items: center;
+     padding: 0px;
+     gap: 10px;
+ }
+
+ .send-email-code-box {
+     display: flex;
+     flex-direction: column;
+     justify-content: center;
+     align-items: center;
+     width: 50px;
+     height: 48px;
+     border: 1px solid var(--light-grey);
+     border-radius: 5px;
+     background: var(--transparent);
+     font-family: var(--font-family);
+     font-style: normal;
+     font-weight: 400;
+     font-size: 16px;
+     line-height: 19px;
+     text-align: center;
+     color: var(--light-pink);
+ }
+
+
+ .send-email-code-box[type=number]::-webkit-inner-spin-button,
+ .send-email-code-box[type=number]::-webkit-outer-spin-button {
+     -webkit-appearance: none;
+     -moz-appearance: none;
+     appearance: none;
+     margin: 0;
+ }

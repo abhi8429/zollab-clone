@@ -1,0 +1,29 @@
+<div class="modal-dialog modal-dialog-centered m-0 modal-lg">
+  <div class="modal-content" style="background: #f7f3f2;">
+    <div class="modal-header" style="border:0px solid #f7f3f2;padding-bottom: 0px">
+      <h1 class="modal-title font-size-16 font-weight-500" id="exampleModalLabel">Delete</h1>
+      <!--              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
+      <img src="assets/img/closebutton-icon.webp" class="img-fluid common-hover-class" width="24px" height="24px" (click)="close(false)">
+    </div>
+    <div class="modal-body" style="border: 0px solid #f7f3f2;padding-bottom: 0px;">
+      <div class="d-flex flex-row justify-content-start mb-2">
+        <span class="font-size-14 font-weight-400">
+        Are you sure you want to delete?
+        </span>
+      </div>
+    </div>
+    <div class="modal-footer" style="border-top: 0px solid #f7f3f2;padding-top: 0px;padding-bottom:1rem;padding-left: 1.2rem">
+
+      <div class="d-flex flex-row justify-content-start col-12">
+        <div class="col-6 me-1 pe-2">
+          <button class="gray-btn col-12" (click)="close(false)">Cancel</button>
+        </div>
+        <div class="col-6 ms-1 pe-2">
+          <button class="red-button col-12" (click)="delete(false)" >Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+

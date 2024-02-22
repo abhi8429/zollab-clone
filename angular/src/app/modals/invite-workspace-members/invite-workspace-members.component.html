@@ -1,0 +1,36 @@
+<div class="modal-dialog modal-dialog-centered">
+  <div class="modal-content" style="background: transparent;">
+    <div class="add-member-modal">
+      <div class="add-member-modal-header">
+        <div class="add-member-modal-heading">
+          <h6 class="add-member-modal-title">Add members</h6>
+          <h6 class="add-member-modal-sub-title">Add members</h6>
+        </div>
+        <button class="modal-close-btn" data-bs-dismiss="modal" aria-label="Close" (click)="activeModal.dismiss()">x</button>
+      </div>
+      <div class="add-member-modal-body">
+        <form class="add-member-modal-form">
+          <label class="form-label">Email</label>
+          <div class="add-member-modal-form-input-group">
+            <input type="email" class="form-control" placeholder="Email" [ngbTypeahead]="search"
+                   [inputFormatter]="formatter" [resultFormatter]="formatter" [(ngModel)]="user" name="user">
+            <button type="submit" class="add-member-modal-add-btn" (click)="inviteMember()">ADD</button>
+          </div>
+        </form>
+        <div class="add-member-modal-member-box">
+          <div class="add-member-modal-member" *ngFor="let role of workspaceRoles">
+            <input name="role" type="radio" [value]="role.roleName" class="img-24x24" [(ngModel)]="selectedRole">
+            <p class="add-member-modal-member-name">{{role.roleName}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="add-member-modal-footer">
+        <p class="add-member-modal-footer-title">Share this URL with members to invite them</p>
+        <div class="add-member-modal-link">
+          <p>{{inviteUrl}}</p>
+          <button class="copy-link-btn">Copy link</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

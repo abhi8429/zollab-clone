@@ -1,0 +1,53 @@
+<div class="modal-dialog modal-dialog-centered m-0 modal-lg">
+  <div class="modal-content" style="background: #f7f3f2;">
+    <div class="modal-header" style="border:0px solid #f7f3f2;padding-bottom: 0px">
+      <h1 class="modal-title font-size-16 font-weight-500" id="exampleModalLabel">
+        <img src="assets/img/arrow-left.webp" class="img-fluid me-3" width="24px" height="24px" (click)="goBack()">{{deliverable?.description}}</h1>
+      <img src="assets/img/closebutton-icon.webp" class="img-fluid" width="24px" height="24px"
+           (click)="close(null)">
+    </div>
+    <div class="modal-body mb-4" style="border: 0px solid #f7f3f2;padding-bottom:0px;">
+      <div class="d-flex flex-column justify-content-between col-12">
+        <div class="d-flex flex-row justify-content-between mt-2 align-items-center white-input-background"
+             style="background: #fff;" (click)="openAssets()">
+          <div class="d-flex flex-row align-items-center justify-content-start">
+            <span class="font-size-14 font-weight-500 text-dark">Assets</span>
+          </div>
+          <div class="d-flex flex-row align-items-center justify-content-end">
+            <span class="font-size-14 font-weight-400 dark-gray-color">11</span>
+            <img src="assets/img/chevron-icon.webp" class="img-fluid ms-2" width="16px" height="16px">
+          </div>
+        </div>
+        <div class="d-flex flex-row justify-content-between mt-3 align-items-center col-12">
+         <div class="d-flex flex-row align-items-center justify-content-start white-input-background col-8" style="background: #fff;">
+           <span class="font-size-14 font-weight-500">Frequency</span>
+         </div>
+          <div class="d-flex flex-row justify-content-end align-items-center col-4">
+            <div class="btn-group">
+              <button type="button" class="btn pe-md-5 text-start"
+                      data-bs-toggle="dropdown" aria-expanded="false" data-bs-reference="parent"
+                      style="background: #e5e0df; border: 0px solid #e5e0df; color: #000; font-size: 14px; font-weight: 500; padding: 10px;">
+                {{ this.deliverable?.schedule ?? 'Select Frequency' }}
+              </button>
+              <button type="button" class="btn dropdown-toggle dropdown-toggle-split text-end"
+                      style="background: #e5e0df; border: 0px solid #e5e0df; color: #000; padding: 10px;"
+                      data-bs-toggle="dropdown" aria-expanded="false" data-bs-reference="parent">
+                <span class="visually-hidden">Toggle Dropdown</span>
+              </button>
+              <ul class="dropdown-menu col-12" style="background: #e5e0df; min-width: 4.5rem;">
+                <li *ngFor="let deliverableSchedule of deliverableSchedules; index as i;">
+                  <a *ngIf="this.deliverable && deliverableSchedule !== this.deliverable?.schedule"
+                     class="dropdown-item font-size-14 font-weight-500" style="background: #e5e0df"
+                     (click)="setFrequency(deliverableSchedule)">
+                    {{ deliverableSchedule }}
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+

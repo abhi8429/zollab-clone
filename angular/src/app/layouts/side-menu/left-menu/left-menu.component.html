@@ -1,0 +1,49 @@
+<div class="leftside-bar" [class] = "hideLeftBar ? '' : ''">
+  <div class="leftside-bar-top-content">
+    <!--<div class="leftside-bar-top-content-arrow" (click)="hideMenu()">
+      <div class="leftside-bar-top-content-arrow-box">
+        <img src="assets/img/leftside-bar-arrow.svg" id="open_img">
+      </div>
+    </div>-->
+    <div class="left-side-bar-avatar-container">
+      <div class="left-side-bar-avatar-list" *ngFor="let workspace of workspaces;">
+        <div [id]="workspace.id" title="{{workspace.name!}}" class="left-side-bar-avatar-item"
+             (click)="emitWorkspaceSelection(workspace)" placement="end" [ngbTooltip]="workspace.name">
+          <img [src]="workspace.workspaceLogo" *ngIf="!!workspace.workspaceLogo; else workspace_name">
+          <ng-template #workspace_name>
+          <span >{{workspace.name!.charAt(0).toUpperCase()}}</span>
+          </ng-template>
+        </div>
+        <div class="left-side-bar-avatar-item d-none">
+          <img src="../../../../assets/img/profile-avatar.png">
+        </div>
+      </div>
+      <div class="left-side-bar-add-avatar-box" [routerLink]="['/CreateWorkspaceStepOne']">
+        <img src="../../../../assets/img/white_+.svg">
+      </div>
+    </div>
+  </div>
+  <div class="leftside-bar-bottom-content">
+    <div class="leftside-bar-bottom-content-item-box">
+      <div class="leftside-bar-bottom-content-item">
+        <a href="javascript:;"><img src="../../../../assets/img/leftside-bar-bottom..svg" /></a>
+      </div>
+    </div>
+    <div class="leftside-bar-bottom-content-item-box">
+      <div class="leftside-bar-bottom-content-item">
+        <a href="javascript:;"><img src="../../../../assets/img/_.svg" /></a>
+      </div>
+    </div>
+    <div class="leftside-bar-bottom-content-item-box">
+      <div class="leftside-bar-bottom-content-item">
+        <a href="javascript:;" data-bs-toggle="dropdown" aria-expanded="false" placement="right" [ngbTooltip]="!!user.name ? user.name : user.email"><img
+          [src]="user.avatars?.['50X50'] ? user.avatars?.['50X50'] : 'assets/img/leftside-bar-bottom-2.svg'" (click)="userSettings = !userSettings"/></a>
+        <ul style="transform: translate(113px, -35px);" class="dropdown-menu custom-dropdown" [class]="userSettings ? 'show' : ''">
+          <li><a class="dropdown-item" [routerLink]="['/profileSettings']">Profile settings</a></li>
+          <li><a class="dropdown-item">Plans & billing</a></li>
+          <li><a class="dropdown-item" role="button" (click)="logout()">Logout</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

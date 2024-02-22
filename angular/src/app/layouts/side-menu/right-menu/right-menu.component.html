@@ -1,0 +1,29 @@
+<div class="right-side-menu" [class]="hideRightBar ? '' : ''">
+ <!-- <div class="rightside-bar-top-content-arrow" (click)="hideMenu()">
+    <div class="rightside-bar-top-content-arrow-box">
+      <img src="assets/img/leftside-bar-arrow.svg" id="open_img_right">
+    </div>
+  </div>-->
+  <div class="right-side-menu-item" placement="start" ngbTooltip="Deal">
+    <a [routerLink]="['/deals']" [state]="{selectedWorkspace: workspace}" >
+      <img src="../../../../assets/img/leftside-bar-bottom..svg">
+    </a>
+  </div>
+  <div class="right-side-menu-item" placement="start" ngbTooltip="Deliverable">
+    <a [routerLink]="['/deliverable']" [state]="{selectedWorkspace: workspace}">
+      <img src="../../../../assets/img/tasks.svg" class="right-side-item-active">
+    </a>
+  </div>
+  <!-- <div class="right-side-menu-item">
+    <a>
+      <img src="assets/img/money.svg">
+    </a>
+  </div> -->
+
+  <div class="right-side-menu-item" placement="start" ngbTooltip="Roster">
+    <a [routerLink]="['/rosters']" [state]="{selectedWorkspace: workspace}">
+      <img src="../../../../assets/img/roster.svg">
+    </a>
+  </div>
+
+</div>

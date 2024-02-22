@@ -1,0 +1,148 @@
+<div class="workspace deal-pages">
+  <app-left-menu (selectedWorkspace)="updateWorkspace($event)" (hideLeftMenu)="hideLeftMenu = $event" [hideLeftBar]="hideLeftMenu"></app-left-menu>
+  <app-selected-workspace *ngIf="!!selectedWorkspace" [selectedWorkspace]="selectedWorkspace"></app-selected-workspace>
+    <main class="twosidebar-flow">
+        <div class="twosidebar-flow-head">
+            <div class="flow-head-title align-items-center">
+                <img src="../../../assets/img/tasks.svg">
+                <h6>Deliverables</h6>
+            </div>
+            <div class="flow-head-use-links">
+                <a [routerLink]="['/createDeliverable']" [state]="{selectedWorkspace: selectedWorkspace}" class="create-dela-link"><img src="../../../assets/img/pulse.svg">Create a
+                    deliverable</a>
+                <a [routerLink]="['/']"><img src="../../../assets/img/close.svg" class="img-14x14"></a>
+            </div>
+        </div>
+        <div class="twosidebar-flow-body">
+            <div class="filter-bar" style="gap: 20px;">
+                <div class="filter">
+                    <div class="search-filter-bar">
+                        <div class="input-group create-role-search-input border-0">
+                            <input type="text" class="form-control" placeholder="Search by summary" [(ngModel)]="filterSummary">
+                            <button class="input-group-text border-last" (click)="searchDeliverable()"><img src="../../../assets/img/search.svg"></button>
+                        </div>
+                    </div>
+                  <div class="search-filter-bar">
+                    <div class="input-group create-role-search-input border-0">
+                        <input type="text" class="form-control border-radius-0 border-start-0" placeholder="Search by Creator" [(ngModel)]="filterCreator">
+                        <button class="input-group-text border-last" (click)="searchDeliverable()"><img src="../../../assets/img/search.svg"></button>
+                    </div>
+                  </div>
+                    <div class="filter-selcet mobile-border-end-none">
+                        <select class="form-select" [(ngModel)]="filterDue">
+                            <option selected="" value="">Due on</option>
+                          <option *ngFor="let dueOn of filterMeta?.dueOn" [value]="dueOn">{{dueOn}}</option>
+                        </select>
+                    </div>
+                    <div class="filter-selcet mobile-border-bottom-none">
+                        <select class="form-select" [(ngModel)]="filterStatus">
+                            <option selected value="">Status</option>
+                          <option *ngFor="let statues of filterMeta?.statues" [value]="statues">{{(statues.replaceAll('_', ' ').toLowerCase() || "") | titlecase}}</option>
+                        </select>
+                    </div>
+                    <!--<div class="filter-Others border-0">
+                        <a href="#">Others</a>
+                    </div>-->
+                </div>
+                <!--<div class="filter deliverable-list">
+                    <div class="deliverable-list-item">
+                        <a href="#" class="deliverable-list-item-link deliverable-list-item-link-active">List</a>
+                    </div>
+                    <div class="deliverable-list-item">
+                        <a href="#" class="deliverable-list-item-link">Board</a>
+                    </div>
+                </div>-->
+            </div>
+            <div class="table-body">
+                <div class="deliverable-list-table-section">
+                    <div class="deliverable-summary-section deliverable-table-section-title">
+                        Deliverable summary
+                    </div>
+                    <div class="creator-section deliverable-table-section-title">
+                        Creator
+                    </div>
+                    <div class="Priority-section deliverable-table-section-title">
+                        Priority
+                    </div>
+                    <div class="repeat-section deliverable-table-section-title">
+                        Repeat
+                    </div>
+                    <div class="due-on-section deliverable-table-section-title">
+                        Due on
+                    </div>
+                    <div class="status-section deliverable-table-section-title">
+                        Status
+                    </div>
+                </div>
+              <ng-container *ngFor="let deliverable of deliverables?.content">
+                <hr class="custom-hr">
+                <!-- add/remove active class here - to show/hide options
+
+                 -->
+                <div class="deliverable-list-table-section" [routerLink]="['/editDeliverable']" [state]="{selectedWorkspace: selectedWorkspace, selectedDeliverable: deliverable}">
+                    <div class="deliverable-summary-section">
+                        <p>{{deliverable.summary}}</p>
+                        <a *ngIf="!!deliverable.childs" (click)="$event.stopPropagation(); showChilds(deliverable.id!!)">{{deliverable.childs.length}} post series<img src="../../../assets/img/down-icon.svg"></a>
+                    </div>
+                    <div class="creator-section">
+                        <div class="creator-section-user-icon">{{!!deliverable.creatorObj?.name ? deliverable.creatorObj?.name!.charAt(0).toUpperCase() : deliverable.creatorObj?.email!.charAt(0).toUpperCase()}}</div>
+                        <p>{{!!deliverable.creatorObj?.name ? deliverable.creatorObj?.name : deliverable.creatorObj?.email}}</p>
+                    </div>
+                    <div class="Priority-section">
+                        <img src="../../../assets/img/flag.svg">
+                        <p>{{deliverable.priority}}</p>
+                    </div>
+                    <div class="repeat-section">
+                        <p>{{!!deliverable.repeatLabel ? deliverable.repeatLabel : 'Never'}}</p>
+                    </div>
+                    <div class="due-on-section">
+                        <p>{{deliverable.dueAt}}</p>
+                    </div>
+                    <div class="status-section">
+                        <span [class]="'edit-deliverable-' + deliverable.status">{{deliverable.statusLabel}}</span>
+                    </div>
+                </div>
+                <ng-container *ngFor="let child of deliverable.childs; index as i">
+                <div class="deliverable-list-post-series-container" [id]="'deliverable_' + deliverable.id" [routerLink]="['/editDeliverable']" [state]="{selectedWorkspace: selectedWorkspace, selectedDeliverable: child}">
+                  <div class="deliverable-list-post-series-row">
+                    <div class="deliverable-list-series-icon">
+                      --
+                    </div>
+                    <div class="deliverable-list-series-icon-number">
+                      <span>{{i+1}}</span>
+                    </div>
+                    <div class="deliverable-list-series-name">
+                      <p>{{child.description}}</p>
+                    </div>
+                    <div class="deliverable-list-series-priority">
+                      <span><p></p></span>
+                    </div>
+                    <div class="deliverable-list-series-btn">
+                      <span [class]="'edit-deliverable-' + child.status">{{child.statusLabel}}</span>
+                    </div>
+                  </div>
+                </div>
+                </ng-container>
+              </ng-container>
+                <hr class="custom-hr">
+                <div class="footer-pagination-row">
+                    <div class="leftside-pagination">
+                        <img src="../../../assets/img/back_arrow.svg">
+                    </div>
+                  <ng-container *ngFor="let item of [].constructor( deliverables?.totalPages ); let i = index">
+                    <a role="button" [class]="selectedPage == i ? 'footer-pagination-active' : ''" (click)="getWorkspaceDeliverables(i)">{{i + 1}}</a>
+                  </ng-container>
+                    <!--<a class="footer-pagination-active" href="#">1</a>
+                    <a href="#">2</a>
+                    <a href="#">3</a>
+                    <a href="#">4</a>
+                    <a href="#">5</a>-->
+                    <div class="rightside-pagination">
+                        <img src="../../../assets/img/forward_arrow.svg" class="pagination-arrow-open">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+  <app-right-menu [workspace]="selectedWorkspace" [hideRightBar]="hideLeftMenu" (hideRightMenu)="hideLeftMenu = $event"></app-right-menu>
+</div>

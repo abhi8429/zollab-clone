@@ -1,0 +1,39 @@
+<div class="page-background">
+    <div class="container-fluid">
+        <div class="sign-up-page">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="left-side-content">
+                        <div class="logo-bar">
+                            <a href=""><img src="../../../assets/img/logo.svg"></a>
+                        </div>
+                        <div class="left-side-content-text">
+                            <div class="left-side-content-heading">
+                                <h2 class="left-side-content-heading-title">Check your email</h2>
+                                <p class="left-side-content-heading-sub-title">We have sent a 4 digit code to
+                                    the {{email}} email.
+                                    Please enter it below. Can’t find it? Check your spam folder.</p>
+                            </div>
+                            <div class="send-email-code-container">
+                                <input class="send-email-code-box" id="digitOne" type="text" maxlength="1" (keyup)="onDigitInput($event)" [(ngModel)]="digitOne">
+                                <input class="send-email-code-box" id="digitTwo" type="text" maxlength="1" (keyup)="onDigitInput($event)" [(ngModel)]="digitTwo">
+                                <input class="send-email-code-box" id="digitThree" type="text" maxlength="1" (keyup)="onDigitInput($event)" [(ngModel)]="digitThree">
+                                <input class="send-email-code-box" id="digitFour" type="text" maxlength="1" (keyup)="onDigitInput($event)" [(ngModel)]="digitFour">
+                            </div>
+                            <div class="left-side-footer-content">
+                                <a href="#" class="resend-new-code-link">Click to send the new code</a>
+                                <p class="left-side-footer-content-text">Noticed an error?<a [routerLink]="['/signup']">Fix your
+                                        email address</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 d-none d-lg-block">
+                    <div class="right-side-content">
+                        <img src="../../../assets/img/dark-theme.png">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

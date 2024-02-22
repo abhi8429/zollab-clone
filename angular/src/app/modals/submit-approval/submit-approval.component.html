@@ -1,0 +1,49 @@
+<div class="modal-dialog modal-dialog-centered custom-modal m-0 modal-lg box"
+     style="background: #f7f3f2; border: none; border-radius: 16px!important;">
+  <div class="modal-content"
+       style="background: #f7f3f2; max-height: 80vh; overflow-y: auto; border: none; padding: 12px;">
+    <div class="modal-header" style="border: 0px solid #f7f3f2; padding-bottom: 0px;">
+      <h1 class="modal-title font-size-16 font-weight-500" id="exampleModalLabel">Submit Approval</h1>
+    </div>
+    <form #approvalForm="ngForm" (ngSubmit)="onSubmit(approvalForm)">
+      <div class="modal-body" style="border: 0px solid #f7f3f2; padding-bottom: 0px;">
+        <div class="d-flex flex-row justify-content-between">
+          <span class="font-size-14 font-weight-400">
+            Enter your details to approve the deliverable for Instagram Reel (Weekly)
+          </span>
+        </div>
+        <div class="d-flex flex-column justify-content-start my-3">
+          <div class="text-danger font-size-12 font-weight-500"
+               *ngIf="isNameRequiredError">
+            <small *ngIf="isNameRequiredError">Name is required.</small>
+          </div>
+
+          <input type="text" class="common-white-input mb-4 font-size-14 font-weight-400"
+                 placeholder="Name" name="name"  [(ngModel)]="formData.name" required>
+
+          <!-- For the 'Email' field -->
+          <div class="text-danger font-size-12 font-weight-500"
+               *ngIf="isEmailRequiredError">
+            <small *ngIf="isEmailRequiredError">Email is required.</small>
+            <small *ngIf="isEmailPatternError">Please enter a valid email address.</small>
+          </div>
+
+          <input type="email" class="common-white-input font-size-14 font-weight-400"
+                 placeholder="Email" name="email"  [(ngModel)]="formData.email" required pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
+        </div>
+      </div>
+      <div class="modal-footer" style="border-top: 0px solid #f7f3f2; padding-top: 0px;">
+        <div class="d-flex flex-row col-12 my-2">
+          <div class="d-flex flex-row justify-content-start align-items-center col-6 ps-2">
+            <button type="button" class="btn grey-btn2 col-12" style="width: 98%" (click)="goBack()">Go Back</button>
+          </div>
+          <div class="col-6 ps-2 d-flex flex-row justify-content-end align-items-center">
+            <button type="submit" class="btn light-green-btn col-12" style="width: 98%"
+                    (click)="markControlsAsTouched()" >Approve
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,94 @@
+
+<div class="editing-page">
+    <aside class="editing-page-aside" id="asidebar">
+        <div class="editing-page-aside-content">
+            <div class="back-to-workspace">
+                <img src="../../../../assets/img/back_icon.svg"><a href="/angular/src">Back to workspace</a>
+            </div>
+          <div class="editing-page-aside-menu">
+            <h6 class="editing-page-aside-menu-title">SETTINGS</h6>
+            <ul class="editing-page-aside-menu-list">
+              <li class="editing-page-aside-menu-item"><a [routerLink]="['/manageMembers']" [state]="{selectedWorkspace: selectedWorkspace}" class="editing-page-aside-menu-link editing-page-aside-menu-link-active">Manage Members</a></li>
+              <li class="editing-page-aside-menu-item"><a [routerLink]="['/editWorkspace']" [state]="{selectedWorkspace: selectedWorkspace}" class="editing-page-aside-menu-link">Edit
+                workspace</a></li>
+              <li class="editing-page-aside-menu-item"><a [routerLink]="['/roles']" [state]="{selectedWorkspace: selectedWorkspace}" class="editing-page-aside-menu-link">Roles and permission</a></li>
+            </ul>
+          </div>
+        </div>
+    </aside>
+    <main class="editing-page-wrapper">
+        <div class="roles-and-permissions-container">
+            <div class="roles-and-permissions-page-heading">
+                <div class="d-flex align-items-center justify-content-between w-100 flex-wrap">
+                    <h2 class="roles-and-permissions-page-title">
+                        <a href="#"
+                            class="roles-and-permissions-page-title-back-icon">
+                            <img src="../../../../assets/img/back_icon.svg">
+                        </a>
+                        Manage members
+                    </h2>
+                    <a (click)="inviteMembers()" role="button"
+                        class="roles-and-permissions-page-heading-link"><img src="../../../../assets/img/pulse.svg" />Add
+                        members</a>
+                </div>
+                <p class="roles-and-permissions-page-sub-title">You could assign admins and co-owners to help
+                    you manage channels and workspace.</p>
+            </div>
+            <ul class="manage-members-list-group">
+                <div class="manage-members-list" *ngFor="let member of members">
+                    <div class="members-details">
+                        <img [src]="!!member.avatars?.['50X50'] ? member.avatars?.['50X50'] :
+                            'https://banner2.cleanpng.com/20180703/ya/kisspng-computer-icons-user-avatar-user-5b3bafe2381423.1933594815306383062297.jpg'">
+                      <span>{{!!member.memberName ? member.memberName : member.memberEmail}}</span>
+                      <span class="manage-member-self-tag" *ngIf="member.memberId === loggedInUser.id">Me</span>
+                    </div>
+                  <div class="manage-designation" ngbDropdown #myDrop="ngbDropdown">
+                    <button class="text-decoration-none" role="button" id="roleSelection"
+                            aria-expanded="false" (click)="$event.stopPropagation(); myDrop.open();">{{member.role?.roleName}}</button>
+                    <ul ngbDropdownMenu aria-labelledby="roleSelection" class="dropdown-menu custom-dropdown" [id]="member.id">
+                      <li class="member-designation" *ngFor="let role of roles" (click)="updateRole(member, role)"><a class="dropdown-item" >{{role.roleName}}</a></li>
+                    </ul>
+                  </div>
+                  <img class="ps-3" src="../../../../assets/img/x.svg" (click)="removeMember(member)">
+                </div>
+                <!--<div class="manage-members-list">
+                    <div class="members-details">
+                        <img
+                            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrJ2R9O5THIdzGHJl3RjnK2Bxzj20iYSsMQA&usqp=CAU">
+                        <span>John Doe</span>
+                    </div>
+                    <div class="manage-designation">
+                        <button href="#" class="text-decoration-none" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">Member </button>
+                        <ul class="dropdown-menu custom-dropdown show">
+                            <li class="member-designation"><a class="dropdown-item" href="#">Co-owner</a></li>
+                            <li class="member-designation"><a class="dropdown-item" href="#">Admin</a></li>
+                            <li class="member-designation"><a class="dropdown-item" href="#">Member</a></li>
+                            <li><a class="dropdown-item dnager-link" href="#">Remove from workspace</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="manage-members-list">
+                    <div class="members-details">
+                        <img src="https://themedesigner.in/demo/admin-press/assets/images/users/1.jpg">
+                        <span>Dylan Field</span>
+                    </div>
+                    <div class="manage-designation">
+                        <button href="#" class="text-decoration-none" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">Member </button>
+                        <ul class="dropdown-menu custom-dropdown">
+                            <li><a class="dropdown-item" href="#">Co-owner</a></li>
+                            <li class="member-designation"><a class="dropdown-item" href="#">Admin</a></li>
+                            <li><a class="dropdown-item" href="#">Member</a></li>
+                            <li><a class="dropdown-item dnager-link" href="#">Remove from workspace</a></li>
+                        </ul>
+                    </div>
+                </div>-->
+            </ul>
+        </div>
+        <div class="main-body-footer-container main-body-footer-absolute">
+            <button type="button" class="body-footer-cancel-btn" [routerLink]="['/']" [state]="{selectedWorkspace: selectedWorkspace}">Cancel</button>
+            <button type="button" class="body-footer-save-btn" (click)="updateMembersRole()">Save</button>
+        </div>
+    </main>
+</div>

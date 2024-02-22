@@ -1,0 +1,562 @@
+<div class="workspace deal-pages">
+  <app-left-menu (selectedWorkspace)="updateWorkspace($event)" (hideLeftMenu)="hideLeftMenu = $event" [hideLeftBar]="hideLeftMenu"></app-left-menu>
+  <app-selected-workspace *ngIf="!!selectedWorkspace" [selectedWorkspace]="selectedWorkspace" [membersInvited]="membersInvited"></app-selected-workspace>
+    <main class="twosidebar-flow">
+        <div class="twosidebar-flow-head">
+            <div class="flow-head-title">
+                <img src="../../../../assets/img/tasks.svg">
+                <h6>Edit deliverable</h6>
+            </div>
+            <div class="flow-head-use-links">
+                <a class="edit-dela-link pointer"><img src="../../../../assets/img/share.svg">Share</a>
+              <a class="edit-dela-link pointer" (click)="delete()"><img src="../../../../assets/img/dustbin.svg">Delete</a>
+<!--                <a class="edit-dela-link pointer"><img src="assets/img/Ellipses.svg"></a>-->
+                <a [routerLink]="['/deliverable']" [state]="{selectedWorkspace: selectedWorkspace}"><img src="../../../../assets/img/close.svg" class="img-14x14"></a>
+            </div>
+        </div>
+        <div class="twosidebar-flow-body">
+            <div class="create-deal-page">
+                <div class="regular-from-group">
+                    <div class="edit-deal-heading">
+                        <div class="edit-deal-titles">
+                            <p class="edit-deal-sub-title">{{selectedWorkspace.name}} / <span> {{selectedDeliverable.summaryOfDeal}} </span> / <span>
+                                    {{selectedDeliverable.summary}} </span></p>
+                            <h2 class="edit-deal-title">
+                                <div ngbDropdown class="d-inline-block">
+                                  <span ngbDropdownToggle id="deliverable_status" [class]="'edit-deliverable-'+selectedDeliverable.status" data-bs-toggle="dropdown" aria-expanded="false">{{selectedDeliverable.statusLabel}}</span>
+                                  <ul class="dropdown-menu custom-dropdown" ngbDropdownMenu aria-labelledby="deliverable_status">
+                                    <li *ngFor="let nxtStatus of getNextStatus(selectedDeliverable.status!)"><a role="button" class="dropdown-item" (click)="updateStatus(nxtStatus.id)">{{nxtStatus.name}}</a></li>
+                                    <!--<li><a role="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#changerequired">Changes needed</a></li>-->
+                                  </ul>
+                                </div>
+<!--                                {{selectedDeliverable.description}}-->
+                            </h2>
+                        </div>
+                        <!--<div class="edit-deal-profile">
+                            <img src="assets/img/members_avatar_picture.svg" class="img-fluid">
+                            {{selectedDeliverable.priority}}
+                        </div>-->
+                    </div>
+                </div>
+              <form id = "deliverableForm" [formGroup]="deliverableForm" (ngSubmit)="updateDeliverable()" class="regular-from-group" (keydown.enter)="$event.preventDefault()">
+                <div class="create-deliverable-from px-0">
+                    <div class="regular-from-section">
+                      <div class="regular-from-group" *ngIf="!!deal">
+                        <label>Deal</label>
+                        <select class="form-select max-700" [ngClass]="{ 'is-invalid': submitted && f['dealId'].errors }">
+                          <option selected [value]="deal.id">{{deal.summary}}</option>
+                        </select>
+                      </div>
+                      <div class="row w-100">
+                        <div class="align-items-end col-md-5 d-flex">
+                          <div class="d-flex w-100 align-items-end">
+                            <div class="regular-from-group w-100 max-258">
+                              <label>Creator</label>
+                              <select class="form-select" formControlName="creatorId" [ngClass]="{ 'is-invalid': submitted && f['creatorId'].errors }">
+                                <option *ngFor="let creator of creators" [value]="creator.memberId">{{!!creator.memberName ? creator.memberName : creator.memberEmail}}</option>
+                              </select>
+                              <div *ngIf="submitted && f['creatorId'].errors" class="invalid-feedback">
+                                <div *ngIf="f['creatorId'].errors['required']">Creator is required</div>
+                              </div>
+                            </div>
+                            <div class="w-100 ps-md-2 pt-1 pt-md-0  md-end-right">
+                                <p (click)="inviteMembers()"
+                                    class="m-0 creator-invite-link d-flex align-items-center gap-1 text-decoration-none ">
+                                    <img src="../../../../assets/img/white_+.svg" width="10px" height="10px">
+                                    Invite Creator
+                                </p>
+                            </div>
+                          </div>
+                          <!-- <button class="btn btn-dark mt-3 ms-3" type="button" (click)="inviteMembers()"> Invite Creator</button> -->
+                        </div>
+                        <div class="col-md-3">
+                          <div class="create-deal-from-row">
+                            <div class="regular-from-group max-258">
+                              <label>Priority</label>
+                              <select class="form-select" formControlName="priority" [ngClass]="{ 'is-invalid': submitted && f['priority'].errors }">
+                                <option value="Low">Low</option>
+                                <option value="Medium">Medium</option>
+                                <option value="High">High</option>
+                              </select>
+                              <div *ngIf="submitted && f['priority'].errors" class="invalid-feedback">
+                                <div *ngIf="f['priority'].errors['required']">Priority is required</div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                      </div>
+
+                        <!--<div class="regular-from-group">
+                            <div class="create-deal-from-row">
+                                <div class="regular-from-group max-258">
+                                    <label>Creator</label>
+                                    <select class="form-select" formControlName="creatorId">
+                                      <option *ngFor="let creator of creators" [value]="creator.memberId">{{!!creator.memberName ? creator.memberName : creator.memberEmail}}</option>
+                                    </select>
+                                </div>
+                              <button class="btn btn-dark mt-3 ms-3" type="button" (click)="inviteMembers()"> Invite Creator</button>
+                            </div>
+                        </div>-->
+                        <div class="regular-from-group">
+                          <label>Deliverable summary</label>
+                          <div class="input-group">
+                            <input #summary type="text" class="form-control border-end-0" value="Add summary" formControlName="summary" maxlength="50" [ngClass]="{ 'is-invalid': submitted && f['summary'].errors }">
+                            <span class="input-group-text">{{summary.value.length}}/50</span>
+                            <div *ngIf="submitted && f['summary'].errors" class="invalid-feedback">
+                              <div *ngIf="f['summary'].errors['required']">Summary is required</div>
+                              <div *ngIf="f['summary'].errors['maxlength']">Summary should not more than 50 characters</div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="regular-from-group">
+                            <label>Description</label>
+                            <div class="description-box">
+                                <textarea class="form-control" formControlName="description" [ngClass]="{ 'is-invalid': submitted && f['description'].errors }"></textarea>
+                                <div class="description-box-useful-link">
+                                   <!-- <a href="#"><img src="assets/img/attachment.svg" class="img-20x20"></a>
+                                    <a href="#"><img src="assets/img/nature-img.svg" class="img-20x20"></a>
+                                    <a href="#"><img src="assets/img/icon_mic.svg" class="img-20x20"></a>-->
+                                </div>
+                              <div *ngIf="submitted && f['description'].errors" class="invalid-feedback">
+                                <div *ngIf="f['description'].errors['required']">Description is required</div>
+                              </div>
+                            </div>
+                        </div>
+                        <!--<div class="regular-from-group">
+                                <label>Description</label>
+                                <div class="description-box">
+                                    <textarea class="form-control textarea-border ">{{selectedDeliverable.description}}</textarea>
+
+                                </div>
+                            </div>-->
+                    </div>
+
+                    <!--<div class="regular-from-section">
+                        <div class="regular-from-group">
+                            <h6 class="regular-from-section-title">Evidences</h6>
+                            <p class="regular-from-section-sub-title">Add the list of evidences for this deliverable
+                            </p>
+                        </div>
+
+                      &lt;!&ndash;<div class="regular-from-group">
+                        <label for="fileUpload" title="Upload" class="d-flex align-items-baseline w-100 justify-content-between">
+                          <div class="d-flex align-items-baseline w-100 justify-content-between">
+                            <div class="form-control w-90">Enter required evidence</div>
+                          </div>
+                        </label>
+                        <input #fileUpload id="fileUpload" title="upload" onclick="this.value = null" type="file" class="file-input"
+                               (change)="addEvidence($event)" accept="*" multiple/>
+                      </div>&ndash;&gt;
+
+                      <div class="d-flex flex-column align-items-start w-100" style="gap:8px;">
+                        <div class="regular-from-group" *ngFor="let evidence of uploadedEvidences">
+                          <div class="d-flex align-items-baseline w-100 justify-content-between" *ngIf="evidence.type == 'IMAGE'" >
+                            <input type="text" class="form-control w-90" [value]="evidence.fileName" disabled="">
+                            <img src="assets/img/dustbin.svg" class="img-20x20 pointer" (click)="deleteUploadedEvidence(evidence)">
+                          </div>
+                          <div class="d-flex align-items-baseline w-100 justify-content-between" *ngIf="evidence.type == 'URL'" >
+                            <input type="text" class="form-control w-90" [value]="evidence.url" disabled="">
+                            <img src="assets/img/dustbin.svg" class="img-20x20 pointer" (click)="deleteUploadedEvidence(evidence)">
+                          </div>
+                        </div>
+
+                        <div class="regular-from-group" *ngFor="let evidence of evidences">
+                          <div class="d-flex align-items-baseline w-100 justify-content-between">
+                            <input type="text" class="form-control w-90" [value]="evidence.name" disabled="">
+                            <img src="assets/img/dustbin.svg" class="img-20x20 pointer" (click)="deleteEvidence(evidence)">
+                          </div>
+                        </div>
+                        <div class="regular-from-group">
+                          <label for="fileUpload" title="Upload" class="d-flex align-items-baseline w-100 justify-content-between">
+                            <div class="d-flex align-items-baseline w-100 justify-content-between">
+                              <div class="form-control w-90">Enter required evidence</div>
+                            </div>
+                          </label>
+                          <input #fileUpload id="fileUpload" title="upload" onclick="this.value = null" type="file" class="file-input"
+                                 (change)="addEvidence($event)" accept="*" multiple/>
+                        </div>
+                        <div class="regular-from-group" *ngFor="let evidence of urlEvidences">
+                          <div class="d-flex align-items-baseline w-100 justify-content-between">
+                            <input type="text" class="form-control w-90" [value]="evidence" disabled="">
+                            <img src="assets/img/dustbin.svg" class="img-20x20 pointer" (click)="deleteUrlEvidence(evidence)">
+                          </div>
+                        </div>
+                        <div class="regular-from-group">
+                          <label for="url" title="Upload" class="d-flex align-items-baseline w-100 justify-content-between">
+                            <div class="d-flex align-items-baseline w-100 justify-content-between">
+                              <input #url id="url" title="upload"  type="text" class="form-control w-90" placeholder="Enter Required Evidence URL">
+                              <img src="assets/img/pulse.svg" class="img-20x20 pointer" (click)="addEvidenceUrl(url)">
+                            </div>
+                          </label>
+
+                        </div>
+                      </div>
+                        &lt;!&ndash;<div class="d-flex flex-column align-items-start w-100" style="gap:8px;">
+                          <div class="regular-from-group" *ngFor="let evidence of uploadedEvidences">
+                            <div class="d-flex align-items-baseline w-100 justify-content-between" *ngIf="evidence.type == undefined" >
+                              <input type="text" class="form-control w-90" [value]="evidence.fileName" disabled="">
+                              <img src="assets/img/dustbin.svg" class="img-20x20 pointer" (click)="deleteUploadedEvidence(evidence)">
+                            </div>
+                            <div class="d-flex align-items-baseline w-100 justify-content-between" *ngIf="evidence.type == 'URL'" >
+                              <input type="text" class="form-control w-90" [value]="evidence.url" disabled="">
+                              <img src="assets/img/dustbin.svg" class="img-20x20 pointer" (click)="deleteUploadedEvidence(evidence)">
+                            </div>
+                          </div>
+                          <div class="regular-from-group" *ngFor="let evidence of evidences">
+                            <div class="d-flex align-items-baseline w-100 justify-content-between">
+                              <input type="text" class="form-control w-90" [value]="evidence.name" disabled="">
+                              <img src="assets/img/dustbin.svg" class="img-20x20 pointer" (click)="deleteEvidence(evidence)">
+                            </div>
+                          </div>
+                          <div class="regular-from-group">
+                            <label for="fileUpload" title="Upload" class="d-flex align-items-baseline w-100 justify-content-between">
+                              <div class="d-flex align-items-baseline w-100 justify-content-between">
+                                <div class="form-control w-90">Enter required evidence</div>
+                              </div>
+                            </label>
+                            <input #fileUpload id="fileUpload" title="upload" onclick="this.value = null" type="file" class="file-input"
+                                   (change)="addEvidence($event)" accept="*" multiple/>
+                          </div>
+                        </div>&ndash;&gt;
+
+                        &lt;!&ndash;<div class="evidences-all-use">
+                            <div class="">
+                                <img src="assets/img/velidtion.svg">
+                            </div>
+                            <div class="evidences-all-edit-page-use-box">
+                                <div class="evidences-all-edit-page-use-box-title-row">
+                                    <p>Sample evidence</p>
+                                    <img src="assets/img/Ellipses.svg">
+                                </div>
+                                <div class="evidences-all-edit-page-editing-box-row">
+                                    <div class="evidences-all-edit-editing-box"></div>
+                                    <div class="evidences-all-edit-editing-box"></div>
+                                    <div class="evidences-all-edit-editing-box"></div>
+                                </div>
+                            </div>
+                        </div>&ndash;&gt;
+
+                        &lt;!&ndash;<div class="evidences-all-use">
+                            <div class="evidences-all-edit-page-use-box">
+                                <div class="evidences-all-edit-page-use-box-title-row">
+                                    <p>Sample evidence</p>
+                                </div>
+                                <div class="evidences-all-edit-page-editing-box-row">
+                                    <div class="evidences-all-edit-editing-box"></div>
+                                    <div class="evidences-all-edit-editing-box"></div>
+                                    <div class="evidences-all-edit-editing-box"></div>
+                                </div>
+                            </div>
+                        </div>&ndash;&gt;
+
+                    </div>-->
+                  <div class="regular-from-section">
+                    <div class="regular-from-group">
+                      <h6 class="regular-from-section-title">Repeats</h6>
+                      <p class="regular-from-section-sub-title">{{!!selectedDeliverable.repeatLabel ? selectedDeliverable.repeatLabel : 'Never'}}
+                      </p>
+                    </div>
+                  </div>
+                  <div class="regular-from-section" formGroupName="repeatConf">
+                    <div class="regular-from-group">
+                      <h6 class="regular-from-section-title">Repeat</h6>
+                    </div>
+                    <div class="create-deal-from-row">
+                      <div class="regular-from-group max-258">
+                        <label>Repeat</label>
+                        <select class="form-select" (change)="selectRepeat($event)" formControlName="schType">
+                          <option selected>Never</option>
+                          <option>Once</option>
+                          <option>Daily</option>
+                          <option>Weekly</option>
+                          <option>Monthly</option>
+                        </select>
+                      </div>
+                      <div class="regular-from-group max-258" *ngIf="repeatType === 'Once'">
+                        <label>Due on</label>
+                        <div class="input-group">
+                          <input class="form-control border-end-0" ngbDatepicker #date="ngbDatepicker" [minDate]="minDate" placeholder="dd-mmm-yyyy" formControlName="date" [ngClass]="{ 'is-invalid': submitted && deliverableForm.get('repeatConf.date')?.errors }">
+                          <span class="input-group-text" (click)="date.toggle()"><img src="../../../../assets/img/calender.svg" class="img-20x20"></span>
+                          <div *ngIf="submitted && deliverableForm.get('repeatConf.date')?.errors" class="invalid-feedback">
+                            <div *ngIf="deliverableForm.get('repeatConf.date')?.errors">Date is required</div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="regular-from-group max-258" *ngIf="repeatType === 'Weekly'">
+                        <label>On day</label>
+                        <select class="form-select" formControlName="day">
+                          <option value="Mon">Every Monday</option>
+                          <option value="Tue">Every Tuesday</option>
+                          <option value="Wed">Every Wednesday</option>
+                          <option value="Thu">Every Thursday</option>
+                          <option value="Fri">Every Friday</option>
+                          <option value="Sat">Every Saturday</option>
+                          <option value="Sun">Every Sunday</option>
+                        </select>
+                      </div>
+
+                      <div class="regular-from-group max-258" *ngIf="repeatType === 'Monthly'">
+                        <label>Date</label>
+                        <select class="form-select" formControlName="monthDay">
+                          <option selected="">Select dates</option>
+                          <option>1</option>
+                          <option>2</option>
+                          <option>3</option>
+                          <option>4</option>
+                          <option>5</option>
+                          <option>6</option>
+                          <option>7</option>
+                          <option>8</option>
+                          <option>9</option>
+                          <option>10</option>
+                          <option>11</option>
+                          <option>12</option>
+                          <option>13</option>
+                          <option>14</option>
+                          <option>15</option>
+                          <option>16</option>
+                          <option>17</option>
+                          <option>18</option>
+                          <option>19</option>
+                          <option>20</option>
+                          <option>21</option>
+                          <option>22</option>
+                          <option>23</option>
+                          <option>24</option>
+                          <option>25</option>
+                          <option>26</option>
+                          <option>27</option>
+                          <option>28</option>
+                          <option>29</option>
+                          <option>30</option>
+                          <option>31</option>
+                        </select>
+                      </div>
+
+                    </div>
+                    <div class="regular-from-group" *ngIf="repeatType ===  'Weekly' || repeatType == 'Daily' || repeatType === 'Monthly'">
+                      <label>Ends on</label>
+                      <div class="d-flex flex-column align-items-start w-100" style="gap: 15px;">
+
+                        <div class="deliverable-weekly-section">
+                          <div class="form-check">
+                            <input class="form-check-input" type="radio" name="schEndsType" id="never" formControlName="schEndsType" value="never">
+                            <label class="form-check-label" for="never">
+                              Never
+                            </label>
+                          </div>
+                        </div>
+
+                        <div class="deliverable-weekly-section">
+                          <div class="form-check">
+                            <input class="form-check-input" type="radio" name="schEndsType" id="On_date" formControlName="schEndsType" value="on">
+                            <label class="form-check-label" for="On_date">
+                              Ends on expiration date
+                            </label>
+                          </div>
+                          <div class="input-group">
+                            <input class="form-control border-end-0" ngbDatepicker #schEndsDate="ngbDatepicker" placeholder="dd-mmm-yyyy" formControlName="schEndsDate">
+                            <span class="input-group-text" (click)="schEndsDate.toggle()"><img src="../../../../assets/img/calender.svg" class="img-20x20"></span>
+                          </div>
+                        </div>
+                        <div class="deliverable-weekly-section">
+                          <div class="form-check">
+                            <input class="form-check-input" type="radio" name="schEndsType" id="occurrences" formControlName="schEndsType" value="after">
+                            <label class="form-check-label" for="occurrences">
+                              After occurrences
+                            </label>
+                          </div>
+                          <div class="regular-from-group">
+                            <input type="text" placeholder="Enter number" class="form-control" formControlName="schEndsOccurences">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- <div class="regular-from-section">
+                    <div class="regular-from-group">
+                      <h6 class="regular-from-section-title">Drafts</h6>
+                      <p class="regular-from-section-sub-title">Add links for the deliverables
+                      </p>
+                    </div>
+                  </div>  -->
+
+                  <!--<div class="regular-from-section">
+                    <div class="regular-from-group">
+                      <h6 class="regular-from-section-title">drafts</h6>
+                      <p class="regular-from-section-sub-title">add attachments for this deliverable
+                      </p>
+                    </div>
+                    <div class="deliverable-edit-not-started-evidences align-items-start">
+                      <div class="deliverable-edit-not-started-evidences-row" *ngFor="let draftPost of draftPosts">
+                        <ng-container *ngIf="draftPost.type?.toUpperCase() !== 'URL'">
+                          <div class="add-video" video (click)="previewUploadedDraftFile(draftPost)">
+                            <img [src]="draftPost.type === 'IMAGE' ? draftPost.cdnUrl : '/assets/img/doc_icon.png'">
+                          </div>
+                          <a (click)="deleteDraftPost(draftPost)"><img src="assets/img/dustbin.svg" /></a>
+                        </ng-container>
+                      </div>
+                      <div class="deliverable-edit-not-started-evidences align-items-start" id="draftFilesContainer">
+                      </div>
+                      <div class="regular-from-group">
+                        <label for="fileUpload" title="Upload"
+                               class="d-flex align-items-baseline w-100 justify-content-between">
+                          <a role="button" class="add-member-box-pulse-icon">
+                            <img src="assets/img/rouder-add-tag.svg">
+                          </a>
+                        </label>
+                        <input #fileUpload id="fileUpload" title="upload" onclick="this.value = null" type="file"
+                               class="file-input"
+                               (change)="addDraftFiles($event)" accept="*"/>
+                      </div>
+                    </div>
+                  </div>-->
+                  <div class="regular-from-section">
+                    <div class="regular-from-group">
+                      <h6 class="regular-from-section-title">drafts</h6>
+                      <p class="regular-from-section-sub-title">add links/attachments for this deliverable
+                      </p>
+                    </div>
+                    <div class="deliverable-edit-not-started-evidences align-items-start">
+                      <div class="deliverable-edit-not-started-evidences-row" *ngFor="let draftPost of draftPosts">
+                        <ng-container *ngIf="draftPost.type?.toUpperCase() === 'URL'">
+                        <input type="text" class="form-control" [value]="draftPost.url"
+                               readonly="true">
+                        <a (click)="deleteDraftPost(draftPost)"><img src="../../../../assets/img/dustbin.svg" /></a>
+                        </ng-container>
+                        <ng-container *ngIf="draftPost.type?.toUpperCase() !== 'URL'">
+                          <input type="text" class="form-control" [value]="draftPost.fileName+'.'+draftPost.ext"
+                                 readonly="true" (click)="previewUploadedDraftFile(draftPost)">
+                          <a (click)="deleteDraftPost(draftPost)"><img src="../../../../assets/img/dustbin.svg" /></a>
+                        </ng-container>
+                      </div>
+                      <div class="deliverable-edit-not-started-evidences align-items-start" id="draftLinksContainer">
+                      </div>
+                      <a role="button" class="add-member-box-pulse-icon" (click)="addDraftLinks()">
+                        <img src="../../../../assets/img/rouder-add-tag.svg">
+                      </a>
+                    </div>
+                  </div>
+
+                  <div class="regular-from-section">
+                      <div class="regular-from-group">
+                          <h6 class="regular-from-section-title">live posts</h6>
+                          <p class="regular-from-section-sub-title">add links to live posts for this deliverable
+                          </p>
+                      </div>
+                      <div class="deliverable-edit-not-started-evidences align-items-start">
+                          <div class="deliverable-edit-not-started-evidences-row" *ngFor="let livePost of livePosts">
+                              <input type="text" class="form-control" [value]="livePost.url"
+                                  disabled>
+                              <a (click)="deleteLivePost(livePost)"><img src="../../../../assets/img/dustbin.svg" /></a>
+                          </div>
+                        <div class="deliverable-edit-not-started-evidences align-items-start" id="livePostsContainer">
+                        </div>
+                        <a role="button" class="add-member-box-pulse-icon" (click)="addLivePost()">
+                          <img src="../../../../assets/img/rouder-add-tag.svg">
+                        </a>
+                      </div>
+                  </div>
+
+
+                  <!--<div class="regular-from-section">
+                    <div class="regular-from-group">
+                      <h6 class="regular-from-section-title">Live Posts</h6>
+                      <p class="regular-from-section-sub-title">Add links for the deliverables
+                      </p>
+                    </div>
+                  </div>-->
+
+
+
+                  <div class="regular-from-section">
+                    <div class="regular-from-group">
+                      <h6 class="regular-from-section-title">Review Workflow</h6>
+                      <p class="regular-from-section-sub-title">Add setting for the reviewing your
+                        deliverable</p>
+                    </div>
+
+                    <div class="regular-from-group">
+                      <div class="form-check form-switch my-check">
+                        <input class="form-check-input" type="checkbox" role="switch" id="workflow" formControlName="reviewerRequired">
+                        <label class="form-check-label" for="workflow">No review workflow required
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="regular-from-section">
+                    <div class="regular-from-group">
+                      <h6 class="regular-from-section-title">NoTIFICATION</h6>
+                      <p class="regular-from-section-sub-title">Notification updates for the
+                        deliverable</p>
+                    </div>
+                    <div class="regular-from-group">
+                      <div class="form-check form-switch my-check">
+                        <input class="form-check-input" type="checkbox" role="switch" id="postupdate" checked="">
+                        <label class="form-check-label" for="postupdate">Post updates on this deliverable in the
+                          channel
+                        </label>
+                      </div>
+                    </div>
+                    <!--     <div class="regular-from-group max-258">
+                           <label>Channel </label>
+                           <select class="form-select">
+                               <option selected="">Select</option>
+                               <option>One</option>
+                               <option>Two</option>
+                               <option>Three</option>
+                           </select>
+                       </div>-->
+                  </div>
+
+                    <div class="regular-from-section">
+                        <h6 class="regular-from-section-title">Suggested changes</h6>
+                        <div class="change-required-suggested-changes-box w-100">
+                            <textarea disabled>{{selectedDeliverable.changedRequestedReason}}
+                            </textarea>
+                        </div>
+                    </div>
+                </div>
+              </form>
+            </div>
+        </div>
+        <div class="main-body-footer-container main-body-footer-absolute mt-5">
+            <button type="button" class="body-generate-report-btn" (click)="generateReport()" *ngIf="livePosts.length > 0">Generate Report</button>
+            <button type="button" class="body-footer-cancel-btn" [routerLink]="['/deliverable']" [state]="{selectedWorkspace: selectedWorkspace}">Cancel</button>
+            <button type="submit" class="body-footer-save-btn" form="deliverableForm">Save</button>
+        </div>
+    </main>
+
+    <div class="modal fade" id="Video" data-bs-backdrop=" static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="Video" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="background: transparent;">
+                <div class="add-member-modal">
+                    <div class="add-member-modal-header">
+                        <div class="add-member-modal-heading">
+                            <h6 class="add-member-modal-sub-title m-0">123456/aff.jpg</h6>
+                        </div>
+                        <button class="modal-close-btn" data-bs-dismiss="modal" aria-label="Close">
+                            <img src="../../../../assets/img/download-svg.svg">
+                        </button>
+                    </div>
+                    <div class="add-member-modal-body">
+                        <div class="videomodal">
+                            <video width="100%" height="100%" controls preload="auto">
+                                <source
+                                    src="https://media.geeksforgeeks.org/wp-content/uploads/20190616234019/Canvas.move_.mp4"
+                                    type="video/mp4">
+                                <source
+                                    src="https://media.geeksforgeeks.org/wp-content/uploads/20190616234019/Canvas.move_.ogg"
+                                    type="video/ogg">
+                            </video>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+  <app-right-menu [workspace]="selectedWorkspace" [hideRightBar]="hideLeftMenu" (hideRightMenu)="hideLeftMenu = $event"></app-right-menu>
+</div>

@@ -1,0 +1,51 @@
+@media screen and (max-width: 380px)
+{
+  .position-class{
+    margin-top: 5rem;
+    font-size: 12px;
+    font-weight: 200;
+  }
+  .padding-class{
+    padding-left: 2rem;
+    padding-right: 1rem;
+  }
+}
+/*@media screen and(min-width: 381px){*/
+/*    .position-class{*/
+/*      margin-top: 5rem;*/
+/*      font-size: 12px;*/
+/*      font-weight: 200;*/
+/*      bottom: 0;*/
+/*      position: fixed;*/
+
+/*    }*/
+
+/*}*/
+
+
+@media screen and (min-width: 381px){
+  .position-class{
+    bottom: 0;
+    position: fixed;
+    font-size: 12px;
+    font-weight: 200;
+    padding:5px;
+  }
+  .padding-class{
+    padding-left: 2rem;
+    padding-right: 1rem;
+  }
+
+
+}
+
+@media screen and (min-width: 768px) {
+ .padding-class{
+   padding-right: 0px;
+   padding-left: 0px;
+
+ }
+
+
+
+}

@@ -1,0 +1,621 @@
+<div class="white-background chatbox-container">
+  <app-header class="d-none d-md-block"></app-header>
+  <hr class="opacity-1 d-none d-md-block">
+  <div class="body-section-class pt-3 pt-md-0">
+    <div class="col-lg-10 offset-lg-1 padding-manage-class message-chat-fix-div1">
+      <div *ngIf="!enableMobileSearch" class="d-flex flex-row justify-content-between align-items-center col-12">
+
+        <div class="d-flex flex-row align-items-center justify-content-start col-8 col-md-6 header">
+          <div class="d-flex flex-row justify-content-start pe-1 d-md-none">
+            <button class="bg-transparent border-0" (click)="redirectToProjectDashBoard()">
+              <img src="../../../assets/img/arrow-left.webp" class="img-fluid" width="20px" height="20px">
+            </button>
+          </div>
+          <div class="d-flex flex-column justify-content-start align-items-start ms-2">
+            <span class="font-size-manage-class">{{projectService.selectedProject.title}}</span>
+            <span class="font-size-12 font-weight-400 font-gray-dark">Deliverables ({{deliverables.length}})</span>
+          </div>
+
+        </div>
+        <div class="d-flex flex-row justify-content-between align-items-center col-4 col-md-5 col-lg-4 main">
+          <div class="col-6 col-md-3 d-flex flex-row justify-content-start align-items-center d-none d-md-block ">
+            <div class="col-12 d-flex flex-row justify-content-start align-items-center">
+              <img src="assets/img/foreign-boy-icon.webp" class="img-fluid" width="27px" height="8px"
+                   *ngIf="projectMemberImage.length==0">
+
+              <div class="user-images-container" *ngIf="projectMemberImage.length > 0">
+                <img *ngFor="let projectMember of projectMemberImage.slice(0, 2); let i = index"
+                     [src]="projectMember.avtarUrl"
+                     (error)="handleImageError($event)"
+                     placement="top">
+              </div>
+
+
+              <div
+                class="ms-2 image-icon text-center d-flex flex-row align-items-center justify-content-between gray-background-common-class"
+                *ngIf="projectMemberImage.length>2">
+                <button class="font-size-10 font-weight-500 bg-transparent border-0" triggers="mouseenter:mouseleave"
+                        placement="top" (mouseenter)="showImages = true" (mouseleave)="showImages = false"
+                        [ngbPopover]="popoverContent" container="body" popoverClass="custom-popover">
+                  +{{projectMemberImage.length - 2}}
+                </button>
+                <!-- Tooltip content -->
+                <ng-template #popoverContent class="mb-3">
+                  <div *ngIf="showImages">
+                    <div class="tooltip-images-container image-row">
+                      <img *ngFor="let pimg of projectMemberImage" [src]="pimg.avtarUrl"
+                           (error)="handleImageError($event)"
+                           style="height: 26px; width: 26px;" alt="" class="tooltip-image">
+                    </div>
+                  </div>
+                </ng-template>
+
+              </div>
+            </div>
+          </div>
+          <div
+            class="d-flex flex-row justify-content-between align-items-center search-input-class d-none d-md-block col-md-6 ms-md-3 col-xl-7 ms-xl-2">
+            <div class="position-relative">
+              <input type="search" placeholder="Search" class="col-12 input-srch-bx"
+                     (keyup.enter)="searchMessage($event)" (input)="toggleSearchIcon($event)"
+                     style="margin-right: 20px;">
+              <img src="assets/img/img_5.png" class="search-icon"
+                   [style.display]="showSearchIcon ? 'inline-block' : 'none'">
+              <button id="clearButton" class="clear-button" style="display:none;">X</button>
+            </div>
+          </div>
+          <div class="col-2 d-flex flex-row justify-content-between align-items-center d-md-none">
+            <button class="border-0 bg-transparent" (click)="enableSearchBox()"><img src="assets/img/search-icon.webp"
+                                                                                     class="img-fluid" width="23px"
+                                                                                     height="23px"></button>
+          </div>
+          <div class="col-2 col-md-2 bg-transparent border-0 text-end icon-img pe-xl-2" (click)="openSetting()">
+            <img src="assets/img/setting-icon.webp" width="24px" height="24px">
+          </div>
+          <div class="gray-hide-class dropdown d-md-none" data-bs-toggle="dropdown" aria-expanded="false">
+            <img src="assets/img/bell-icon.webp" class="img-fluid desktop-laptop-img-widht">
+            <ul class="dropdown-menu modal-common-border"
+                style="padding:16px;min-width: 16rem;max-height: 300px; overflow-x: hidden;overflow-y: auto;">
+
+              <li class="d-flex flex-column justify-content-between align-items-center"
+                  style="border-bottom: 1px solid #e4dfdf;padding:0.6rem" *ngFor="let notification of notifications">
+                <div class="d-flex flex-row justify-content-between col-12">
+                  <div class="font-size-14 font-weight-500">
+                    <span class="font-size-14 font-weight-500 dark-color">{{notification.messageAsText}}</span>
+                  </div>
+                  <div class="d-flex flex-row justify-content-between align-items-center">
+                    <span class="me-2 font-size-12 font-weight-400 dark-gray-color">1m</span>
+                    <img src="assets/img/red-indicator.webp" class="img-fluid" width="6px" height="6px">
+                  </div>
+
+                </div>
+              </li>
+              <li class="d-flex flex-column justify-content-between align-items-center">
+                <a class="text-center mt-1 py- font-size-12 font-weight-500 dark-gray-color hv-class" href="#">Mark
+                  All as Read</a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="col-3 col-md-2 d-flex flex-row justify-content-end align-items-center d-none">
+            <img src="assets/img/foreign-boy-icon.webp" class="img-fluid" width="27px" height="8px">
+            <div *ngIf="this.index > 1"
+                 class="image-icon text-center d-flex flex-row align-items-center justify-content-between gray-background-common-class d-none">
+              <span class="font-size-10 font-weight-500">+{{index - 1}}</span>
+            </div>
+          </div>
+
+          <!---add profile -->
+          <div
+            class="col-3 mobile-only d-flex flex-row justify-content-end align-items-center common-hover-class d-flex flex-row justify-content-start align-items-center"
+            id="iconId" style="max-width: 18%;">
+            <img [src]="getMemberProfile()" (error)="onImgError($event)"
+                 class="img-fluid dropdown profile-icon"
+                 data-bs-toggle="dropdown" aria-expanded="false">
+            <ul class="dropdown-menu modal-common-border hv-class-new">
+              <li><a class="dropdown-item font-size-14 font-weight-500 dark-color" style="background: #fff;"
+                     (click)="profile()">Profile</a></li>
+              <li *ngIf="teams.length > 0 && (teamPermission.length>0 && teamPermission[1].update === true)">
+                <a class="dropdown-item font-size-14 font-weight-500 dark-color"
+                   style="background: #fff;"
+                   (click)="editTeam()">Team</a>
+              </li>
+              <li><a class="dropdown-item font-size-14 font-weight-500 dark-color" style="background: #fff;">Support</a>
+              </li>
+              <li><a class="dropdown-item font-size-14 font-weight-500 dark-color" style="background: #fff;"
+                     (click)="logout()">Log Out</a></li>
+            </ul>
+          </div>
+        </div>
+
+
+      </div>
+      <div class="row" *ngIf="enableMobileSearch">
+        <div class="d-flex flex-row justify-content-between align-items-center search-input-class col-10 ms-3">
+          <input type="search" [(ngModel)]="serachItem" placeholder="search"
+                 class="col-10 input-srch-bx"><!--  (keyup)="searchMessage($event)" -->
+          <button class="bg-transparent border-0" (click)="searchForMessageTyped(serachItem)"><img
+            src="assets/img/search-icon.webp" width="20px" height="20px" class="img-fluid"></button>
+        </div>
+        <button class="col-1 bg-transparent border-0" (click)="cancelSearch()">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="24" height="24" fill="white" fill-opacity="0.01" style="mix-blend-mode:multiply"/>
+            <path
+              d="M12 1.5C6.15 1.5 1.5 6.15 1.5 12C1.5 17.85 6.15 22.5 12 22.5C17.85 22.5 22.5 17.85 22.5 12C22.5 6.15 17.85 1.5 12 1.5ZM12 21C7.05 21 3 16.95 3 12C3 7.05 7.05 3 12 3C16.95 3 21 7.05 21 12C21 16.95 16.95 21 12 21Z"
+              fill="black"/>
+            <path
+              d="M16.05 17.25L12 13.2L7.95 17.25L6.75 16.05L10.8 12L6.75 7.95L7.95 6.75L12 10.8L16.05 6.75L17.25 7.95L13.2 12L17.25 16.05L16.05 17.25Z"
+              fill="black"/>
+          </svg>
+        </button>
+
+      </div>
+      <div
+        class="d-flex flex-row justify-content-between align-items-center mt-3 light-red-div position-relative common-hover-class"
+        *ngFor="let deliverable of deliverables | slice : startPage:paginationLimit" [ngClass]="{
+       'status-not-started': deliverable.status === 'NOT_STARTED',
+       'status-in-review': deliverable.status === 'IN_REVIEW',
+       'status-approved': deliverable.status === 'APPROVED',
+       'status-done': deliverable.status === 'DONE'
+     }">
+        <div
+          class="col-md-9 col-5 position-relative  text-truncate d-flex flex-row align-items-center justify-content-start"
+          data-bs-toggle="tooltip" data-bs-placement="top"
+          title="{{deliverable.description}}">
+          <span class="font-size-12 font-weight-500">{{deliverable.description}}
+            ({{deliverable.schedule}})
+          </span>
+        </div>
+        <div class="col-md-3 col-7 d-flex flex-row justify-content-end align-items-center">
+          <span class="d-flex flex-row font-size-12 font-weight-400 me-2">Due: 3d ago</span>
+          <a class="font-size-12 font-weight-500 common-hover-class status-not-started"
+             *ngIf="projectPermission[1].update === true && deliverable.status === 'NOT_STARTED' || deliverable.status === 'UNAPPROVED'"
+             (click)="openUploadDeliverable(deliverable)">Upload</a>
+          <a class="font-size-12 font-weight-500 common-hover-class status-in-review"
+             *ngIf="projectPermission[2].update === true && deliverable.status === 'IN_REVIEW'"
+             (click)="openApproveDeliverable(deliverable)">Approve</a>
+          <a class="font-size-12 font-weight-500 common-hover-class status-approved"
+             *ngIf="projectPermission[4].update === true && deliverable.status === 'APPROVED'">Ready to publish</a>
+          <a class="font-size-12 font-weight-500 common-hover-class status-done"
+             *ngIf="deliverable.status === 'DONE'">Published</a>
+        </div>
+      </div>
+      <!--      <button class="col-12 light-green-btn my-3" (click)="openDeliverableList()">Visit All Deliverables</button>-->
+      <button class="light-gray-div col-12 my-2" *ngIf="paginationLimit < deliverables.length"
+              (click)="openDeliverableList()">All Deliverables
+      </button>
+      <!--      <button class="light-gray-div col-12 my-2"-->
+      <!--              *ngIf ="paginationLimit > 3"-->
+      <!--              (click)="showLessItems()">show less items</button>-->
+
+      <!--  <div class="d-flex flex-row justify-content-between align-items-center mt-2 light-green-div mt-2">
+          <div><span class="font-size-12 font-weight-500 light-green-color">Instagram Reel (Weekly)</span></div>
+          <div class="d-flex flex-row justify-content-start align-items-center">
+            <span class="d-flex flex-row font-size-12 font-weight-400 me-2 light-green-color">Published</span>
+            <a class="font-size-12 font-weight-500 light-green-color common-hover-class" (click)="openStats()" >View Status</a>
+          </div>
+        </div>-->
+    </div>
+    <hr class="opacity-1 d-none d-md-block mb-2">
+    <div style="overflow-y: auto;"
+         class="d-flex flex-column justify-content-start col-lg-10 offset-lg-1 padding-manage-class message-chat-fix-div2 col-12 chat-box"
+         #scrollframe (scroll)="scrolled($event)" infinite-scroll [infiniteScrollDistance]="scrollDistance"
+         [infiniteScrollUpDistance]="scrollUpDistance" [infiniteScrollThrottle]="2" [scrollWindow]="false"
+         (scrolled)="loadChatOnDown($event)" (scrolledUp)="loadChatOnUp()">
+
+      <div class="d-flex flex-row col-md-8 col-11 pt-3" #item *ngFor="let chatContent of chat?.content; index as i"
+           [ngClass]="{
+            'col-md-12 justify-content-center align-items-center': chatContent.systemMessage,
+            'justify-content-end align-item-end offset-md-4 offset-1' : isSentByCurrentUser(chatContent.key.sentBy),
+            'justify-content-start align-item-start' : !isSentByCurrentUser(chatContent.key.sentBy)
+           }">
+
+        <div class="d-flex flex-column justify-content-between chat-item-box" *ngIf="chatContent.systemMessage ">
+          <div class="d-flex flex-row justify-content-center align-items-center mb-1">
+            <span class="text-dark font-size-10 font-weight-400 d-flex flex-row pb-1" style="line-height: 0;"
+                  [class]="chatContent.key.sentBy===teamService.userId ?'justify-content-end align-item-end' : 'justify-content-start align-item-end'">
+              {{ getFormattedTime(chatContent.sentAt!) }}
+            </span>
+          </div>
+
+          <div class="d-flex flex-row justify-content-center align-items-center mb-1"
+               style="background-color: white; border-radius: 6px; padding: 8px;">
+            <span class="text-dark font-size-12 font-weight-400 d-flex flex-row">
+              {{ chatContent.messageAsText }}
+            </span>
+          </div>
+        </div>
+
+        <div class="d-flex flex-column justify-content-center position-relative" style="min-width: 24px"
+             *ngIf="chatContent.key.sentBy !== teamService.userId && !chatContent.systemMessage">
+          <img [src]="getMemberImgUrl(chatContent?.key?.sentBy!)" (error)="onImgError($event)"
+               class="img-fluid chat-mem-icon" width="24px" height="24px">
+          <img src="assets/img/red-indicator.webp" class="img-fluid position-absolute" width="7px" height="7px"
+               style="right: 0">
+        </div>
+        <div class="d-flex flex-column justify-content-between chat-item-box">
+          <div class="d-flex flex-row justify-content-end align-items-center mb-1" style="line-height: 0px;">
+            <span class="text-dark font-size-10 font-weight-400 d-flex flex-row pb-1" style="margin-right: 10px;">
+              {{ chatContent.memberName }}
+            </span>
+            <span class="text-dark font-size-10 font-weight-400 d-flex flex-row pb-1"
+                  *ngIf="!chatContent.systemMessage " style="line-height: 0;"
+                  [class]="chatContent.key.sentBy===teamService.userId ?'justify-content-end align-item-end' : 'justify-content-start align-item-end'">
+              {{ getFormattedTime(chatContent.sentAt!) }}
+            </span>
+            <span class="chat-star" *ngIf="chatContent.star" style="margin-left: 10px;">&starf;</span>
+          </div>
+          <!--          {{chatContent | json}}-->
+          <ng-container *ngIf="chatContent.zollabContentId
+          && chatContent.zollabContent?.contentId
+          && chatContent.zollabContent?.type === 'IMAGE'">
+            <div class="d-flex flex-row align-items-center chatting-common-div col-12 p-0">
+              <img [src]="chatContent.zollabContent?.cdnUrl"
+                   (click)="openImagePreview(chatContent.zollabContent?.cdnUrl, 'image')" class="img-fluid">
+            </div>
+          </ng-container>
+          <ng-container *ngIf="chatContent.zollabContentId
+          && chatContent.zollabContent?.contentId
+          && chatContent.zollabContent?.type === 'VIDEO'">
+            <div class="d-flex flex-row align-items-center chatting-common-div col-12 p-0">
+              <video controls [src]="chatContent.zollabContent?.cdnUrl" class="img-fluid"
+                     (click)="openImagePreview(chatContent.zollabContent?.cdnUrl, 'video')">
+              </video>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="chatContent.zollabContentId
+          && chatContent.zollabContent?.contentId
+          && chatContent.zollabContent?.type === 'APPLICATION'">
+            <!-- <div class="d-flex flex-row justify-content-between align-items-center col-12 chatting-common-div">
+               <span class="font-size-12 font-weight-400 font-gray-dark">Dan Gona</span>
+               <span class="font-size-12 font-weight-400 font-gray-dark">5m</span>
+             </div>-->
+            <div class="d-flex flex-row align-items-center chatting-common-div col-12 p-0">
+              <div class="col-12 zip-class d-flex flex-column align-items-center">
+                <img src="assets/img/zip.webp" class="img-fluid mt-3" width="48px" height="48px">
+                <span class="font-size-14 font-weight-500 mb-4 text-truncate" style="max-width: 100%">
+                  <a [href]="chatContent.zollabContent?.cdnUrl" target="_blank">{{chatContent.zollabContent?.fileName}}
+                    .{{chatContent.zollabContent?.ext}}</a>
+                </span>
+              </div>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="chatContent.zollabContent && chatContent.zollabContent.url">
+            <div class="d-flex flex-row align-items-center chatting-common-div col-12 p-0">
+              <div class="col-12 zip-class d-flex flex-column align-items-center">
+                <img src="assets/img/link.webp" class="img-fluid mt-3" width="48px" height="48px">
+                <span class="font-size-14 font-weight-500 mb-4">
+                  <a [href]="getAnchorHref(chatContent.zollabContent)"
+                     target="_blank">{{chatContent.zollabContent?.url}}</a>
+                </span>
+              </div>
+            </div>
+          </ng-container>
+          <div class="chat-write-sky-div mt-1 mb-1 position-relative common-hover-class"
+               *ngIf="chatContent.key.sentBy === teamService.userId" [id]="getMessageId(chatContent.key.id!)"
+               (mouseover)="chatContent.clicked = true" (mouseleave)="chatContent.clicked = false">
+            <!--            <span class="font-size-14 font-weight-400" (click)="chatContent.clicked = true">{{chatContent.messageAsText}-->
+            <!--              }</span>-->
+            <!-- <span class="font-size-14 font-weight-400 text-dark">{{chatContent.messageAsText}}</span> -->
+
+            <!-- display message with reply message append -->
+            <span class="font-size-14 font-weight-400" *ngIf="chatContent.messageAsText && chatContent.parentMessage">
+              <button *ngIf="chatContent.parentMessage" class="chat-reply-box"
+                      (click)="scrollToElement(chatContent.parentMessage.key.id)">
+                <div class="member-name">{{chatContent.parentMessage.memberName}}</div>
+                <div class="text-start">{{ chatContent.parentMessage.messageAsText}}</div>
+              </button><br>
+              <span *ngIf="chatContent.parentMessage">{{ chatContent.messageAsText }}</span>
+              <span class="font-size-14 font-weight-400" *ngIf=" !chatContent.parentMessage">
+                {{ chatContent?.messageAsText }}
+              </span>
+            </span>
+            <span class="font-size-14 font-weight-400" *ngIf="!chatContent.messageAsText || !chatContent.parentMessage">
+              {{ chatContent?.messageAsText }}
+            </span>
+            <!-- end -->
+
+            <!-- reply message icon and popup -->
+            <div class="chat-emoji-class ms-4 dropup dropup-end common-hover-class position-absolute"
+                 style="top: -1rem;right: 0px;" data-bs-toggle="dropdown" aria-expanded="false"
+                 *ngIf="chatContent.clicked">
+              <img src="assets/img/three-dot-icon.webp" width="16px" height="16px">
+              <ul class="dropdown-menu text-start col-12" style="min-width: 6rem; border: 0px solid #fff;">
+                <li class="font-size-14 font-weight-500"><a class="dropdown-item" style="background: #fff;color: #000"
+                                                            (click)="replyToMessage(chatContent)">Reply</a></li>
+                <li class="font-size-14 font-weight-500 "><a *ngIf="!chatContent.star" class="dropdown-item"
+                                                             style="background: #fff;color: #000;"
+                                                             (click)="starMessage(chatContent)">Star</a>
+                  <a *ngIf="chatContent.star" class="dropdown-item" style="background: #fff;color: #000;"
+                     (click)="starMessage(chatContent)">Unstar</a>
+                </li>
+                <li class="font-size-14 font-weight-500 "><a class="dropdown-item" style="background: #fff;color: #000;"
+                                                             (click)="deleteMessage(chatContent)">Delete</a></li>
+              </ul>
+            </div>
+
+            <!-- end -->
+          </div>
+          <div
+            class="mt-1 mb-1 position-relative common-hover-class text-center d-flex align-items-center justify-content-center"
+            *ngIf="chatContent.metaData && chatContent.metaData['action'] === 'deliverableApprove'">
+            <button class="w-100 chat-approve-sky-div border-0"
+                    *ngIf="projectPermission[2].update === true && chatContent.metaData && chatContent.metaData['actionStatus'] === 'pending' "
+                    (click)="openApproveMessage(chatContent)"><span>Approve</span></button>
+
+            <button class="unapproved-btn w-100"
+                    *ngIf="projectPermission[3].update === true && chatContent.metaData && chatContent.metaData['actionStatus'] === 'undo'"
+                    (click)="proceedToUnapproved(chatContent)"><span>UnApprove</span></button>
+
+            <button class="unapproved-btn w-100" disabled
+                    *ngIf="chatContent.metaData && chatContent.metaData['actionStatus'] === 'undoed'"
+            ><span>UnApproved</span></button>
+
+            <button class="disabled-btn w-100"
+                    *ngIf="chatContent.metaData && chatContent.metaData['actionStatus'] === 'completed'"
+                    disabled><span>Approved</span></button>
+          </div>
+
+          <div
+            class="mt-1 mb-1 position-relative common-hover-class text-center d-flex align-items-center justify-content-center"
+            *ngIf="chatContent.metaData && chatContent.metaData['action'] === 'deliverableReUpload'">
+            <button class="w-100 re-upload border-0"
+                    *ngIf="projectPermission[0].update === true && chatContent.metaData && chatContent.metaData['actionStatus'] === 'pending' "
+                    (click)="openReUploadPopup(chatContent.metaData['deliverableId'])"><span>Upload</span></button>
+          </div>
+
+          <div
+            class=" mt-1 mb-1 position-relative common-hover-class text-center d-flex align-items-center justify-content-center"
+            *ngIf="chatContent.metaData && chatContent.metaData['action'] === 'deliverablePublish'">
+            <button class="chat-readyToPublish-div w-100 "
+                    *ngIf="projectPermission[4].update === true && chatContent.metaData && chatContent.metaData['actionStatus'] === 'pending' "
+                    (click)="clickToPublishDelierable(chatContent)"><span>Ready to Publish</span></button>
+            <button class="w-100 s chat-publish-and-pymt-div"
+                    *ngIf="chatContent.metaData && chatContent.metaData['actionStatus'] === 'completed'"
+                    disabled><span>Published</span></button>
+          </div>
+
+
+          <div class="chat-write-div mt-1 mb-4 common-hover-class position-relative"
+               *ngIf="chatContent.key.sentBy !== teamService.userId && chatContent.key.sentBy !== 0"
+               [id]="getMessageId(chatContent.key.id!)" (mouseover)="chatContent.clicked = true"
+               (mouseleave)="chatContent.clicked =false">
+            <span class="font-size-14 font-weight-400 text-dark"
+                  (click)="chatContent.clicked = true">{{chatContent.messageAsText}}</span>
+
+            <!-- reply icon and popup -->
+            <div class="chat-emoji-class ms-4 dropup dropup-end common-hover-class position-absolute"
+                 style="top: -1.3rem;left: -1.5rem; width: fit-content;background: #d0e2ff;" data-bs-toggle="dropdown"
+                 aria-expanded="false" *ngIf="chatContent.clicked">
+              <img src="assets/img/three-dot-icon.webp" width="16px" height="16px">
+              <ul class="dropdown-menu text-left col-12"
+                  style="min-width:6rem !important; border: 0px solid #fff;background: #d0e2ff">
+                <li class="font-size-14 font-weight-500"><a class="dropdown-item"
+                                                            style="background: #d0e2ff;color: #000"
+                                                            (click)="replyToMessage(chatContent)">Reply</a></li>
+                <li class="font-size-14 font-weight-500 "><a *ngIf="!chatContent.star" class="dropdown-item"
+                                                             style="background: #d0e2ff;color: #000;"
+                                                             (click)="starMessage(chatContent)">Star</a>
+                  <a *ngIf="chatContent.star" class="dropdown-item" style="background: #d0e2ff;color: #000;"
+                     (click)="starMessage(chatContent)">UnStar</a>
+                </li>
+                <li class="font-size-14 font-weight-500 "><a class="dropdown-item"
+                                                             style="background: #d0e2ff;color: #000;"
+                                                             (click)="deleteMessage(chatContent)">Delete</a></li>
+              </ul>
+            </div>
+            <!-- end -->
+          </div>
+        </div>
+        <!--        <div class="centered-div col-12 d-flex flex-column align-items-center justify-content-center" (mouseover)="chatContent.clicked = true" (mouseleave)="chatContent.clicked = false"-->
+        <!--             *ngIf="chatContent.key.sentBy === 0">-->
+        <!--        &lt;!&ndash;  <span class="font-size-12 font-weight-400 dark-color">11/september/2023</span>&ndash;&gt;-->
+        <!--          <span class="text-center font-size-12 font-weight-400 dark-color" (click)="chatContent.clicked = true" >{{chatContent.messageAsText}}</span>-->
+
+        <!--        </div>-->
+      </div>
+
+      <!-- Uncomment when required -->
+      <!--  <div class="col-12 d-flex flex-column justify-content-end align-items-end col-md-8 offset-md-4">
+          <div class="chat-write-sky-div my-1">
+            <span class="font-size-14 font-weight-400">Fire</span>
+          </div>
+          <div class="chat-write-sky-div my-1">
+            <span class="font-size-14 font-weight-400">Fire Fire Fire Fire</span>
+          </div>
+          <div class="chat-write-sky-div my-1">
+            <span class="font-size-14 font-weight-400">Looking Very Nice</span>
+          </div>
+          <div class="chat-write-sky-div my-1">
+            <span class="font-size-14">Looking Very Nice</span>
+          </div>
+          <div class="chat-write-sky-div my-1">
+            <span class="font-size-14 font-weight-400">Looking Very Nice</span>
+          </div>
+          <div class="chat-write-sky-div my-1 position-relative">
+            <span class="font-size-14 font-weight-400" (click)="onclick()">Looking Very Nice</span>
+            <div class="d-flex flex-row justify-content-end col-12 position-absolute" *ngIf="visible"
+                 style="top: -1rem; right: 0rem">
+              <div class="chat-emoji-class common-hover-class dropup dropup-end" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="assets/img/smile-emoji.png" width="16px" height="16px">
+                <ul class="dropdown-menu text-end col-12" style="min-width: 6rem; border: 0px solid #fff;">
+                  <li class="font-size-14 font-weight-500"><a class="dropdown-item" style="background: #fff;color: #000">Reply</a></li>
+                  <li class="font-size-14 font-weight-500 "><a class="dropdown-item" style="background: #fff;color: #000;">Star</a></li>
+                  <li class="font-size-14 font-weight-500"><a class="dropdown-item" style="background: #fff;color: #000;">Delete</a></li>
+                </ul>
+              </div>
+              <div class="chat-emoji-class ms-4 dropup dropup-end common-hover-class"  data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="assets/img/three-dot-icon.png" width="16px" height="16px">
+                <ul class="dropdown-menu text-end col-12" style="min-width: 6rem; border: 0px solid #fff;">
+                  <li class="font-size-14 font-weight-500"><a class="dropdown-item" style="background: #fff;color: #000">Reply</a></li>
+                  <li class="font-size-14 font-weight-500 "><a class="dropdown-item" style="background: #fff;color: #000;">Star</a></li>
+                  <li class="font-size-14 font-weight-500"><a class="dropdown-item" style="background: #fff;color: #000;">Delete</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="chat-write-sky-div my-1">
+            <span class="font-size-14 font-weight-400">can you just change the title to ‘Halloween’?</span>
+          </div>
+        </div>-->
+
+      <!-- Uncomment when you get to it -->
+
+      <!--  <div class="d-flex flex-row justify-content-start align-items-end col-md-8">
+          <div class="d-flex flex-row justify-content-end align-items-end position-relative col-sm-1 py-3">
+            <img src="assets/img/foreign-boy-icon.png" class="img-fluid" width="24px" height="24px">
+            <img src="assets/img/red-indicator.png" class="img-fluid position-absolute" width="7px" height="7px">
+          </div>
+          <div class="col-md-7 d-flex flex-column justify-content-between align-items-start col-9">
+            <div class="d-flex flex-row justify-content-between align-items-center col-12 chatting-common-div">
+              <span class="font-size-12 font-weight-400 font-gray-dark">Dan Gona</span>
+              <span class="font-size-12 font-weight-400 font-gray-dark">5m</span>
+            </div>
+            <div class="d-flex flex-row align-items-center chatting-common-div col-12">
+              <div class="col-12 zip-class d-flex flex-column align-items-center">
+                <img src="assets/img/zip.png" class="img-fluid mt-3" width="48px" height="48px">
+                <span class="font-size-14 font-weight-500 mb-4">campaign_oct.zip</span>
+              </div>
+            </div>
+            <div class="chatting-common-div">
+              <div class="chat-write-div my-1">
+                <span class="font-size-14 font-weight-400">I’ll take a look... In the meantime I’ll work on a draft proposal for May. Thanks Dan.</span>
+              </div>
+              <div class="col-12 d-flex flex-row justify-content-start align-items-center" (click)="approve()">
+                <button class="light-green-btn col-12">Approve</button>
+              </div>
+              <div class="col-12 d-flex flex-row justify-content-start align-items-center my-2">
+                <button class="ready-publish-btn col-12">Ready To Publish</button>
+              </div>
+              <div class="col-12 d-flex flex-row justify-content-start align-items-center my-2">
+                <button class="unapproved-btn col-12">Unapproved</button>
+              </div>
+              <div class="col-12 d-flex flex-row justify-content-start align-items-center my-2">
+                <button class="published-btn col-12">Published</button>
+              </div>
+              <div class="col-12 d-flex flex-row justify-content-start align-items-center my-2">
+                <button class="published-btn col-12" (click)="openPayment()">Review+Pay</button>
+              </div>
+            </div>
+          </div>
+        </div>-->
+
+
+      <!--     this is show when screen is empty (first time)-->
+
+      <div class="d-flex flex-row justify-content-center align-items-center col-12" *ngIf="chat?.content?.length === 0">
+        <div class="text-center d-flex flex-column align-items-center">
+          <img src="assets/img/circle-dash-icon.webp" class="img-fluid" width="32px" height="32px">
+          <span class="font-size-16 font-weight-500 mt-2 mb-2">No Messages Yet</span>
+          <span class="font-size-14 font-weight-400 font-gray-dark">Be the first to send a message and get your project
+            underway.</span>
+        </div>
+      </div>
+
+
+    </div>
+    <!--    <div-->
+    <!--      class="d-flex flex-row justify-content-between align-items-center position-absolute chat-box-fix col-lg-10 offset-lg-1  col-11 message-chat-fix-div3">-->
+    <!--      <div class="d-flex flex-row justify-content-between col-12 chat-box-class ms-3 ms-lg-0">-->
+    <!--        <div class="col-9 col-md-10">-->
+    <!--          <input type="text" placeholder="Message" class="col-12 font-size-14"-->
+    <!--                 style="outline: none; border: 0px solid #fff;"-->
+    <!--                 [(ngModel)]="message"-->
+    <!--                 (keydown.enter)="sendMessage()">-->
+    <!--        </div>-->
+    <!--        <div class="col-3 col-md-2 ps-2 d-flex flex-row justify-content-end align-items-center">-->
+    <!--          <img src="assets/img/smile-emoji.webp" class="img-fluid" width="24px" height="24px">-->
+    <!--          <img src="assets/img/upload-emoji.webp" class="img-fluid ms-3 me-3" width="24px" height="24px">-->
+    <!--          <img src="assets/img/document-attachment-icon.webp" class="img-fluid" width="24px" height="24px">-->
+    <!--        </div>-->
+    <!--      </div>-->
+    <!--    </div>-->
+
+    <!----------------------reply chat div---------------------------------------------------->
+    <!--    <div class="d-flex flex-row justify-content-between align-items-center position-absolute chat-box-fix col-lg-10 offset-lg-1  col-12 message-chat-fix-div4">-->
+    <!--      <div class="d-flex flex-column justify-content-between col-12 chat-box-class">-->
+    <!--        <div class="d-flex flex-row justify-content-between col-12 mb-2">-->
+    <!--          <div class="col-1 d-flex flex-row justify-content-start align-items-end position-relative mb-1">-->
+    <!--            <img src="assets/img/foreign-boy-icon.png" class="img-fluid" width="24px" height="24px">-->
+    <!--            <img src="assets/img/grey-indicator.png" class="img-fluid position-absolute" width="7px" height="7px"-->
+    <!--                 style="left: 1rem">-->
+    <!--          </div>-->
+    <!--          <div class=" col-11 d-flex flex-column justify-content-between">-->
+    <!--            <div class="d-flex flex-row justify-content-between align-items-center">-->
+    <!--              <span class="font-size-12 font-weight-400 font-gray-dark">Jess F</span>-->
+    <!--              <span class="text-decoration-underline font-gray-dark font-size-12 font-weight-400">Cancel</span>-->
+    <!--            </div>-->
+    <!--            <div class="d-flex flex-row justify-content-between align-items-center">-->
+    <!--              <input type="text" class="col-12 reply-input-box font-size-12 font-weight-400 dark-color"-->
+    <!--                     placeholder="I’ll take a look... In the meantime I’ll work on a draft proposal for next month. Thanks Dan.">-->
+    <!--            </div>-->
+    <!--          </div>-->
+    <!--        </div>-->
+    <!--        <div class="col-12 d-flex flex-row justify-content-between">-->
+    <!--          <div class="col-9 col-md-10">-->
+    <!--            <input type="text" placeholder="Message" class="col-12 font-size-14"-->
+    <!--                   style="outline: none; border: 0px solid #fff;">-->
+    <!--          </div>-->
+    <!--          <div class="col-3 col-md-2 ps-2 d-flex flex-row justify-content-end align-items-center">-->
+    <!--            <img src="assets/img/smile-emoji.png" class="img-fluid" width="24px" height="24px">-->
+    <!--            <img src="assets/img/upload-emoji.png" class="img-fluid ms-3 me-3" width="24px" height="24px">-->
+    <!--            <img src="assets/img/document-attachment-icon.png" class="img-fluid" width="24px" height="24px">-->
+    <!--          </div>-->
+    <!--        </div>-->
+
+    <!--      </div>-->
+    <!--    </div>-->
+
+  </div>
+  <hr class="opacity-1 d-none d-md-block position-absolute" style="bottom: 1rem">
+  <!--  <app-footer></app-footer>-->
+  <div class="d-flex flex-column footer">
+    <div
+      class="d-flex flex-row justify-content-between align-items-center position-fixed chat-box-fix col-lg-10 offset-lg-1  col-11 message-chat-fix-div3"
+      [ngClass]="replyToMesgClicked ? 'message-chat-fix':'message-chat-fix-div3'">
+      <div class="d-flex flex-column justify-content-start col-12 col-md-7 offset-md-1 col-lg-6 offset-lg-1 col-xl-4 offset-xl-1 email-shadow" *ngIf="showDiv">
+        <div class="d-flex flex-row justify-content-start align-items-center email-list1"
+             *ngFor="let member of filteredMembers let first=first; let last=last;"
+             [ngClass]="{'first-element':first,'last-element':last,'single-element':first&&last}"
+             (click)="setMemberName(member)">
+          <div class="d-flex flex-row justify-content-start align-items-center position-relative max-width-1">
+            <img src="assets/img/foreign-boy-icon.webp" class="img-fluid" width="17px" height="17px">
+            <img src="assets/img/green-indicator.webp" class="img-fluid position-absolute icon-class" width="6px"
+                 height="6px">
+          </div>
+          <div class="font-weight-500 mx-2 max-width-2 text-truncate">
+            <span>{{member.memberName}}</span>
+          </div>
+          <div class=" font-weight-400 max-width-3 text-truncate">
+            <span class="font-gray-dark">{{ member.memberEmail }}</span>
+          </div>
+        </div>
+      </div>
+      <div class="d-flex flex-row justify-content-between col-12 chat-box-class ms-3 ms-lg-0">
+        <div class="col-9 col-md-10" (click)="emojiClose()">
+          <div *ngIf="replyToMesgClicked" class="text-end">
+            <button class="bg-transparent border-0" (click)="cancelReply()">Cancel</button>
+          </div>
+          <div *ngIf="replyToMesgClicked"
+               style="background-color: #e5e0df; color:#000; border-radius: 8px;border:1px solid #E5E0DF;padding: 12px; gap: 6px;font-size: 14px;">
+            {{addMessageForReply}}
+          </div>
+          <input type="text" placeholder="Message" class="col-12 font-size-14"
+                 style="outline: none; border: 0px solid #fff;" #messageRef [(ngModel)]="message"
+                 (keydown.enter)="sendMessage(null)" autofocus (input)="checkForAtSymbol($event)">
+        </div>
+        <div class="col-3 col-md-2 ps-2 d-flex flex-row justify-content-end align-items-center">
+          <img src="assets/img/smile-emoji.webp" class="img-fluid" width="24px" height="24px"
+               (click)="toggleEmojiPicker()">
+          <img src="assets/img/document-attachment-icon.webp" class="img-fluid ms-3 me-3" width="24px" height="24px"
+               id="draftUploadId" (click)="draftUpload()">
+        </div>
+      </div>
+      <div class="emoji-class">
+        <emoji-mart class="emoji-mart" *ngIf="showEmojiPickerNew" (emojiSelect)="addEmoji($event)"
+                    title="Pick your emoji…"></emoji-mart>
+      </div>
+    </div>
+    <app-footer class="d-none d-md-block"></app-footer>
+  </div>
+</div>

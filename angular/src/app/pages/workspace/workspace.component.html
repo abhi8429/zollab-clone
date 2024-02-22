@@ -1,0 +1,367 @@
+<div class="Welcome-to-workspace workspace">
+  <app-left-menu (selectedWorkspace)="selectedWorkspace = $event" (hideLeftMenu)="hideLeftMenu = $event"
+                 [hideLeftBar]="hideLeftMenu" (selectedType)="selectedType = $event"></app-left-menu>
+  <app-selected-workspace *ngIf="!!selectedWorkspace" [selectedWorkspace]="selectedWorkspace"
+                          [membersInvited]="membersInvited.asObservable()" (selectedChannel)="updateChannel($event)"
+                          (selectedType)="selectedType = $event"></app-selected-workspace>
+  <main class="main" *ngIf="selectedType === 'WORKSPACE'">
+    <div class="main-wrapper">
+      <div class="Welcome-to-workspace-box">
+        <div class="Welcome-to-workspace-box-heading">
+          <h2 class="Welcome-to-workspace-title">👋 Welcome to your workspace!</h2>
+          <p class="Welcome-to-workspace-sub-title">Complete the setup steps below to get started.</p>
+        </div>
+        <div class="Welcome-to-workspace-box-nudge-list">
+          <div class="nudge-box" (click)="inviteMembers()">
+            <div class="nudge-box-detils">
+              <div class="nudge-box-detils-img">
+                <img src="../../../assets/img/true-box.png">
+              </div>
+              <div class="nudge-box-detils-title">Invite members</div>
+            </div>
+            <div class="nudge-box-open-arrow">
+              <img src="../../../assets/img/icon_send.svg" class="img-26x26">
+            </div>
+          </div>
+          <div class="nudge-box" [routerLink]="['/editWorkspace']" [state]="{selectedWorkspace: selectedWorkspace}">
+            <div class="nudge-box-detils">
+              <div class="nudge-box-detils-img">
+                <img src="../../../assets/img/true-box.png">
+              </div>
+              <div class="nudge-box-detils-title">Add icon to workspace</div>
+            </div>
+            <div class="nudge-box-open-arrow">
+              <img src="../../../assets/img/icon_send.svg" class="img-26x26">
+            </div>
+          </div>
+          <div class="nudge-box" [routerLink]="['/deals']" [state]="{selectedWorkspace: selectedWorkspace}">
+            <div class="nudge-box-detils">
+              <div class="nudge-box-detils-img">
+                <img src="../../../assets/img/true-box.png">
+              </div>
+              <div class="nudge-box-detils-title">Create a deal</div>
+            </div>
+            <div class="nudge-box-open-arrow">
+              <img src="../../../assets/img/icon_send.svg" class="img-26x26">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--<div class="main-footer">
+        <textarea placeholder="Write your message" class="main-footer-chat-box form-control"></textarea>
+        <div class="main-footer-chat-box-helpful-link">
+            <div class="main-footer-chat-box-links">
+                <div class="main-footer-chat-box-add-more-item"><img src="assets/img/white_+.svg" /></div>
+                <div class=""><img src="assets/img/icon_mic.svg" class="img-20x20" /></div>
+                <div class=""><img src="assets/img/Aa.svg" class="img-20x20" /></div>
+            </div>
+            <div class="">
+                <img src="assets/img/icon_send.svg" />
+            </div>
+        </div>
+    </div>-->
+  </main>
+
+  <main class="main" *ngIf="selectedType == 'CHAT'">
+    <div class="main-header">
+      <div class="main-header-title-box">
+        <div class="main-header-title">
+          <h6>#</h6>
+          <h6>{{selectedChannel.name}}</h6>
+        </div>
+        <p class="main-header-sub-title">{{selectedChannel.data}}</p>
+      </div>
+      <div class="main-header-right-content">
+        <div class="main-header-channel-member-container">
+          <div class="main-header-channel-member-list" *ngFor="let member of selectedChannel.members">
+            <img src="../../../assets/img/avatar-famale.svg" [ngbTooltip]="member.nickname">
+          </div>
+          <div class="main-header-add-channel-memeber" (click)="inviteChannelMembers()">
+            <img src="../../../assets/img/white_+.svg">
+          </div>
+        </div>
+        <div class="m-none">|</div>
+        <div class="main-header-more-links">
+          <div class="">
+            <a href="#" class="m-0">
+              <img src="../../../assets/img/star.svg">
+            </a>
+          </div>
+          <div class="">
+            <a href="#" class="m-0">
+              <img src="../../../assets/img/bell.svg">
+            </a>
+          </div>
+          <div class="">
+            <a href="#" class="m-0" data-bs-toggle="dropdown" aria-expanded="false">
+              <img src="../../../assets/img/Ellipses.svg">
+            </a>
+            <ul style=" transform: translate(-133px, 10px); " class="dropdown-menu custom-dropdown"><a href="#"
+                                                                                                       class="m-0"
+                                                                                                       data-bs-toggle="dropdown"
+                                                                                                       aria-expanded="false">
+            </a>
+              <li><a href="#" class="m-0" data-bs-toggle="dropdown" aria-expanded="false"></a><a class="dropdown-item"
+                                                                                                 href="#"
+                                                                                                 data-bs-toggle="modal"
+                                                                                                 data-bs-target="#editchannel">Edit
+                channel</a></li>
+              <li><a class="dropdown-item dnager-link" href="#" data-bs-toggle="modal" data-bs-target="#leavechannel">Leave
+                channel</a></li>
+              <li><a class="dropdown-item dnager-link" href="#" data-bs-toggle="modal" data-bs-target="#deletechannel">Delete
+                Channel</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="main-wrapper" *ngIf="channelMessages.length <= 0; else channel_chat">
+      <div class="Welcome-to-workspace-box">
+        <div class="welcome-channel-section-heading">
+          <h2 class="welcome-channel-heading-title">Welcome to #{{selectedChannel.name}}!</h2>
+          <p class="welcome-channel-heading-sub-title">This is the beginning of the channel</p>
+        </div>
+        <div class="Welcome-to-workspace-box-nudge-list" (click)="inviteChannelMembers()">
+          <div class="nudge-box" data-bs-toggle="modal" data-bs-target="#addmember">
+            <div class="nudge-box-detils">
+              <div class="nudge-box-detils-img">
+              </div>
+              <div class="nudge-box-detils-title">Invite channel members</div>
+            </div>
+            <div class="nudge-box-open-arrow">
+              <img src="../../../assets/img/icon_send.svg" class="img-26x26">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <ng-template #channel_chat>
+      <div class="main-wrapper" id='chat_messages_scroll'>
+        <!-- -------------------------------------------->
+        <!--<div class="row chat pinned-message-top-bar">
+          <div class="col-md-8 col-12 p-0">
+            <div class="pinned-message">
+              <div class="title font-primary font-size-14">
+                Pinned Task
+              </div>
+              <div class="title font-grey font-size-14 only-line-1">
+                ===========================
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 col-12 text-end">
+            <div class="d-flex justify-content-end align-items-center">
+                    <span class="me-2">
+                      <span class="font-size-14 font-grey-1">sasa</span>
+                    </span>
+              <span>
+                      <img src="assets/img/close.png" class="img-fluid">
+                    </span>
+            </div>
+          </div>
+        </div>-->
+        <!-- -------------------------------------------->
+        <div class="user-message-container" *ngFor="let groupedChannelMessages of channelMessages | groupByDate">
+          <div class="user-message-day-and-time">
+            <span>{{groupedChannelMessages[0].createdAt | timeAgo}}</span>
+          </div>
+          <div *ngFor="let channelMessage of groupedChannelMessages"
+               ngbDropdown #parentDrop="ngbDropdown">
+            <div class="user-message-box" ngbDropdownToggle [ngClass]="channelMessage.pinned ? 'pinned-message' : ''">
+              <div class="user-profile-img">
+                <img [src]="channelMessage.sender?.plainProfileUrl">
+              </div>
+              <div class="user-chat-details">
+                <div class="user-name-detail">
+                  <p class="user-message-box-user-name">{{channelMessage.sender?.nickname}}</p><span
+                  class="user-message-time">{{channelMessage.createdAt | date :'shortTime'}}</span>
+                  <span class="time" *ngIf="!!channelMessage.threadInfo"
+                        style="color: #4CCEB4">(Replies {{ channelMessage.threadInfo.replyCount }})</span>
+                </div>
+                <div class="user-chat">
+                  {{channelMessage.message}}
+                  <img [src]="channelMessage.url" alt="" *ngIf="!!channelMessage.type && channelMessage.type.includes('image')">
+                  <ng-container *ngIf="!!channelMessage.reactions">
+                    <ng-container *ngFor="let reaction of channelMessage.reactions">
+                      <img [src]="'assets/img/' + reaction.key + '.png'"
+                           class="img-fluid drop-icon main-emoji-icon" (click)="removeEmoji(channelMessage, reaction.key)">
+                    </ng-container>
+                  </ng-container>
+                </div>
+              </div>
+              <a ngbDropdownMenu>
+                <img src="../../../assets/img/emoji-1.png" (click)="addEmoji(channelMessage, 'emoji-1'); parentDrop.close();"
+                     class="img-fluid drop-icon main-emoji-icon">
+                <img src="../../../assets/img/emoji-2.png" (click)="addEmoji(channelMessage, 'emoji-2'); parentDrop.close();"
+                     class="img-fluid drop-icon main-emoji-icon">
+                <img src="../../../assets/img/emoji-3.png" (click)="addEmoji(channelMessage, 'emoji-3'); parentDrop.close();"
+                     class="img-fluid drop-icon main-emoji-icon">
+                <img src="../../../assets/img/smiley.png" (click)="addEmoji(channelMessage, 'smiley'); parentDrop.close();"
+                     class="img-fluid drop-icon main-emoji-icon">
+                <img src="../../../assets/img/unread.png" (click)="addEmoji(channelMessage, 'unread'); parentDrop.close();"
+                     class="img-fluid drop-icon main-emoji-icon">
+                <div
+                  class="admin-dropdown"
+                  id="chat-menu-1"
+                  ngbDropdown
+                >
+                  <img ngbDropdownToggle src="../../../assets/img/3-dots.png" class="img-fluid"/>
+                  <div
+                    class="dropdown-menu dropdown-menu-end dropdown-popup w-100"
+                    aria-labelledby="chat-menu-1"
+                    ngbDropdownMenu
+                  >
+                    <a class="dropdown-item emoji-section">
+                      <img src="../../../assets/img/emoji-1.png" class="img-fluid drop-icon" (click)="addEmoji(channelMessage, 'emoji-1'); parentDrop.close();">
+                      <img src="../../../assets/img/emoji-2.png" class="img-fluid drop-icon" (click)="addEmoji(channelMessage, 'emoji-2'); parentDrop.close();">
+                      <img src="../../../assets/img/emoji-3.png" class="img-fluid drop-icon" (click)="addEmoji(channelMessage, 'emoji-3'); parentDrop.close();">
+                      <img src="../../../assets/img/emoji-4.png" class="img-fluid drop-icon" (click)="addEmoji(channelMessage, 'emoji-4'); parentDrop.close();">
+                      <img src="../../../assets/img/emoji-5.png" class="img-fluid drop-icon" (click)="addEmoji(channelMessage, 'emoji-5'); parentDrop.close();">
+                    </a>
+                    <a class="dropdown-item" (click)="getReplies(channelMessage)">
+                      <img src="../../../assets/img/chat-reply.png" class="img-fluid drop-icon">
+                      <span class="text-white font-size-14">
+                        Reply in thread
+                      </span>
+                    </a>
+                    <a class="dropdown-item" (click)="editMessage(channelMessage)">
+                      <img src="../../../assets/img/edit-link.png" class="img-fluid drop-icon">
+                      <span class="text-white font-size-14">
+                        Edit message
+                      </span>
+                    </a>
+                    <a *ngIf="isPinnable(channelMessage)" class="dropdown-item" (click)="pinUnpinMessage(channelMessage, !channelMessage.pinned)">
+                      <img src="../../../assets/img/pin.png" class="img-fluid drop-icon">
+                      <span class="text-white font-size-14">
+                        {{ channelMessage.pinned ? 'Unpin' : 'Pin' }} message
+                      </span>
+                    </a>
+                    <a *ngIf="isDeletable(channelMessage)" class="dropdown-item" (click)="deleteMessage(channelMessage)">
+                      <img src="../../../assets/img/img-delete.png" class="img-fluid drop-icon">
+                      <span class="font-warning font-size-14">
+                        Delete message
+                      </span>
+                    </a>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+    <div class="main-footer">
+      <textarea placeholder="Write your message" class="main-footer-chat-box form-control" [(ngModel)]="chatMessage"
+                (keydown.enter)="chatMode === 'EDIT' ? updateMessage() : sendChatMessage()"></textarea>
+      <div class="main-footer-chat-box-helpful-link">
+        <div class="main-footer-chat-box-links">
+          <div class="main-footer-chat-box-add-more-item">
+            <label for="file">
+            <img src="../../../assets/img/white_+.svg">
+            </label>
+            <input class="d-none" type="file" name="file" id="file" (change)="sendFileMessage($event)" onclick="this.value = null">
+          </div>
+          <div class=""><img src="../../../assets/img/icon_mic.svg" class="img-20x20"></div>
+          <div class=""><img src="../../../assets/img/Aa.svg" class="img-20x20"></div>
+        </div>
+        <div class="" (click)="sendChatMessage()">
+          <img src="../../../assets/img/icon_send.svg">
+        </div>
+      </div>
+    </div>
+
+    <!-- -------------------------massage reply chat code ------------------------------------------------>
+
+    <div class="chat-right-side-bar" id="message_sidebar">
+      <div class="row chat nav-tab-bar">
+        <div
+          class="col-md-8 col-12 px-2 d-flex justify-content-start align-items-center">
+          <span class="text-white font-size-16">Thread</span>
+          <span class="me-2 font-size-12 font-grey-1 ms-1"> #{{selectedChannel.name}}</span>
+        </div>
+        <div class="col-md-4 col-12 d-flex justify-content-end">
+          <div class="me-2 d-flex align-items-center cursor-pointer" (click)="hideMessageSidebar()">
+            <img
+              src="../../../assets/img/close.svg"
+              class="img-fluid"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="chat-message-list show">
+        <div class="messages-item">
+          <div class="messages-container-reply">
+            <div class="messages-img">
+              <img
+                src="https://closefriend-dev.sgp1.digitaloceanspaces.com/user-data/PUBLIC/1/PROFILE/dp_50X50.jpg"
+                class="img-fluid"
+              />
+            </div>
+            <div *ngIf="threadMessages?.parentMessage">
+              <span class="messages-title">{{threadMessages?.parentMessage?.sender?.nickname}}</span>
+              <span class="time">{{threadMessages?.parentMessage?.createdAt | date : 'shortTime'}}</span>
+              <span class="time" style="color: rgb(76, 206, 180)" *ngIf="threadMessages?.parentMessage?.threadInfo?.replyCount! > 0">(Replies {{threadMessages?.parentMessage?.threadInfo?.replyCount}})</span>
+              <div class="messages-content">
+                {{threadMessages?.parentMessage?.message}}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="reply-section">
+          <div class="no-of-replies">{{threadMessages?.parentMessage?.threadInfo?.replyCount ? threadMessages?.parentMessage?.threadInfo?.replyCount : 0}} replies</div>
+          <div class="reply-border"></div>
+        </div>
+        <div class="main-wrapper thread-chat-wrapper" id='chat_messages_scroll_thread'>
+          <div class="user-message-container" *ngFor="let groupedChannelMessages of threadMessages?.threadedMessages | groupByDate">
+            <div class="user-message-day-and-time">
+              <span>{{groupedChannelMessages[0].createdAt | timeAgo}}</span>
+            </div>
+            <div *ngFor="let channelMessage of groupedChannelMessages"
+                 ngbDropdown>
+              <div class="user-message-box" ngbDropdownToggle>
+                <div class="user-profile-img">
+                  <img [src]="channelMessage.sender?.plainProfileUrl">
+                </div>
+                <div class="user-chat-details">
+                  <div class="user-name-detail">
+                    <p class="user-message-box-user-name">{{channelMessage.sender?.nickname}}</p><span
+                    class="user-message-time">{{channelMessage.createdAt | date :'shortTime'}}</span>
+                    <span class="time" *ngIf="!!channelMessage.threadInfo"
+                          style="color: #4CCEB4">(Replies {{ channelMessage.threadInfo.replyCount }})</span>
+                  </div>
+                  <div class="user-chat">
+                    {{channelMessage.message}}
+                    <img [src]="channelMessage.url" alt="" *ngIf="!!channelMessage.type && channelMessage.type.includes('image')">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="main-footer">
+        <textarea placeholder="Write your message" class="main-footer-chat-box form-control" [(ngModel)]="threadMessage"
+                  (keydown.enter)="sendReplyMessage(threadMessages?.parentMessage?.messageId)"></textarea>
+        <div class="main-footer-chat-box-helpful-link">
+          <div class="main-footer-chat-box-links">
+            <div class="main-footer-chat-box-add-more-item">
+              <label for="replyFile">
+                <img src="../../../assets/img/white_+.svg">
+              </label>
+              <input class="d-none" type="file" name="replyFile" id="replyFile" (change)="sendReplyFileMessage($event, threadMessages?.parentMessage?.messageId)" onclick="this.value = null">
+            </div>
+            <div class=""><img src="../../../assets/img/icon_mic.svg" class="img-20x20"></div>
+            <div class=""><img src="../../../assets/img/Aa.svg" class="img-20x20"></div>
+          </div>
+          <div class="" (click)="sendReplyMessage(threadMessages?.parentMessage?.messageId)">
+            <img src="../../../assets/img/icon_send.svg">
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- -------------------------massage reply chat code ------------------------------------------------>
+  </main>
+  <app-right-menu [workspace]="selectedWorkspace" [hideRightBar]="hideLeftMenu"
+                  (hideRightMenu)="hideLeftMenu = $event"></app-right-menu>
+</div>

@@ -1,0 +1,75 @@
+<div class="editing-page">
+    <aside class="editing-page-aside" id="asidebar">
+        <div class="editing-page-aside-content">
+            <div class="back-to-workspace">
+                <img src="../../../../assets/img/back_icon.svg"><a href="/angular/src">Back to workspace</a>
+            </div>
+            <div class="editing-page-aside-menu">
+                <h6 class="editing-page-aside-menu-title">SETTINGS</h6>
+                <ul class="editing-page-aside-menu-list">
+                    <li class="editing-page-aside-menu-item"><a [routerLink]="['/manageMembers']" [state]="{selectedWorkspace: selectedWorkspace}" class="editing-page-aside-menu-link">Manage Member</a></li>
+                    <li class="editing-page-aside-menu-item"><a [routerLink]="['/editWorkspace']" [state]="{selectedWorkspace: selectedWorkspace}" class="editing-page-aside-menu-link">Edit workspace</a></li>
+                    <li class="editing-page-aside-menu-item"><a [routerLink]="['/roles']" [state]="{selectedWorkspace: selectedWorkspace}" class="editing-page-aside-menu-link editing-page-aside-menu-link-active">Roles and
+                            Permissions</a></li>
+                </ul>
+            </div>
+        </div>
+    </aside>
+    <main class="editing-page-wrapper">
+        <div class="roles-and-permissions-container">
+            <div class="roles-and-permissions-page-heading">
+                <div class="d-flex align-items-center justify-content-between w-100 flex-wrap">
+                    <h2 class="roles-and-permissions-page-title">
+                        <a href="/angular/src" class="roles-and-permissions-page-title-back-icon">
+                            <img src="../../../../assets/img/back_icon_white.svg">
+                        </a>
+                        Roles and permissions
+                    </h2>
+                    <a class="roles-and-permissions-page-heading-link" [routerLink]="['/addRole']" [state]="{selectedWorkspace: selectedWorkspace}"><img src="../../../../assets/img/pulse.svg">Create a new role</a>
+                </div>
+                <p class="roles-and-permissions-page-sub-title">Roles available in Stella workspace provides
+                    access to predefined menus and features to the assigned role, which thereby helps categorize
+                    your members based on there capabilities.</p>
+            </div>
+            <div class="roles-and-permissions-page-main-content">
+                <div class="roles-and-permissions-content-section mobile-none">
+                    <div class="role-name-and-description-section">
+                        <p class="m-0 Role-name-description-title">Role name &amp; description</p>
+                    </div>
+                    <div class="members-section">
+                        <p class="Role-name-description-title m-0">Members</p>
+                    </div>
+                    <div class="update-section">
+                        <p class="Role-name-description-title m-0">Updated on</p>
+                    </div>
+                </div>
+                <hr class="edit-profile-hr">
+              <ng-container *ngFor="let role of roles">
+                <div class="roles-and-permissions-content-section" [routerLink]="['/editRole']" [state]="{selectedWorkspace: selectedWorkspace, selectedRole: role}">
+                    <div class="role-name-and-description-section">
+                        <p class="role-name">{{role.roleName}}</p>
+                        <small class="description-text">{{role.roleDesc}}</small>
+                    </div>
+                    <div class="members-section">
+                        {{role.memberCount}}
+                    </div>
+                    <div class="update-section">
+                     {{role.updatedAt | date}}
+                    </div>
+                    <!--<div class="edit-role-dropdown">
+                        <a class="" role="button" data-bs-toggle="dropdown" aria-expanded="false" (click)="showRoleDropdown(role)"><img src="assets/img/Ellipses.svg"></a>
+                        <ul class="dropdown-menu custom-dropdown" [id]="'dropdown_' + role.id">
+                            <li><a class="dropdown-item" [routerLink]="['/editRole']" [state]="{selectedWorkspace: selectedWorkspace, selectedRole: role}">Edit role</a></li>
+                            <li><a class="dropdown-item" href="#">View workspace as the role</a></li>
+                        </ul>
+                    </div>-->
+                </div>
+                <hr class="edit-profile-hr">
+              </ng-container>
+            </div>
+        </div>
+    </main>
+    <div class="open-asidebar" onclick="openasidebar()">
+        <img src="../../../../assets/img/icon_send.svg" id="open_img">
+    </div>
+</div>

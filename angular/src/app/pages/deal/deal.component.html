@@ -1,0 +1,132 @@
+<div class="workspace deal-pages">
+  <app-left-menu (selectedWorkspace)="updateWorkspace($event)" (hideLeftMenu)="hideLeftMenu = $event" [hideLeftBar]="hideLeftMenu"></app-left-menu>
+  <app-selected-workspace *ngIf="!!selectedWorkspace" [selectedWorkspace]="selectedWorkspace"></app-selected-workspace>
+    <main class="twosidebar-flow">
+        <div class="twosidebar-flow-head">
+            <div class="flow-head-title">
+                <img src="../../../assets/img/leftside-bar-bottom..svg">
+                <h6>Deal</h6>
+            </div>
+            <div class="flow-head-use-links">
+                <a [routerLink]="['/createDeal']" [state]="{selectedWorkspace: selectedWorkspace}" class="create-dela-link"><img src="../../../assets/img/pulse.svg">Create a deal</a>
+              <div>
+                <label for="file-upload" class="upload-label" role="button">
+                  <img src="../../../assets/img/upload_document.svg" class="img-24x24" >
+                </label>
+                <input type="file" id="file-upload" name="file" style="display: none;" accept=".pdf,.doc,.docx" (change)="uploadDocument($event)">
+              </div>
+                <a [routerLink]="['/']"><img src="../../../assets/img/close.svg" class="img-14x14"></a>
+            </div>
+        </div>
+        <div class="twosidebar-flow-body">
+            <div class="filter-bar">
+                <div class="filter">
+                    <div class="search-filter-bar">
+                        <div class="input-group create-role-search-input border-0">
+                            <input type="text" class="form-control" placeholder="Search by summary" [(ngModel)]="filterSummary">
+                            <button class="input-group-text border-last" >
+                                <!-- <img src="assets/img/search.svg"> -->
+                            </button>
+                        </div>
+                    </div>
+                    <div class="filter-selcet mobile-border-end-none">
+                        <select class="form-select" [(ngModel)]="filterTags">
+                            <option selected value="">Tags</option>
+                          <option *ngFor="let tags of filterMeta?.tags" [value]="tags">{{tags}}</option>
+                        </select>
+                    </div>
+                    <div class="filter-selcet mobile-border-bottom-none">
+                        <select class="form-select" [(ngModel)]="filterStatus">
+                            <option selected="" value="">Status</option>
+                          <option *ngFor="let statues of filterMeta?.statues" [value]="statues">{{statues}}</option>
+                        </select>
+                    </div>
+                    <div class="filter-selcet border-0">
+                        <select class="form-select" (change)="sortDeals()" [(ngModel)]="filterSort">
+                            <option selected="" value="">Sort</option>
+                            <option value="price,asc">Price low to high</option>
+                            <option value="price,desc">Price high to low</option>
+                            <option value="expiredAt,asc">Expiry low to high</option>
+                            <option value="expiredAt,desc">Expiry high to low</option>
+<!--                          <option *ngFor="let expiry of filterMeta?.expiry" [value]="expiry">{{expiry}}</option>-->
+                        </select>
+                    </div>
+                    <div>
+                        <div class="input-group create-role-search-input border-0">
+                            <button class="input-group-text border-0" (click)="searchDeals()">
+                                <img src="../../../assets/img/search.svg">
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="table-body" *ngIf="!!deals">
+                <div class="table-body-section">
+                    <div class="deal-summary-section title-text">
+                        Deal Summary
+                    </div>
+                    <div class="pricing-section title-text">
+                        Pricing
+                    </div>
+                    <div class="start-on-section title-text">
+                        Starts on
+                    </div>
+                    <div class="expires-on-section title-text">
+                        Expires on
+                    </div>
+                    <div class="status-section title-text">
+                        Status
+                    </div>
+                    <!--<div class="status-section title-text">
+                        Action
+                    </div>-->
+                </div>
+              <ng-container *ngFor="let deal of deals?.content">
+                <hr class="custom-hr">
+                <div class="table-body-section" [routerLink]="['/editDeal']" [state]="{selectedDeal: deal, selectedWorkspace: selectedWorkspace}">
+                    <div class="deal-summary-section">
+                        {{deal.summary}}
+                    </div>
+                    <div class="pricing-section">
+                        $ {{deal.price}}
+                    </div>
+                    <div class="start-on-section">
+                        {{deal.startedAt}}
+                    </div>
+                    <div class="expires-on-section">
+                        {{deal.expiredAt}}
+                    </div>
+                    <div class="status-section">
+                        <div [class]="'status-section-'+deal.status?.toLowerCase()">{{deal.status}}</div>
+                    </div>
+                    <!--<div class="dropdown-section">
+                        <a class="" role="button" data-bs-toggle="dropdown" aria-expanded="false" (click)="showDealDropdown(deal)"><img src="assets/img/Ellipses.svg"></a>
+                        <ul class="dropdown-menu custom-dropdown" [id]="'dropdown_' + deal.id">
+                            <li><a class="dropdown-item" [routerLink]="['/editDeal']" [state]="{selectedDeal: deal, selectedWorkspace: selectedWorkspace}">Edit Deal</a></li>
+                        </ul>
+                    </div>-->
+                </div>
+              </ng-container>
+
+                <hr class="custom-hr">
+                <div class="footer-pagination-row">
+                    <div class="leftside-pagination">
+                        <img src="../../../assets/img/back_arrow.svg">
+                    </div>
+                  <ng-container *ngFor="let item of [].constructor( deals?.totalPages ); let i = index">
+                    <a role="button" [class]="selectedPage == i ? 'footer-pagination-active' : ''" (click)="getDeals(i)">{{i + 1}}</a>
+                  </ng-container>
+                    <div class="rightside-pagination">
+                        <img src="../../../assets/img/forward_arrow.svg" class="pagination-arrow-open">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+  <app-right-menu [workspace]="selectedWorkspace" [hideRightBar]="hideLeftMenu" (hideRightMenu)="hideLeftMenu = $event"></app-right-menu>
+</div>
+<div class="upload-progress-container" *ngIf="showUploadProgress">
+  <span class="mid_darker_grey_text text-capitalize">upload progress</span>
+  <div class="text-white float-right">{{percentageUpload}} %</div>
+  <ngb-progressbar type="success" textType="white" [value]="percentageUpload" [showValue]="false" height="5px"></ngb-progressbar>
+</div>

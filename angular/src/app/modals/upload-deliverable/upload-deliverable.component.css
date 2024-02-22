@@ -1,0 +1,48 @@
+a:hover{
+  color:#a2191f;
+}
+p{
+  width: 100%;
+  text-align: center;
+  border-bottom: 1px solid #e5e0df;
+  line-height: 0.1em;
+  margin: 10px 0 20px;
+}
+
+p span {
+  background:#f7f3f2;
+  padding:0 10px;
+  font-size: 12px;
+  font-weight: 500;
+}
+::ng-deep .cdk-overlay-container {
+  /* Do you changes here */
+  /*position: fixed;*/
+  z-index: 1200;
+}
+.date-icon-fix{
+  position: absolute;
+  left: 0;
+  opacity: 0;
+}
+::placeholder {
+  color: #000;
+  opacity: 1; /* Firefox */
+}
+
+::-ms-input-placeholder { /* Edge 12 -18 */
+  color: #000;
+}
+.modal-content {
+  -ms-overflow-style: none;  /* Internet Explorer and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+::ng-deep modal-dialog{
+  border-radius: 16px!important;
+  border: none
+}
+::ng-deep .modal-content {
+  border-radius: 16px !important;
+  border: none;
+  /*padding:12px;*/
+}

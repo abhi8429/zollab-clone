@@ -1,0 +1,374 @@
+<div class="white-background">
+  <img src="assets/img/hero-image.webp" id="image-backgorund" class="img-fluid">
+  <img src="assets/img/img_3.png" class="img-fluid white-hero-img">
+  <!--  style="width: 85%;height: 85%; margin-top: 6.8rem;"-->
+  <div
+    class="offset-lg-1 d-flex flex-row justify-content-between nav-background col-lg-10 col-12 fixed-navbar align-items-center"
+    style="z-index: 1;padding-left: 0.5rem;padding-right: 0;border:0.5px solid #00000014">
+
+    <nav class="navbar navbar-expand-lg col-12">
+      <div class="container-fluid position-relative" style="padding: 0;">
+        <button class="navbar-toggler position-absolute"
+                style="border: 1px solid #fbfaf9; padding: 0; left: 0;top: 0;margin-left: 0.5rem;"
+                type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <img src="assets/img/img_4.png" class="img-fluid" width="25px" height="25px" style="margin-top: 4px">
+        </button>
+        <img class="navbar-brand img-fluid  d-lg-none hv-class" style="margin-left: 4rem" href="#"
+             src="assets/img/zollab-logo.webp" width="31px" height="27px">
+        <img class="navbar-brand img-fluid d-none d-lg-block hv-class ms-3" href="#"
+             src="assets/img/zollab-new-logo.webp" width="145px"
+             height="27px">
+
+        <div class="collapse navbar-collapse navbar-fix" id="navbarSupportedContent">
+          <span class="vertical-devider d-none d-lg-block"></span>
+          <ul class="navbar-nav me-auto mt-2  mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active font-size-14 font-weight-500 dark-color" aria-current="page"
+                 (click)="scroll('features')"
+              >Features</a>
+            </li>
+            <li class="nav-item nav-space">
+              <a class="nav-link font-size-14 font-weight-500 dark-color" href="#"
+                 style="color: #000; font-weight: 500;" (click)="scroll('pricing')" routerLink="/splash">Pricing</a>
+            </li>
+            <li class="nav-item">
+              <a href="https://blog.zollab.com/" target="_blank"
+                 class="nav-link font-size-14 font-weight-500 dark-color" aria-disabled="true"
+                 style="color: #000; font-weight: 500;">Blog</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="d-flex flex-row justify-content-between align-items-center position-absolute me-3"
+         style="top: 1.6rem;right: 0.5rem">
+      <p class="text-dark font-size-14 font-weight-500 me-3 hv-class" style="margin-top: 2px;"
+         [routerLink]="['/signin']">Sign In</p>
+      <div class="hv-class d-flex flex-row justify-content-start align-items-center">
+        <p class="text-dark font-weight-500 font-size-14" [routerLink]="['/create-account']"
+           style="padding: 10px; border: 1px solid #000; border-radius: 8px;">
+          Get Started
+          <img src="assets/img/arrow-up.webp" class="img-fluid ms-1" width="16px" height="16px"
+               style="padding-bottom: 5px;">
+        </p>
+
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top: 10rem; position:absolute;"
+       class="padding-mobile-manage offset-lg-1  col-lg-10 col-12 d-lg-flex flex-lg-row-reverse justify-content-lg-start">
+    <div class="col-lg-7 common-manage-class d-flex flex-row justify-content-start align-items-center">
+      <img src="assets/img/img_1.webp" class="img-fluid d-none d-lg-block">
+      <img src="assets/img/img_1.png" class="img-fluid d-lg-none">
+    </div>
+
+    <div class="col-lg-5 common-manage-class d-flex flex-column justify-content-center">
+      <div style="margin-top: 2rem; font-weight: 500; "><p class="beta-button" [routerLink]="['/splash']">Private
+        Beta</p></div>
+      <p class="font-weight-700 font-size-fix">
+        <ngx-typed-js [strings]="['Creators', 'Agents', 'Managers','Brands']" [typeSpeed]="50"
+                      [backSpeed]="50" [loop]="true">
+          How <span class="typing" contenteditable="true" style="font-family: Outfit;"></span>
+        </ngx-typed-js>
+        Collaborate
+      </p>
+      <div class="col-md-8 col-lg-10 col-xl-8  col-12 mt-2">
+        <p class="text-dark font-weight-500 new-font"> You negotiate a deal. Zollab helps you<br> execute
+          it.</p>
+        <p class="new-font"> The only creator friendly business tool and <br class="d-lg-none"> collaborative platform
+          from deal start
+          to end.</p>
+      </div>
+      <div class="mt-2">
+        <button class="mt-2 btn-dark-class" [routerLink]="['/create-account']">Get Started - Free <img src="assets/img/up-white-arrow.webp"
+                                                                    class="img-fluid ms-1" style="padding-bottom: 5px"
+                                                                    width="16px;" height="16px"></button>
+      </div>
+
+    </div>
+
+  </div>
+  <!-- <div class="offset-lg-1  col-lg-10 col-12 position-set-class position-class-new landingVideo"> -->
+  <!-- <video autoplay="" class="tpvideo" id="hero-video" loop="" muted="" playsinline="" preload=""><source  type="video/mp4" src="../../../assets/video/swap-tools.mov"></video> -->
+  <!-- </div> -->
+  <div class="offset-lg-1  col-lg-10 col-12 position-set-class position-class-new ">
+
+
+    <video autoplay="" class="tpvideo col-12" id="hero-video" loop="" muted="" playsinline="" preload=""><source  type="video/mp4" src="../../../assets/video/swap-tools.mov"></video>
+
+     <div class="position-absolute bottom-0 d-flex flex-row justify-content-between d-none d-xl-block"
+          style="margin-bottom: 1.5rem">
+       <p class="tool-manage-font" style="color: #000">
+         Tired of using 9+ tools for your projects?
+         <span class="tool-manage-font2 ms-2" style="color: #8d8989">Swap them all for one: Zollab</span>
+       </p>
+     </div>
+     <div class="position-absolute bottom-0 d-flex flex-row justify-content-between d-none d-xl-block tire-class">
+       <button class="font-weight-500 beta-button" style="background: #f7f3f2;color: #000;padding: 12px;border:none;" [routerLink]="['/create-account']">Get Started Free
+         <img src="assets/img/arrow-up.webp" class="img-fluid mb-1" width="16px"></button>
+     </div>
+  </div>
+
+  <div
+    class="padding-mobile-manage  offset-lg-1  col-lg-10 col-12 margin-top-class d-flex flex-column justify-content-between text-center">
+    <div class="d-flex flex-column col-12 text-center col-md-8 offset-md-2">
+      <div id="features"><span class="features-button">Feature</span></div>
+      <p class="mt-4" style="font-size: 48px; font-weight: 500;font-family: Outfit">Manage Deals/<br class="d-md-none">Projects</p>
+
+      <p class="font-gray-dark new-font-manage">Simplify your deals and projects in a centralized workspace. Share, chat, approve, post,<br
+        class="d-none d-xl-block"> track, and renew in one place.</p>
+    </div>
+    <div class="d-flex flex-column justify-content-between col-12 mt-5">
+      <div class="d-md-flex flex-md-row justify-content-md-between col-12">
+        <div class="mb-3 d-md-block d-none"><img src="assets/img/card1.webp" class="img-fluid"></div>
+        <div class="mb-3 d-md-none"><img src="assets/img/card.svg" class="img-fluid col-12"></div>
+        <div class="ms-md-3 me-md-3 mb-3 d-none d-md-block"><img src="assets/img/card2.webp" class="img-fluid"></div>
+        <div class="ms-md-3 me-md-3 mb-3 d-md-none"><img src="assets/img/card-1.svg" class="img-fluid col-12"></div>
+        <div class="mb-3 d-none d-md-block"><img src="assets/img/card-3.webp" class="img-fluid"></div>
+        <div class="mb-3 d-md-none"><img src="assets/img/card-2.svg" class="img-fluid col-12"></div>
+      </div>
+      <div class="d-md-flex flex-md-row justify-content-md-between col-12">
+        <div class="mb-3 d-none d-md-block"><img src="assets/img/card4.webp" class="img-fluid"></div>
+        <div class="mb-3 d-md-none"><img src="assets/img/card-3.svg" class="img-fluid col-12"></div>
+        <div class="ms-md-3 me-md-3 mb-3 d-none d-md-block"><img src="assets/img/card5.webp" class="img-fluid"></div>
+        <div class="ms-md-3 me-md-3 mb-3 d-md-none"><img src="assets/img/card-4.svg" class="img-fluid col-12"></div>
+        <div class="mb-3 d-none d-md-block"><img src="assets/img/card6.webp" class="img-fluid"></div>
+        <div class="mb-3 d-md-none"><img src="assets/img/card-5.svg" class="img-fluid col-12"></div>
+      </div>
+    </div>
+  </div>
+
+  <div style="background: #000" class="col-12 section-4">
+    <div
+      class="offset-lg-1 padding-mobile-manage  col-lg-10 col-12 section-margin d-flex flex-column justify-content-between text-center py-5 mt-3">
+      <div class="d-flex flex-column col-12 text-center col-md-8 offset-md-2">
+        <div><span class="features-button">Feature</span></div>
+        <p class="mt-4" style="font-size: 48px; font-weight: 500; color: #fff;font-family: Outfit">Collaborate</p>
+        <p class="font-gray new-font-manage">The easiest workspace for collaborating with different stakeholders and permissions.</p>
+      </div>
+      <div class="d-flex flex-column justify-content-between col-12 mt-5">
+        <div class="d-md-flex flex-md-row justify-content-md-between col-12">
+          <div class="mb-3 d-none d-md-block"><img src="assets/img/darkcard1.webp" class="img-fluid"></div>
+          <div class="mb-3 d-md-none"><img src="assets/img/card-9.svg" class="img-fluid col-12"></div>
+          <div class="ms-md-3 me-md-3 mb-3 d-none d-md-block"><img src="assets/img/darkcard2.webp" class="img-fluid"></div>
+          <div class="ms-md-3 me-md-3 mb-3 d-md-none"><img src="assets/img/card-10.svg" class="img-fluid col-12"></div>
+          <div class="mb-3 d-none d-md-block"><img src="assets/img/darkcard3.webp" class="img-fluid"></div>
+          <div class="mb-3 d-md-none"><img src="assets/img/card-11.svg" class="img-fluid col-12"></div>
+        </div>
+        <div class="d-md-flex flex-md-row justify-content-md-between col-12">
+          <div class="mb-3 d-none d-md-block"><img src="assets/img/darkcard4.webp" class="img-fluid"></div>
+          <div class="mb-3 d-md-none"><img src="assets/img/card-12.svg" class="img-fluid col-12"></div>
+          <div class="ms-md-3 mb-3 d-none d-md-block"><img src="assets/img/darkcard5.webp" class="img-fluid"></div>
+          <div class="ms-md-3 mb-3 d-md-none"><img src="assets/img/card-13.svg" class="img-fluid col-12"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="offset-lg-1 col-lg-10 col-12 section-5 padding-mobile-manage">
+    <div class="d-md-flex flex-md-row-reverse justify-content-md-start col-12">
+
+      <div class="col-md-6 d-flex flex-row align-items-center">
+        <img src="assets/img/new-card-7.webp" class="img-fluid">
+      </div>
+      <div class="pe-md-5 pt-5 col-md-6 d-flex flex-column justify-content-center">
+        <div class="mb-4" id="pricing"><span class="features-button">Feature
+        </span></div>
+        <p class="font-style-class">Pay and Get Paid</p>
+        <p class="font-gray-dark font-weight-400 pay-font">
+          Simplify tracking payments with our integrated payment service.
+        </p>
+        <div class="d-flex flex-column justify-content-between align-items-center col-12">
+          <div class="d-flex flex-row justify-content-start col-12">
+            <div class="d-flex flex-row col-lg-5 col-5">
+              <img src="assets/img/tick-mark.webp" width="24px;" height="24px">
+              <p class="ms-2 font-gray-dark font-weight-400 pay-font">Set budget</p>
+            </div>
+            <div class="d-flex flex-row col-lg-5 col-7">
+              <img src="assets/img/tick-mark.webp" width="24px;" height="24px">
+              <p class="ms-2 font-gray-dark font-weight-400 pay-font">Set payment terms</p>
+            </div>
+          </div>
+          <div class="d-flex flex-row justify-content-start col-12">
+            <div class="d-flex flex-row col-lg-5 col-5">
+              <img src="assets/img/tick-mark.webp" width="24px;" height="24px">
+              <p class="ms-2 font-gray-dark font-weight-400 pay-font">Invoice</p>
+            </div>
+            <div class="d-flex flex-row col-lg-5 col-7">
+              <img src="assets/img/tick-mark.webp" width="24px;" height="24px">
+              <p class="ms-2 font-gray-dark font-weight-400 pay-font">Direct deposit</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="d-md-flex flex-row justify-content-start col-12" style="margin-top: 3rem">
+      <div class="col-md-6 d-flex flex-row align-items-center">
+        <img src="assets/img/card-7.webp" class="img-fluid">
+      </div>
+      <div class="ps-md-5 pt-5 col-md-6 d-flex flex-column justify-content-center">
+        <div class="mb-4 ms-md-5 ps-md-2"><span class="features-button">Feature</span></div>
+        <p class="font-style-class ms-md-5 ps-md-2">AI → turning contracts into projects</p>
+        <p class="font-gray-dark font-weight-400 ms-md-5 ps-md-2 pay-font">
+          Automatically turn your DocuSign and similar contracts into projects. We extract the dates, budgets, and
+          deliverables.
+        </p>
+        <div class="d-flex flex-column justify-content-between align-items-center col-12 ms-md-5 ps-md-2 pay-font">
+          <div class="d-flex flex-row justify-content-start col-12">
+            <div class="d-flex flex-row col-lg-5 col-5">
+              <img src="assets/img/tick-mark.webp" width="24px;" height="24px">
+              <p class="ms-2 font-gray-dark font-weight-400">Sign</p>
+            </div>
+            <div class="d-flex flex-row col-lg-5 col-7">
+              <img src="assets/img/tick-mark.webp" width="24px;" height="24px">
+              <p class="ms-2 font-gray-dark font-weight-400">Forward Csontract</p>
+            </div>
+          </div>
+          <div class="d-flex flex-row justify-content-start col-12">
+            <div class="d-flex flex-row col-lg-5 col-5">
+              <img src="assets/img/tick-mark.webp" width="24px;" height="24px">
+              <p class="ms-2 font-gray-dark font-weight-400">Edit Details</p>
+            </div>
+            <div class="d-flex flex-row col-lg-5 col-7">
+              <img src="assets/img/tick-mark.webp" width="24px;" height="24px">
+              <p class="ms-2 font-gray-dark font-weight-400">Finalize</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="col-12 section-6">
+    <div>
+      <img src="assets/img/testimonial.webp" class="img-fluid d-none d-md-block">
+      <img src="assets/img/testimonial-mobile.webp" class="img-fluid d-md-none">
+    </div>
+    <div class="offset-lg-1 col-lg-10 d-flex flex-column justify-content-between" style="margin-top: 5rem;">
+      <div class="padding-mobile-manage  d-flex flex-row justify-content-between align-items-center blog-class" id="blog">
+        <p style="font-size: 48px; font-weight: 500; font-family: Outfit" class="d-none d-sm-block">From the blog</p>
+        <p style="font-size: 48px; font-weight: 500; font-family: Outfit" class="d-block d-sm-none">Blog</p>
+        <div>
+          <p class="text-dark font-weight-500 visit-btn-class">Visit the blog &nbsp;
+            <img src="assets/img/arrow-up.webp" class="img-fluid ms-1 mb-1" width="16px" height="16px"></p>
+        </div>
+      </div>
+      <div class=" padding-mobile-manage d-md-flex flex-md-row justify-content-md-between col-12 mt-5">
+        <div class="d-flex flex-column justify-content-between me-md-2">
+          <div>
+            <img src="assets/img/blog-image1.webp" class="img-fluid">
+          </div>
+          <div class="d-flex flex-column justify-content-between mt-5">
+            <div><p class="beta-button">Toturial</p></div>
+            <p class="font-weight-500" style="font-size: 24px;">AI → turning contracts into projects</p>
+            <p class="font-gray-dark font-weight-400 Ai-font">As AI continues to evolve daily work, Zollab has been looking
+              to solve the most time consuming and tedious workflows.</p>
+            <p class="font-gray-dark font-weight-400 Ai-font">3 days ago</p>
+          </div>
+        </div>
+        <div class="d-flex flex-column justify-content-between ms-md-2">
+          <div>
+            <img src="assets/img/blog-image3.webp" class="img-fluid">
+          </div>
+          <div class="d-flex flex-column justify-content-between">
+            <div class="margin-class-mobile"><p class="beta-button" style="background: #9ef0f0; color:#005d5d">News</p>
+            </div>
+            <p class="font-weight-500" style="font-size: 24px;">AI → turning contracts into projects</p>
+            <p class="font-gray-dark font-weight-400 Ai-font">The launch of Zollab AI has enabled stakeholders to quickly
+              turn contracts into actionable projects.
+            <p class="font-gray-dark font-weight-400 Ai-font">3 days ago</p>
+          </div>
+        </div>
+      </div>
+      <hr class="d-none d-sm-block hr-class">
+
+
+      <div style="margin-top: 4rem;position: relative;"
+           class="margin-class-mobile2  padding-mobile-manage mar d-lg-flex flex-lg-row-reverse justify-content-lg-start border-radius-class green-background ps-lg-5 align-items-center">
+
+        <!--       <div class="col-12 d-flex flex-row d-none d-sm-block">-->
+        <img src="assets/img/girl-graphic.webp" class="d-lg-block d-none" height="700px;"
+             style="border-radius:0px 0px 40px 0px;">
+        <!--       </div>-->
+        <div class="col-lg-6 d-flex flex-row show-img-class align-items-center section6-class">
+          <img src="assets/img/graphic2.webp" class="img-fluid position-fixed2">
+        </div>
+
+        <div class="col-lg-5  d-flex flex-column show-img-class2 justify-content-center section6-class2">
+          <div style="margin-top: 2rem;font-weight:500;"><p class="beta-button" style="background:#9ceb1a;color:#000;">
+            Private Beta</p></div>
+          <p class="font-weight-500 font-size-fix">How Creators
+            <br class="d-none d-lg-block">Collaborate</p>
+          <div class="col-md-8 col-12 mt-2">
+            <p class="text-dark font-weight-500 green-div-font"> You negotiate a deal. Zollab helps you
+              <br> execute
+              it.</p>
+            <p class="green-div-font"> The only creator friendly business tool and collaborative
+              platform from deal start
+              to end.</p>
+          </div>
+          <div class="mt-2">
+            <button class="mt-2 btn-dark-class" [routerLink]="['/create-account']">Get Started - Free
+              <img src="assets/img/up-white-arrow.webp" class="img-fluid mb-1 ms-1" width="16px" height="16px"></button>
+          </div>
+        </div>
+
+      </div>
+
+      <div class=" padding-mobile-manage  d-flex flex-row justify-content-between col-12 mt-5" style="padding-top: 3rem;">
+        <div class="d-flex flex-column justify-content-between col-6">
+         <div class="d-flex flex-column">
+           <div class="mb-4">
+             <img src="assets/img/zollab-new-logo.webp" style="width: 131px;height:28px;" class="img-fluid">
+           </div>
+           <div class="d-none d-sm-block">
+             <p style="font-size:14px; font-weight: 400;">Platform for creator projects</p>
+           </div>
+         </div>
+          <div class="d-flex flex-column">
+            <div class="mb-4">
+            <img src="assets/img/facebook-linkedin.webp" style="width: 84px; height: 20px;">
+          </div>
+            <div class="">
+              <p style="font-size: 14px; font-weight: 400;color: #ada8a8;">© 2024 Zollab</p>
+            </div>
+          </div>
+        </div>
+        <div class="d-flex flex-row justify-content-between justify-content-md-start col-6">
+          <div class="d-flex flex-column justify-content-between align-items-center col-3 col-md-4">
+            <p class="font-size-16 font-weight-500">Blog</p>
+            <p class="font-gray font-size-14 font-weight-500">item</p>
+            <p class="font-gray font-size-14 font-weight-500">item</p>
+            <p class="font-gray font-size-14 font-weight-500">item</p>
+            <p class="font-gray font-size-14 font-weight-500">item</p>
+            <p class="font-gray font-size-14 font-weight-500">item</p>
+          </div>
+          <div class="d-flex flex-column justify-content-between align-items-center col-3 col-md-4">
+            <p class="font-size-16 font-weight-500">Product</p>
+            <p class="font-gray font-size-14 font-weight-500">item</p>
+            <p class="font-gray font-size-14 font-weight-500">item</p>
+            <p class="font-gray font-size-14 font-weight-500">item</p>
+            <p class="font-gray font-size-14 font-weight-500">item</p>
+            <p class="font-gray font-size-14 font-weight-500">item</p>
+          </div>
+          <div class="d-flex flex-column justify-content-between align-items-center col-3  col-md-4">
+            <p class="font-size-16 font-weight-500">Legal</p>
+            <p class="font-gray font-size-14 font-weight-500">item</p>
+            <p class="font-gray font-size-14 font-weight-500">item</p>
+            <p class="font-gray font-size-14 font-weight-500">item</p>
+            <p class="font-gray font-size-14 font-weight-500">item</p>
+            <p class="font-gray font-size-14 font-weight-500">item</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+

@@ -1,0 +1,140 @@
+<!-- <div class="" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="background:#f7f3f2;;border-radius: 16px; width: 100%;">-->
+
+<div class="modal-dialog modal-dialog-centered m-0 modal-lg"
+     style="background: #f7f3f2;border: none; border-radius: 16px !important;">
+  <div class="modal-content" style="background: #f7f3f2;border: none;padding: 12px !important;">
+    <div class="modal-header" style="border:0px solid #f7f3f2;padding-bottom: 0px">
+      <h1 class="modal-title font-size-16" id="exampleModalLabel">Settings</h1>
+      <!--              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
+      <img src="assets/img/closebutton-icon.webp" class="img-fluid" width="24px" height="24px"
+           (click)="close(null)">
+    </div>
+    <div class="modal-body" style="border: 0px solid #f7f3f2;padding-bottom:0px;">
+      <div class="d-flex flex-column justify-content-between col-12">
+        <div class="d-flex flex-row justify-content-between mt-3 align-items-center white-input-background"
+             style="background: #fff;" (click)="openProjectDetails()">
+          <div class="d-flex flex-row justify-content-start align-items-center">
+            <img src="assets/img/folder-icon.webp" class="img-fluid me-2" width="16px" height="16px">
+            <span class="font-size-14 font-weight-500">Project Details</span>
+          </div>
+          <div class="d-flex flex-row justify-content-start align-items-center">
+            <img src="assets/img/chevron-icon.webp" class="img-fluid" width="16px" height="16px">
+          </div>
+        </div>
+        <div class="d-flex flex-row justify-content-between mt-3 align-items-center white-input-background"
+             style="background: #fff;"
+             (click)="openStarredMessage()">
+          <div class="d-flex flex-row justify-content-start align-items-center">
+            <img src="assets/img/starred-icon.webp" class="img-fluid me-2" width="16px" height="16px">
+            <span class="font-size-14 font-weight-500">Starred Messages</span>
+          </div>
+          <div class="d-flex flex-row justify-content-start align-items-center">
+            <span class="font-size-14 font-weight-400 font-gray-dark">{{starMessage.length}}</span>
+            <img src="assets/img/chevron-icon.webp" class="img-fluid ms-2" width="16px" height="16px"
+                 *ngIf="starMessage.length>0">
+          </div>
+        </div>
+      </div>
+      <hr style="color: #e5e0df; border: 1px solid;opacity: 0.6">
+      <div *ngIf="projectPermission[0].update">
+      <div class="d-flex flex-row justify-content-start">
+        <span class="font-size-12 font-weight-500">Invite</span>
+      </div>
+      <div class="mt-3 d-flex flex-row modal-padding-class" *ngFor="let member of projectMembers;  index as i;">
+        <div class="d-flex flex-row align-items-center col-md-8 col-7 me-3 me-md-2">
+          <div><img src="assets/img/foreign-boy-icon.webp" class="img-fluid" width="24px;" height="24px"></div>
+          <div class="ms-2"><span class="font-size-14 font-weight-500">{{ member.memberEmail }}</span></div>
+        </div>
+        <div class="btn-group  col-md-4 col-5">
+          <button type="button" class="btn pe-md-5 text-start" data-bs-toggle="dropdown" aria-expanded="false"
+                  data-bs-reference="parent" [disabled]="!isRemovable(i)"
+                  style="background: #e5e0df;border: 0px solid #e5e0df; color: #000;font-size: 14px;font-weight: 500;padding: 10px">
+            {{ member.role.roleName }}
+          </button>
+          <button type="button" class="btn  dropdown-toggle dropdown-toggle-split text-end"
+                  style="background: #e5e0df; border: 0px solid #e5e0df;color: #000; padding: 10px;" [disabled]="!isRemovable(i)"
+                  data-bs-toggle="dropdown" aria-expanded="false" data-bs-reference="parent">
+            <span class="visually-hidden">Toggle Dropdown</span>
+          </button>
+          <ul class="dropdown-menu col-12" style="background: #e5e0df;min-width: 6rem;">
+            <li *ngFor="let teamRole of projectRoles;">
+              <a class="dropdown-item font-size-14 font-weight-500" style="background: #e5e0df"
+                 (click)="member.role.roleName = teamRole.roleName">{{teamRole.roleName}}</a>
+            </li>
+            <li><a class="dropdown-item font-size-14 font-weight-500" style="background: #e5e0df">--</a></li>
+            <li><a class="dropdown-item font-size-14 font-weight-500" style="background: #e5e0df">Resend Invite</a></li>
+            <li>  <a class="dropdown-item font-size-14 font-weight-500"
+                     style="background: #e5e0df"
+                     (click)="removeMember(i)">Remove</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <hr style="color: #e5e0df; border: 1px solid;opacity: 0.6">
+
+      <!--      <form #registerForm2="ngForm">-->
+      <div *ngIf="duplicateEmailWarning" class="text-danger">
+        {{ duplicateEmailWarning }}
+      </div>
+      <div class="d-flex flex-row col-12 mt-3 mb-3 modal-padding-class">
+        <div class="col-md-8 col-7 me-3 me-md-2">
+          <input type="email" class="col-12 white-input-background font-size-14 font-weight-400" placeholder="Email"
+                 [ngbTypeahead]="search"
+                 [inputFormatter]="formatter"
+                 [resultFormatter]="formatter"
+                 [(ngModel)]="user"
+                 name="user" email required
+                 (input)="onEmailInputChange()"
+                 [ngClass]="{'border-danger': duplicateEmailWarning}"
+                 [class.with-icon]="duplicateEmailWarning">
+
+        </div>
+        <div class="btn-group col-md-4 col-5" data-bs-toggle="dropdown" aria-expanded="false" data-bs-reference="parent">
+          <button type="button" class="btn pe-md-5"
+                  data-bs-toggle="dropdown" aria-expanded="false" data-bs-reference="parent"
+                  style="background: #e5e0df;border: 0px solid #e5e0df; color: #000;font-size: 14px;font-weight: 500; padding: 10px;">
+            {{selectedMemberRole}}
+          </button>
+          <button type="button" class="btn  dropdown-toggle dropdown-toggle-split"
+                  style="background: #e5e0df; border: 0px solid #e5e0df;color: #000;padding: 10px;"
+                  data-bs-toggle="dropdown" aria-expanded="false" data-bs-reference="parent">
+            <span class="visually-hidden">Toggle Dropdown</span>
+          </button>
+          <ul class="dropdown-menu col-12" style="background: #e5e0df;min-width: 6.1rem;">
+            <li *ngFor="let teamRole of projectRoles;">
+              <a class="dropdown-item font-size-14 font-weight-500" (click)="selectRole(teamRole)"
+                 style="background: #e5e0df">{{teamRole.roleName}}</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <!-- </form>-->
+      <!--      <hr style="color: #e5e0df; border: 1px solid;opacity: 0.6">-->
+      </div>
+    </div>
+    <div *ngIf="projectPermission[0].update">
+    <div class="modal-footer" style="border-top: 0px solid #f7f3f2;padding-top: 0px;padding-bottom:1rem">
+
+      <div class="col-12 d-flex flex-row ps-2">
+        <button class="black-btn col-12 font-size-14 font-weight-500" (click)="openOwnership()"
+                >Invite
+        </button>
+      </div>
+      <div class="d-flex flex-row  col-12 mt-3">
+        <div class="d-flex flex-row justify-content-start align-items-center col-6 ps-2">
+          <button type="button" class="btn grey-btn2 col-12" style="width: 98%"
+                  (click)="close(null)">Cancel
+          </button>
+        </div>
+        <div class="d-flex flex-row justify-content-end align-items-center col-6 ps-2">
+          <button type="button" class="btn light-green-btn col-12" style="width: 98%"
+                  (click)="save()">Save
+          </button>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+</div>
+
+

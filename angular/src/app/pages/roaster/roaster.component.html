@@ -1,0 +1,771 @@
+<div class="workspace deal-pages">
+  <app-left-menu (selectedWorkspace)="updateWorkspace($event)" (hideLeftMenu)="hideLeftMenu = $event"
+                 [hideLeftBar]="hideLeftMenu"></app-left-menu>
+  <app-selected-workspace *ngIf="!!selectedWorkspace"
+                          [selectedWorkspace]="selectedWorkspace"></app-selected-workspace>
+
+  <main class="twosidebar-flow">
+    <div class="twosidebar-flow-head">
+      <div class="flow-head-title">
+        <img src="../../../assets/img/roster.svg"/>
+        <h6>Roster</h6>
+      </div>
+      <div class="flow-head-use-links">
+        <a class="edit-dela-link pointer" data-bs-toggle="modal" *ngIf="!!selectedRoster" (click)="share()"><img
+          src="../../../assets/img/share.svg">Share</a>
+        <!--<div class="leftside-menu-header-dropdown edit-dela-link">
+            <a href="#" class="" role="button" data-bs-toggle="dropdown" aria-expanded="false"><img
+                    src="assets/img/Ellipses.svg"></a>
+            <ul class="dropdown-menu custom-dropdown">
+                <li><a class="dropdown-item" href="#">Manage members</a></li>
+                <li><a class="dropdown-item" href="./edit-workspace.html">Edit workspace</a></li>
+                <li><a class="dropdown-item" href="./roles-and-permissions.html">Roles and permission</a>
+                </li>
+                <li><a class="dropdown-item dnager-link" href="./leave-workspace.html">Leave workspace</a>
+                </li>
+            </ul>
+        </div>-->
+        <a [routerLink]="['/']" class="ms-2"><img src="../../../assets/img/close.svg" class="img-14x14"></a>
+      </div>
+    </div>
+    <div class="twosidebar-flow-body">
+      <div class="roster-container">
+
+        <div
+          class="w-100 d-flex align-items-center flex-column flex-sm-row gap-3 mb-4 mb-sm-0 gap-sm-0 justify-content-between">
+          <div class="input-group roster-inputgroup mb-0">
+                        <span class="input-group-text bg-black">
+                            <img src="../../../assets/img/search-interface-symbol.svg" alt="search">
+                        </span>
+            <input type="text" class="form-control border-start-0 bg-black py-2" [(ngModel)]="keyword"
+                   (keyup.enter)="searchProfiles()">
+          </div>
+          <div class="btn-group me-4" ngbDropdown>
+            <button type="button" class="btn text-white  dropdown-toggle" data-bs-toggle="dropdown" ngbDropdownToggle
+                    data-bs-display="static" aria-expanded="false">
+              {{!!selectedRoster ? selectedRoster.name : 'Select Roster'}}
+            </button>
+            <ul id="rosterSelector" class="dropdown-menu dropdown-menu-lg-end custom-dropdown" ngbDropdownMenu>
+              <li *ngFor="let roster of rosters"><a class="dropdown-item"
+                                                    (click)="getProfiles(roster)">{{roster.name}}</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="w-100 rosetr-main-creator position-relative" *ngIf="!!profiles">
+          <div class="rosetr-creator-row">
+            <div class="creator">
+              <img [src]="!!profiles.images?.instagram ? profiles.images?.instagram : profiles.images?.youtube"
+                   alt="user">
+              <p>{{profiles.handle}}</p>
+            </div>
+            <div class="creator-social-media-platforms w-100">
+              <div class="col">
+                <img src="../../../assets/img/twitch-1.png"/>
+                <div>
+                  <p class="m-0 roster-followers"
+                     (click)="goToLink(profiles.platformUrls?.twitch)">{{!!profiles.twitchCount ? profiles.twitchCount : 0 | number:'1.0-0'}}</p>
+                  <!-- <span>(3,400 ccv)</span> -->
+                </div>
+              </div>
+              <div class="col">
+                <img src="../../../assets/img/youtube.png"/>
+                <div>
+                  <p class="m-0 roster-followers"
+                     (click)="goToLink(profiles.platformUrls?.youtube)">{{!!profiles.youtubeCount ? profiles.youtubeCount : 0 | number:'1.0-0'}}</p>
+                </div>
+              </div>
+              <div class="col">
+                <img src="../../../assets/img/twitter-1.png"/>
+                <div>
+                  <p class="m-0 roster-followers"
+                     (click)="goToLink(profiles.platformUrls?.twitter)">{{!!profiles.twitterCount ? profiles.twitterCount : 0 | number:'1.0-0'}}</p>
+                </div>
+              </div>
+              <div class="col">
+                <img src="../../../assets/img/tik-tok-1.png"/>
+                <div>
+                  <p class="m-0 roster-followers"
+                     (click)="goToLink(profiles.platformUrls?.tiktok)">{{!!profiles.tiktokCount ? profiles.tiktokCount : 0 | number:'1.0-0'}}</p>
+                </div>
+              </div>
+              <div class="col">
+                <img src="../../../assets/img/instagram.png"/>
+                <div>
+                  <p class="m-0 roster-followers"
+                     (click)="goToLink(profiles.platformUrls?.instagram)">{{!!profiles.instagramCount ? profiles.instagramCount : 0 | number: '1.0-0'}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Your angular code -->
+
+          <!-- <div class="dropdown-position">
+              <a class="" role="button" data-bs-auto-close="outside" aria-expanded="false" (click)="showAddToRoster = !showAddToRoster"
+                  data-bs-toggle="dropdown" aria-expanded="false"><img src="assets/img/roster-add-icon.svg">
+              </a>
+              <div class="dropdown-menu custom-dropdown" [ngClass]="showAddToRoster ? 'show' : ''">
+                  <p class="dropdown-title">Add to Roster?</p>
+                <select class="select w-100" (change)="addProfileToRoster($event)">
+                  <option value="0" disabled selected>Please Select</option>
+                  <option [value]="roster.id" *ngFor="let roster of rosters">{{roster.name}}</option>
+                </select>
+                  <a (click)="showCreateRoster = !showCreateRoster" class="dropdown-link w-100" data-bs-auto-close="outside"
+                      aria-expanded="false" role="button" data-bs-toggle="dropdown">+
+                      Create new
+                  </a>
+                  <div class="dropdown-menu custom-dropdown" [ngClass]="showCreateRoster ? 'show' : ''">
+                      <p class="dropdown-title">Add to Roster?</p>
+                      <input type="text" placeholder="Roster Name" [(ngModel)]="newRosterName" (keyup.enter)="createAndAddToRoster()">
+                      <div class="dropdown-menu custom-dropdown">
+                          <p class="dropdown-title">Add to Roster?</p>
+                          <a href="#" class="btn border btn-dark dropdown-toggle dropdown-link w-75 mx-auto show" data-bs-auto-close="outside" aria-expanded="true" role="button" data-bs-toggle="dropdown">Select</a>
+                          <div class="dropdown-menu custom-dropdown show" style="position: absolute; inset: 0px 0px auto auto; margin: 0px; transform: translate3d(-20px, 65.6px, 0px);" data-popper-placement="bottom-end">
+                              <p class="dropdown-title">Add to Roster?</p>
+                              <div class="roster-custom-selecter">
+                                  <div class="chekboxs">
+                                      <input type="checkbox" id="SelectAll">
+                                      <label for="SelectAll">Select All</label>
+                                  </div>
+                                  <div class="chekboxs">
+                                      <input type="checkbox" id="ExternalRoster">
+                                      <label for="ExternalRoster">External Roster</label>
+                                  </div>
+                                  <div class="chekboxs">
+                                      <input type="checkbox" id="InternalRoster">
+                                      <label for="InternalRoster">Internal Roster</label>
+                                  </div>
+                                  <div class="chekboxs">
+                                      <input type="checkbox" id="TalentXRoster">
+                                      <label for="TalentXRoster">Talent X Roster</label>
+                                  </div>
+                                  <div class="chekboxs">
+                                      <input type="checkbox" id="ARoster">
+                                      <label for="ARoster">A Roster</label>
+                                  </div>
+                                  <div class="chekboxs">
+                                      <input type="checkbox" id="BRoster">
+                                      <label for="BRoster">B Roster</label>
+                                  </div>
+                                  <div class="chekboxs">
+                                      <input type="checkbox" id="BRoster">
+                                      <label for="BRoster">B Roster</label>
+                                  </div>
+                                  <div class="chekboxs">
+                                      <input type="checkbox" id="BRoster">
+                                      <label for="BRoster">B Roster</label>
+                                  </div>
+                                  <div class="chekboxs">
+                                      <input type="checkbox" id="BRoster">
+                                      <label for="BRoster">B Roster</label>
+                                  </div>
+                                  <div class="chekboxs">
+                                      <input type="checkbox" id="BRoster">
+                                      <label for="BRoster">B Roster</label>
+                                  </div>
+                              </div>
+                          </div>
+                          <select class="select w-100" *ngFor="let roster of rosters">
+                              <option value="1">{{roster.name}}</option>
+                              <option value="2">Create New</option>
+                          </select>
+                      </div>
+                  </div>
+              </div>
+          </div> -->
+
+          <!-- New HTML code for add roster in html  -->
+          <div class="dropdown-position">
+            <a href="javascript:;" (click)="showAddToRoster = !showAddToRoster" class="" role="button"
+               data-bs-auto-close="outside" aria-expanded="false" data-bs-toggle="dropdown"><img
+              src="../../../assets/img/roster-add-icon.svg">
+            </a>
+            <div class="dropdown-menu custom-dropdown" [ngClass]="showAddToRoster ? 'show' : ''">
+              <p class="dropdown-title">Add to Roster?</p>
+              <div (click)="showCreateRoster = !showCreateRoster" class="dropdown-link w-100" data-bs-auto-close="outside"
+                   aria-expanded="false" role="button" data-bs-toggle="dropdown">+
+                Create new
+              </div>
+              <div class="dropdown-menu custom-dropdown" [ngClass]="showCreateRoster ? 'show' : ''">
+                <p class="dropdown-title">Add to Roster?</p>
+                <input type="text" placeholder="Roster Name" [(ngModel)]="newRosterName" (keyup.enter)="createAndAddToRoster()">
+                <!--<div class="dropdown-menu custom-dropdown">
+                    <p class="dropdown-title">Add to Roster?</p>
+                    <select class="select w-100" *ngFor="let roster of rosters">
+                        <option value="1">{{roster.name}}</option>
+                        <option value="2">Create New</option>
+                    </select>
+                </div>-->
+              </div>
+
+              <div class="roster-custom-selecter">
+                <div class="chekboxs">
+                  <input type="checkbox" id="SelectAll" [(ngModel)]="masterSelected" (change)="checkUncheckAll()" >
+                  <label for="SelectAll">Select All</label>
+                </div>
+                <div class="chekboxs" *ngFor="let roster of rosters">
+                  <input type="checkbox" [id]="'ExternalRoster' + roster.id" [(ngModel)]="roster.isSelected" (change)="isAllSelected()">
+                  <label [for]="'ExternalRoster'+roster.id">{{roster.name}}</label>
+                </div>
+              </div>
+              <div class="text-center">
+                <button (click)="addProfilesToRoster()" class="btn border btn-dark dropdown- dropdown-link w-75 my-2 mx-auto">Add</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="w-100 rosetr-added-creator position-relative" *ngFor="let profiles of rosterProfiles?.content">
+          <div class="rosetr-creator-row">
+            <div class="creator">
+              <img
+                [src]="!!profiles.profile?.images?.instagram ? profiles.profile?.images?.instagram : profiles.profile?.images?.youtube ? profiles.profile?.images?.youtube : profiles.profile?.images?.tiktok"
+                alt="user">
+              <p>{{profiles.profile?.handle! | shorten: 15}}</p>
+            </div>
+            <div class="creator-social-media-platforms w-100">
+              <div class="col">
+                <img src="../../../assets/img/twitch-1.png"/>
+                <div>
+                  <p class="m-0 roster-followers"
+                     (click)="goToLink(profiles.profile?.platformUrls?.twitch)">{{!!profiles.profile?.twitchCount ? profiles.profile?.twitchCount : 0}}</p>
+                  <!-- <span>(3,400 ccv)</span> -->
+                </div>
+              </div>
+              <div class="col">
+                <img src="../../../assets/img/youtube.png"/>
+                <div>
+                  <p class="m-0 roster-followers"
+                     (click)="goToLink(profiles.profile?.platformUrls?.youtube)">{{!!profiles.profile?.youtubeCount ? profiles.profile?.youtubeCount : 0}}</p>
+                </div>
+              </div>
+              <div class="col">
+                <img src="../../../assets/img/twitter-1.png"/>
+                <div>
+                  <p class="m-0 roster-followers"
+                     (click)="goToLink(profiles.profile?.platformUrls?.twitter)">{{!!profiles.profile?.twitterCount ? profiles.profile?.twitterCount : 0}}</p>
+                </div>
+              </div>
+              <div class="col">
+                <img src="../../../assets/img/tik-tok-1.png"/>
+                <div>
+                  <p class="m-0 roster-followers"
+                     (click)="goToLink(profiles.profile?.platformUrls?.tiktok)">{{!!profiles.profile?.tiktokCount ? profiles.profile?.tiktokCount : 0}}</p>
+                </div>
+              </div>
+              <div class="col">
+                <img src="../../../assets/img/instagram.png"/>
+                <div>
+                  <p class="m-0 roster-followers"
+                     (click)="goToLink(profiles.profile?.platformUrls?.instagram)">{{!!profiles.profile?.instagramCount ? profiles.profile?.instagramCount : 0}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="dropdown-position">
+            <a class="" role="button" data-bs-auto-close="outside" aria-expanded="false"
+               (click)="openEllipseDrop(profiles.id);"
+               data-bs-toggle="dropdown" aria-expanded="false"><img src="../../../assets/img/Ellipses.svg">
+            </a>
+            <div class="dropdown-menu custom-dropdown" [id]="'ellipse_' + profiles.id">
+              <a class="dropdown-link d-flex justify-content-between align-items-center w-100"
+                 data-bs-auto-close="outside" aria-expanded="false" role="button"
+                 data-bs-toggle="dropdown" (click)="toggleNotes(profiles.id)">
+                Notes
+                <img src="../../../assets/img/pen.png">
+              </a>
+              <div class="dropdown-menu roster-add-note p-0 custom-dropdown" [id]="'notes_' + profiles.id">
+                <div class="roster">
+                  <img [src]="!!profiles.profile?.images?.instagram ? profiles.profile?.images?.instagram :
+                                     profiles.profile?.images?.youtube ? profiles.profile?.images?.youtube : profiles.profile?.images?.tiktok "
+                       alt="user">
+                  <p class="m-0">{{profiles.profile?.handle! | shorten: 15}}</p>
+                </div>
+                <div class="add-note">
+                  <textarea #notes placeholder="Add a note" [value]="!!profiles.notes ? profiles.notes : ''"></textarea>
+                  <div class="nudge-box-open-arrow" (click)="saveNotes(profiles.profile!, notes.value)">
+                    <img src="../../../assets/img/icon_send.svg" class="img-26x26">
+                  </div>
+                </div>
+              </div>
+              <a class="dropdown-link d-flex justify-content-between align-items-center w-100"
+                 data-bs-auto-close="outside" aria-expanded="false" role="button"
+                 (click)="toggleRemoveProfile(profiles.id)"
+                 data-bs-toggle="dropdown">Remove
+                <img src="../../../assets/img/trash.png">
+              </a>
+              <div class="dropdown-menu custom-dropdown" [id]="'removeProfile_' + profiles.id">
+                <p class="dropdown-title">Remove from Roster?</p>
+                <button class="roster-remove-btn" (click)="removeProfileFromRoster(profiles.profile!)">Remove</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <app-right-menu [workspace]="selectedWorkspace" [hideRightBar]="hideLeftMenu"
+                  (hideRightMenu)="hideLeftMenu = $event"></app-right-menu>
+</div>
+
+<div class="modal fade" id="Report" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="Report" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" style="background: transparent;">
+      <div class="add-member-modal p-0 gap-1">
+        <div class="reportmodal-head">
+          <div class="addlogo-box">
+            <div class="pulse-icon">
+              <img src="../../../assets/img/+.svg">
+            </div>
+          </div>
+          <div class="modal-helpful-btns">
+            <a class="edit-dela-link pointer" href="#"><img src="../../../assets/img/share.svg">Share</a>
+            <a href="#" class="edit-dela-link"><img src="../../../assets/img/download-svg.svg"></a>
+            <button class="modal-close-btn" data-bs-dismiss="modal" aria-label="Close">x</button>
+          </div>
+        </div>
+        <p class="modal-report mb-4"> [DEAL NAME] Report</p>
+        <div class="reportmodal-body">
+          <div class="row-section">
+            <div class="text-center">
+              <h2 class="title">223.2k</h2>
+              <p class="sub-title m-0">impressions</p>
+            </div>
+            <div class="text-center">
+              <h2 class="title">118.3k</h2>
+              <p class="sub-title m-0">Engagements</p>
+            </div>
+            <div class="text-center">
+              <h2 class="title">3%</h2>
+              <p class="sub-title m-0">Engagement Rate </p>
+            </div>
+          </div>
+          <div class="member-grid">
+            <div class="box">
+              <div class="member-profile">
+                <img src="https://eliteadmin.themedesigner.in/demos/bt4/university/dist/images/users/11.jpg"
+                     alt="User">
+                <p>RockyBhai</p>
+              </div>
+              <div class="member-video">
+                <img
+                  src="https://plus.unsplash.com/premium_photo-1686514714138-51925a219605?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=435&q=80">
+              </div>
+              <div class="social-platform">
+                <p class="m-0 social-account">RockyBhai</p>
+                <div class="social-media-app">
+                  <img src="https://1000logos.net/wp-content/uploads/2019/06/Tiktok_Logo.png">
+                </div>
+              </div>
+              <div class="social-app-details">
+                <div class="details">
+                  <img src="https://pixlok.com/wp-content/uploads/2021/10/Eye-Icon-wsj93.png">
+                  <p>5.23k</p>
+                </div>
+                <div class="details">
+                  <img src="https://cdn-icons-png.flaticon.com/512/747/747376.png">
+                  <p>19k</p>
+                </div>
+                <div class="details">
+                  <img
+                    src="https://www.freeiconspng.com/thumbs/www-icon/vector-illustration-of-simple-share-icon--public-domain-vectors-23.png">
+                  <p>529</p>
+                </div>
+              </div>
+              <div class="copy-btn">
+                <img src="https://cdn-icons-png.flaticon.com/512/1621/1621635.png" class="img-20x20">
+              </div>
+            </div>
+            <div class="box">
+              <div class="member-profile">
+                <img src="https://www.pngmart.com/files/22/User-Avatar-Profile-PNG.png" alt="User">
+                <p>MunnaBhai</p>
+              </div>
+              <div class="member-video">
+                <img
+                  src="https://images.unsplash.com/photo-1686686200559-3b58bd444f86?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=388&q=80">
+              </div>
+              <div class="social-platform">
+                <p class="m-0 social-account">RockyBhai</p>
+                <div class="social-media-app">
+                  <img src="https://1000logos.net/wp-content/uploads/2019/06/Tiktok_Logo.png">
+                </div>
+              </div>
+              <div class="social-app-details">
+                <div class="details">
+                  <img src="https://pixlok.com/wp-content/uploads/2021/10/Eye-Icon-wsj93.png">
+                  <p>5.23k</p>
+                </div>
+                <div class="details">
+                  <img src="https://cdn-icons-png.flaticon.com/512/747/747376.png">
+                  <p>19k</p>
+                </div>
+                <div class="details">
+                  <img
+                    src="https://www.freeiconspng.com/thumbs/www-icon/vector-illustration-of-simple-share-icon--public-domain-vectors-23.png">
+                  <p>529</p>
+                </div>
+              </div>
+              <div class="copy-btn">
+                <img src="https://cdn-icons-png.flaticon.com/512/1621/1621635.png" class="img-20x20">
+              </div>
+            </div>
+            <div class="box">
+              <div class="member-profile">
+                <img src="https://preview.keenthemes.com/metronic-v4/theme/assets/pages/media/profile/profile_user.jpg"
+                     alt="User">
+                <p>RDXBhai</p>
+              </div>
+              <div class="member-video">
+                <img
+                  src="https://images.unsplash.com/photo-1661956602944-249bcd04b63f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80">
+              </div>
+              <div class="social-platform">
+                <p class="m-0 social-account">RockyBhai</p>
+                <div class="social-media-app">
+                  <img src="https://1000logos.net/wp-content/uploads/2019/06/Tiktok_Logo.png">
+                </div>
+              </div>
+              <div class="social-app-details">
+                <div class="details">
+                  <img src="https://pixlok.com/wp-content/uploads/2021/10/Eye-Icon-wsj93.png">
+                  <p>5.23k</p>
+                </div>
+                <div class="details">
+                  <img src="https://cdn-icons-png.flaticon.com/512/747/747376.png">
+                  <p>19k</p>
+                </div>
+                <div class="details">
+                  <img
+                    src="https://www.freeiconspng.com/thumbs/www-icon/vector-illustration-of-simple-share-icon--public-domain-vectors-23.png">
+                  <p>529</p>
+                </div>
+              </div>
+              <div class="copy-btn">
+                <img src="https://cdn-icons-png.flaticon.com/512/1621/1621635.png" class="img-20x20">
+              </div>
+            </div>
+            <div class="box">
+              <div class="member-profile">
+                <img
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQUeNmItFX5g3HSU1UiK_JLWW_ADJA9nWTofw&usqp=CAU"
+                  alt="User">
+                <p>Rupa89</p>
+              </div>
+              <div class="member-video">
+                <img
+                  src="https://images.unsplash.com/photo-1666919643134-d97687c1826c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=871&q=80">
+              </div>
+              <div class="social-platform">
+                <p class="m-0 social-account">RockyBhai</p>
+                <div class="social-media-app">
+                  <img src="https://1000logos.net/wp-content/uploads/2019/06/Tiktok_Logo.png">
+                </div>
+              </div>
+              <div class="social-app-details">
+                <div class="details">
+                  <img src="https://pixlok.com/wp-content/uploads/2021/10/Eye-Icon-wsj93.png">
+                  <p>5.23k</p>
+                </div>
+                <div class="details">
+                  <img src="https://cdn-icons-png.flaticon.com/512/747/747376.png">
+                  <p>19k</p>
+                </div>
+                <div class="details">
+                  <img
+                    src="https://www.freeiconspng.com/thumbs/www-icon/vector-illustration-of-simple-share-icon--public-domain-vectors-23.png">
+                  <p>529</p>
+                </div>
+              </div>
+              <div class="copy-btn">
+                <img src="https://cdn-icons-png.flaticon.com/512/1621/1621635.png" class="img-20x20">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="addmember" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="addmember" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" style="background: transparent;">
+      <div class="add-member-modal">
+        <div class="add-member-modal-header">
+          <div class="add-member-modal-heading">
+            <h6 class="add-member-modal-title">Add members</h6>
+            <h6 class="add-member-modal-sub-title">Description</h6>
+          </div>
+          <button class="modal-close-btn" data-bs-dismiss="modal" aria-label="Close">x</button>
+        </div>
+        <div class="add-member-modal-body">
+          <form class="add-member-modal-form">
+            <label class="form-label">Example label</label>
+            <div class="add-member-modal-form-input-group">
+              <input type="email" class="form-control" placeholder="Email, comma separated">
+              <button type="submit" class="add-member-modal-add-btn">ADD</button>
+            </div>
+          </form>
+          <div class="add-member-modal-member-box">
+            <div class="add-member-modal-member">
+              <img src="../../../assets/img/mini-avatar.png" class="img-24x24">
+              <p class="add-member-modal-member-name">Kate Buyers </p>
+            </div>
+            <div class="add-member-modal-member">
+              <img src="../../../assets/img/mini-avatar.png" class="img-24x24">
+              <p class="add-member-modal-member-name">John Doe</p>
+            </div>
+            <div class="add-member-modal-member">
+              <img src="../../../assets/img/mini-avatar.png" class="img-24x24">
+              <p class="add-member-modal-member-name">Roger Grim </p>
+            </div>
+            <div class="add-member-modal-member">
+              <img src="../../../assets/img/mini-avatar.png" class="img-24x24">
+              <p class="add-member-modal-member-name">Elton John </p>
+            </div>
+          </div>
+        </div>
+        <div class="add-member-modal-footer">
+          <p class="add-member-modal-footer-title">Share this URL with members to invite them</p>
+          <div class="add-member-modal-link">
+            <p>https ://stella.app/8979870yij</p>
+            <button class="copy-link-btn">Copy link</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="deletechannel" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="deletechannel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" style="background: transparent;">
+      <div class="add-member-modal border-0">
+        <div class="add-member-modal-header">
+          <div class="add-member-modal-heading">
+            <h6 class="add-member-modal-title m-0">Delete deal</h6>
+          </div>
+          <button class="modal-close-btn m-0" data-bs-dismiss="modal" aria-label="Close">x</button>
+        </div>
+        <div class="add-member-modal-body">
+          <div class="delete-modal-body">
+            <p class="delete-modal-body-sub-title">If you delete this channel all conversations and
+              messages from this channel will be removed immediately . Once deleted this action
+              cannot be undone.</p>
+          </div>
+        </div>
+        <div class="add-member-modal-footer">
+          <div class="delete-modal-footer">
+            <button type="button" class="delete-modal-cancel-btn" data-bs-dismiss="modal"
+                    aria-label="Close">Cancel
+            </button>
+            <button type="button" class="delete-modal-delete-btn">Delete channel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="editchannel" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="editchannel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" style="background: transparent;">
+      <div class="add-member-modal">
+        <div class="add-member-modal-header">
+          <div class="add-member-modal-heading">
+            <h6 class="add-member-modal-title">Create channel</h6>
+            <p class="add-member-modal-sub-title">Elton John on Jan 20, 2023</p>
+            <p class="add-member-modal-sub-title">Channel ID : COBV98970087</p>
+          </div>
+          <button class="modal-close-btn" data-bs-dismiss="modal" aria-label="Close">x</button>
+        </div>
+        <div class="add-member-modal-body">
+          <div class="regular-from-group">
+            <label>Channel name</label>
+            <div class="input-group">
+              <span class="input-group-text create-channel-modal-input-text border-end-0">#</span>
+              <input type="text" class="form-control border-start-0" placeholder="new-channel name">
+            </div>
+          </div>
+          <div class="regular-from-group">
+            <label>Description (Optional)</label>
+            <textarea class="form-control modal-textarea" placeholder="Enter details"></textarea>
+          </div>
+        </div>
+        <div class="add-member-modal-footer">
+          <div class="d-flex align-items-center justify-content-end w-100">
+            <button type="button" class="body-footer-cancel-btn" data-bs-dismiss="modal"
+                    aria-label="Close">Cancel
+            </button>
+            <button type="button" class="body-footer-save-btn">Save</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="sharedeal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="sharedeal" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" style="background: transparent;">
+      <div class="add-member-modal">
+        <div class="add-member-modal-header">
+          <div class="add-member-modal-heading">
+            <h6 class="add-member-modal-title">Share deal</h6>
+            <h6 class="add-member-modal-sub-title">Share the deal with creators and members</h6>
+          </div>
+          <button class="modal-close-btn" data-bs-dismiss="modal" aria-label="Close">x</button>
+        </div>
+        <div class="add-member-modal-body">
+          <form class="add-member-modal-form">
+            <label class="form-label">Email</label>
+            <div class="add-member-modal-form-input-group">
+              <input type="email" class="form-control" placeholder="Email, comma separated">
+              <button type="submit" class="add-member-modal-add-btn">Share</button>
+            </div>
+          </form>
+          <div class="add-member-modal-member-box">
+            <div class="add-member-modal-member">
+              <img src="../../../assets/img/mini-avatar.png" class="img-24x24">
+              <p class="add-member-modal-member-name">Kate Buyers </p>
+            </div>
+            <div class="add-member-modal-member">
+              <img src="../../../assets/img/mini-avatar.png" class="img-24x24">
+              <p class="add-member-modal-member-name">John Doe</p>
+            </div>
+            <div class="add-member-modal-member">
+              <img src="../../../assets/img/mini-avatar.png" class="img-24x24">
+              <p class="add-member-modal-member-name">Roger Grim </p>
+            </div>
+            <div class="add-member-modal-member">
+              <img src="../../../assets/img/mini-avatar.png" class="img-24x24">
+              <p class="add-member-modal-member-name">Elton John </p>
+            </div>
+          </div>
+        </div>
+        <div class="add-member-modal-footer">
+          <p class="add-member-modal-footer-title">Copy this private URL to share</p>
+          <div class="add-member-modal-link">
+            <p>https ://stella.app/8979870yij</p>
+            <button class="copy-link-btn">Copy link</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="deletedeal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="deletedeal" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" style="background: transparent;">
+      <div class="add-member-modal">
+        <div class="add-member-modal-header">
+          <div class="add-member-modal-heading">
+            <h6 class="add-member-modal-title m-0">Delete deal</h6>
+          </div>
+          <button class="modal-close-btn m-0" data-bs-dismiss="modal" aria-label="Close">x</button>
+        </div>
+        <div class="add-member-modal-body">
+          <div class="delete-modal-body">
+            <div class="delete-modal-alert-box">
+              <img src="../../../assets/img/triangle.svg">
+              <p class="delete-modal-alert-title">All deliverables linked to this deal will also
+                be deleted.</p>
+            </div>
+            <p class="delete-modal-body-sub-title">Are you sure you want to delete this deal. Once
+              deleted this action cannot be undone.</p>
+          </div>
+        </div>
+        <div class="add-member-modal-footer">
+          <div class="delete-modal-footer">
+            <button type="button" class="delete-modal-cancel-btn" data-bs-dismiss="modal"
+                    aria-label="Close">Cancel
+            </button>
+            <button type="button" class="delete-modal-delete-btn">Yes, delete</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="changerequired" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="changerequired" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" style="background: transparent;">
+      <div class="add-member-modal">
+        <div class="add-member-modal-header">
+          <div class="add-member-modal-heading">
+            <h6 class="add-member-modal-title">Suggest the required changes</h6>
+          </div>
+          <button class="modal-close-btn" data-bs-dismiss="modal" aria-label="Close">x</button>
+        </div>
+        <div class="add-member-modal-body">
+          <div class="regular-from-group">
+            <label>Details</label>
+            <textarea class="form-control modal-textarea"></textarea>
+          </div>
+        </div>
+        <div class="add-member-modal-footer">
+          <div class="d-flex align-items-center justify-content-end w-100">
+            <button type="button" class="body-footer-cancel-btn" data-bs-dismiss="modal"
+                    aria-label="Close">Cancel
+            </button>
+            <button type="button" class="body-footer-save-btn">Save</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="addchannel" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="addchannel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" style="background: transparent;">
+      <div class="add-member-modal">
+        <div class="add-member-modal-header">
+          <div class="add-member-modal-heading">
+            <h6 class="add-member-modal-title">Create channel</h6>
+          </div>
+          <button class="modal-close-btn" data-bs-dismiss="modal" aria-label="Close">x</button>
+        </div>
+        <div class="add-member-modal-body">
+          <div class="regular-from-group">
+            <label>Channel name</label>
+            <div class="input-group">
+              <span class="input-group-text create-channel-modal-input-text border-end-0">#</span>
+              <input type="text" class="form-control border-start-0" placeholder="new-channel name">
+            </div>
+          </div>
+          <div class="regular-from-group">
+            <label>Description (Optional)</label>
+            <textarea class="form-control modal-textarea"></textarea>
+          </div>
+        </div>
+        <div class="add-member-modal-footer">
+          <div class="d-flex align-items-center justify-content-end w-100">
+            <button type="button" class="body-footer-cancel-btn" data-bs-dismiss="modal"
+                    aria-label="Close">Cancel
+            </button>
+            <button type="button" class="body-footer-save-btn">Save</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- modals  -->

@@ -1,0 +1,24 @@
+
+.progress {
+  background: #000;
+  justify-content: flex-start;
+  align-items: center;
+  border: 3px solid #fff;
+  position: relative;
+  padding: 0 5px;
+  display: flex;
+  height: 20px;
+}
+
+.progress-value {
+  animation: load 3s normal forwards;
+  /*border-radius: 100px;*/
+  background: #fff;
+  height: 4px;
+  width: 0;
+}
+
+@keyframes load {
+  0% { width: 0; }
+  100% { width: 100%; }
+}

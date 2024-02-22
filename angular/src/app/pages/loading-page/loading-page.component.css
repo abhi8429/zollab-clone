@@ -1,0 +1,50 @@
+body {
+  width: 100%;
+  min-height: 100vh;
+  color: #fff;
+  background: #000;
+  position: relative;
+}
+
+.square {
+  position: absolute;
+  top: 45%;
+  left: 45%;
+  height: 30px;
+  width: 100px;
+  border: 2px solid #fff;
+}
+
+.small-box {
+  height: 10px;
+  width: 24px;
+  background-color: #fff;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.small-box:nth-child(1) {
+  left: 17%;
+}
+
+.small-box:nth-child(2) {
+  left: 49%;
+}
+
+.small-box:nth-child(3) {
+  left: 80%;
+  animation: blink 1s infinite;
+}

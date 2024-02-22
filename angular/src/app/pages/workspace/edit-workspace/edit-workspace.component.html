@@ -1,0 +1,72 @@
+<div class="editing-page">
+    <aside class="editing-page-aside" id="asidebar">
+        <div class="editing-page-aside-content">
+            <div class="back-to-workspace">
+                <img src="../../../../assets/img/back_icon.svg"><a href="/angular/src">Back to workspace</a>
+            </div>
+            <div class="editing-page-aside-menu">
+                <h6 class="editing-page-aside-menu-title">SETTINGS</h6>
+                <ul class="editing-page-aside-menu-list">
+                    <li class="editing-page-aside-menu-item"><a [routerLink]="['/manageMembers']" [state]="{selectedWorkspace: selectedWorkspace}" class="editing-page-aside-menu-link">Manage Members</a></li>
+                    <li class="editing-page-aside-menu-item"><a [routerLink]="['/editWorkspace']" [state]="{selectedWorkspace: selectedWorkspace}" class="editing-page-aside-menu-link editing-page-aside-menu-link-active">Edit
+                            workspace</a></li>
+                    <li class="editing-page-aside-menu-item"><a [routerLink]="['/roles']" [state]="{selectedWorkspace: selectedWorkspace}" class="editing-page-aside-menu-link">Roles and permission</a></li>
+                </ul>
+            </div>
+        </div>
+    </aside>
+    <main class="editing-page-wrapper">
+        <div class="editing-page-wrapper-content">
+            <div class="editing-page-wrapper-heading">
+                <h6 class="editing-page-wrapper-title">Edit workspace</h6>
+                <p class="editing-page-wrapper-sub-title">Change workspace name and add workspace icon that
+                    would be displayed in menus and headings,
+                    use something that your members can easily relate to. It would be used in desktop and mobile
+                    app.<a href="#">Learn more</a> about choosing a workspace icon.</p>
+            </div>
+            <div class="editing-page-wrapper-main-box">
+                <div class="edit-workspace-details-box">
+                    <p class="editing-page-wrapper-main-box-title">Workspace details</p>
+                    <div class="edit-workspace-details-box-content">
+                        <div class="edit-workspace-details-box-enter-name">
+                            <label class="form-label">Workspace name</label>
+                            <input type="text" class="form-control" placeholder="" maxlength="30" [(ngModel)]="selectedWorkspace.name">
+                            <small>Maximum 30 characters</small>
+                        </div>
+                      <div class="avatar-upload">
+                        <div class="avatar-edit">
+                          <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg" #fileInput (change)="uploadFile($event)" />
+                          <label for="imageUpload" *ngIf="editFile" [ngClass]="['custom-label', 'upload-image']"></label>
+                          <label *ngIf="removeUpload" [ngClass]="['custom-label', 'remove-image']" (click)="removeUploadedFile()"></label>
+                        </div>
+                        <div class="avatar-preview">
+                          <div id="imagePreview" [style.backgroundImage]="'url('+ imageUrl +')'">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+
+                <div class="delete-workspace-box">
+                    <div class="delete-workspace-box-heading">
+                        <h6 class="editing-page-wrapper-main-box-title">Delete Workspace</h6>
+                        <p class="delete-workspace-box-sub-title">All deals, deliverables, evidences, messages
+                            and file will be deleted on this action
+                            and will be irretrievable. Proceed with caution and export your data before
+                            deletion.</p>
+                    </div>
+                    <a class="delete-workspace-btn-box" [routerLink]="['/deleteWorkspace']" [state]="{workspace: selectedWorkspace}">
+                        Delete workspace
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="main-body-footer-container main-body-footer-absolute">
+            <button type="button" class="body-footer-cancel-btn" [routerLink]="['/']">Cancel</button>
+            <button type="button" class="body-footer-save-btn" (click)="update()">Save</button>
+        </div>
+    </main>
+    <div class="open-asidebar" onclick="opensidebar()">
+        <img src="../../../../assets/img/icon_send.svg" id="open_img">
+    </div>
+</div>

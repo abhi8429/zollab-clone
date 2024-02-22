@@ -1,0 +1,67 @@
+<div class="page-background2">
+    <div class="container-fluid">
+        <div class="sign-up-page">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="left-side-content">
+                        <div class="logo-bar d-flex flex-row justify-content-between">
+                          <div class="d-flex flex-row justify-content-start" [routerLink]="['/login']">
+                            <img src="../../../assets/img/log-new.png" class="img-fluid" style="width: 40px;height: 60%; margin-top: 0.6rem">
+                            <p class="text-white" style="font-size: 40px; margin-left: 1rem; font-weight: 500">CreatorOS</p>
+                          </div>
+                          <div class="d-none d-md-block d-lg-none pt-3" style="background: #000000;">
+                            <span class="text-white font-size-16 hover-class" style="font-weight: 500" [routerLink]="['/aboutUs']">About Us</span>
+                          </div>
+                        </div>
+                        <div class="left-side-content-text">
+                            <div class="left-side-content-heading">
+                                <h2 class="left-side-content-heading-title">Login</h2>
+                            </div>
+                          <div class="sign-up-page-btn">
+                            <button type="button" class="log-in-btn" (click)="signInWithGoogle()">Log in with Google</button>
+                          </div>
+                              <!--<asl-google-signin-button type="standard" size="large" shape="rectangular"></asl-google-signin-button>-->
+                            <div class="sign-up-line">
+                                <p>OR LOGIN USING EMAIL</p>
+                            </div>
+                            <form class="sign-up-email-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                                <div class="sign-up-input-group">
+                                    <label class="form-label">Email</label>
+                                    <input type="email" class="form-control" placeholder="Enter email address" name="email" formControlName="email">
+                                </div>
+				                <div class="sign-up-input-group">
+                                    <div class="d-flex align-items-center justify-content-between w-100">
+    				                    <label class="form-label">Set password</label>
+                                        <a [routerLink]="['/forgotPassword']" class="forgot-password-link" tabindex="-1">Forgot password ?</a>
+                                    </div>
+				                    <div class="input-group">
+				                        <input [type]="showPass ? 'text' : 'password'" class="form-control password-field border-end-0" placeholder="Enter password" formControlName="password" >
+				                        <button class="input-group-text password-eye-btn" type="button" (click)="showPass = !showPass"><img [src]="!showPass ? 'assets/img/pass-hide.png' : 'assets/img/pass-show.png'"></button>
+				                    </div>
+				                </div>
+                                <div class="sign-up-email-form-btn">
+                                    <button type="submit" class="sign-up-email-form-continue-btn" >Login</button>
+                                </div>
+                            </form>
+                            <div class="left-side-footer-content">
+                                <p class="left-side-footer-content-text">Don't have an account?<a [routerLink]="['/signup']">Sign Up</a></p>
+                            </div>
+                          <div style="background: #111111; margin-top: 0.3rem; width: 100%" class="d-flex flex-row justify-content-end mb-4 d-block d-sm-none text-center">
+                            <span class="new-hover-class"  [routerLink]="['/aboutUs']">About Us</span>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 d-none d-lg-block">
+                  <div style="background: #000000; margin-top: 0.3rem;" class="d-flex flex-row justify-content-end mb-4">
+                    <span class=" hover-class" [routerLink]="['/aboutUs']">About Us</span>
+                  </div>
+                  <div class="right-side-content">
+                    <img src="../../../assets/img/dark-theme.png">
+                  </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

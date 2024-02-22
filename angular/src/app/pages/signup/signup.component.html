@@ -1,0 +1,47 @@
+<div class="page-background">
+    <div class="container-fluid">
+        <div class="sign-up-page">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="left-side-content">
+                        <div class="logo-bar">
+                            <a href=""><img src="../../../assets/img/logo.svg"></a>
+                        </div>
+                        <div class="left-side-content-text">
+                            <div class="left-side-content-heading">
+                                <h2 class="left-side-content-heading-title">Sign Up</h2>
+                                <p class="left-side-content-heading-sub-title">Get started on the creator’s
+                                    journey by creating your account</p>
+                            </div>
+                            <div class="sign-up-page-btn">
+                                <button type="button" class="log-in-btn" (click)="signInWithGoogle()">SignUp with Google</button>
+                            </div>
+                          <!--<asl-google-signin-button type="standard" size="large" shape="rectangular"></asl-google-signin-button>-->
+                            <div class="sign-up-line">
+                                <p>OR SIGNUP USING EMAIL</p>
+                            </div>
+                            <form class="sign-up-email-form">
+                                <div class="sign-up-input-group">
+                                    <label class="form-label">Email</label>
+                                    <input type="email" class="form-control" placeholder="Enter email address" name="email" [(ngModel)]="email">
+                                </div>
+                                <div class="sign-up-email-form-btn">
+                                    <button type="button" class="sign-up-email-form-continue-btn" (click)="signUp()">Continue</button>
+                                </div>
+                            </form>
+                            <div class="left-side-footer-content">
+                                <p class="left-side-footer-content-text">Already have an account?<a [routerLink]="['/login']">Log
+                                        in</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 d-none d-lg-block">
+                    <div class="right-side-content">
+                        <img src="../../../assets/img/dark-theme.png">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

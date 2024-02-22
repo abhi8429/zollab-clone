@@ -1,0 +1,182 @@
+<div class="header-section-class container">
+  <div class="d-md-flex flex-md-row justify-content-md-between mt-3 col-12 padding-manage-class">
+    <div class="d-md-flex flex-row justify-content-between col-12">
+      <div class="col-12 col-md-5 d-flex flex-md-row justify-content-md-start align-items-center margin-adjust">
+        <div class="d-flex flex-row align-items-center col-1 d-none d-lg-block common-hover-class" routerLink="/home">
+          <img src="assets/img/zollab-logo.webp" class="img-fluid" width="40px" height="28px">
+        </div>
+        <div class=""><span class="vertical-devider d-none d-lg-block"></span></div>
+        <div
+          class="d-flex flex-row align-items-center justify-content-start white-hide-class" data-bs-toggle="dropdown"
+          aria-expanded="false" data-bs-reference="parent" id="CreateTeamId">
+          <!--            <div><img src="assets/img/profile-finger-icon.png" class="img-fluid" width="16px" height="16px"></div>-->
+          <div class="btn-group" data-bs-toggle="dropdown" aria-expanded="false" data-bs-reference="parent">
+            <div class="d-flex flex-row align-items-center">
+              <!-- <img [src]="teams.length > 0 ? teams[teamIndex].avatarUrl : 'assets/img/profile-finger-icon.webp'" -->
+              <img [src]="selectedTeam!==undefined ? selectedTeam.avatarUrl : 'assets/img/app-icon.svg'"
+                   (error)="onImgError($event, 'assets/img/app-icon.svg')"
+                   class="img-fluid desktop-laptop-img-widht prj-icon"></div>
+            <!--              <img src="assets/img/profile-finger-icon.png" class="img-fluid" width="16px" height="16px">-->
+            <button type="button" class="btn dark-gray-color white-hide-class dark-gray-color adjust-font-size2"
+                    style="font-weight: 500;margin-left:2px;font-size: 14px"
+                    data-bs-toggle="dropdown" aria-expanded="false" data-bs-reference="parent">
+              <!--                {{selectedMemberRole}}-->
+              <!-- Team / {{teams.length > 0 ? teams[teamIndex].teamName : ''}} -->
+              Team / <span *ngIf="selectedTeam!==undefined">{{selectedTeam.teamName}}</span>
+            </button>
+            <button type="button" class="btn dropdown-toggle dropdown-toggle-split white-hide-class"
+                    style="color: #000;padding: 10px;"
+                    data-bs-toggle="dropdown" aria-expanded="false" data-bs-reference="parent">
+              <span class="visually-hidden">Toggle Dropdown</span>
+            </button>
+
+            <ul class="dropdown-menu dropdown-menu-start col-12 common-hover-class mt-1"
+                style="min-width: 11rem;background: #fff;box-shadow: rgba(0, 0, 0, 0.08) 0px 2px 16px 0px;border: 0px solid #fff;transform:translate3d(-20px, 46px, 0px);">
+              <li *ngFor="let team of teams; index as i;" (click)="changeTeam(i)">
+                <div class="d-flex flex-row align-items-center justify-content-start px-2 mb-2">
+                  <img [src]="team.avatarUrl"
+                       (error)="onImgError($event, 'assets/img/app-icon.svg')"
+                       width="16px" height="16px" class="img-fluid me-2">
+                  <a class="dropdown-item font-size-14 font-weight-500"
+                     style="background: #fff;padding:0;">
+                    {{team.teamName}}
+                  </a>
+                </div>
+              </li>
+              <li>
+                <div class="d-flex flex-row align-items-center justify-content-start px-2"
+                     (click)="createTeam()">
+                  <a class="dropdown-item font-size-14 font-weight-500"
+                     style="background: #fff;padding: 0;">Create New
+                  </a>
+                  <img src="assets/img/plus-modal-icon.webp" width="16px" height="16px" class="img-fluid">
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="col-12 col-md-6 col-lg-5 col-xl-4 d-flex flex-md-row justify-content-between justify-content-md-end align-items-center">
+        <div class="d-flex flex-row  common-hover-class">
+          <span class="font-size-manage" (click)="listProject()" id="Projects">Projects</span>
+        </div>
+        <div class="d-flex flex-row justify-content-start">
+          <div class="d-flex flex-row justify-content-start common-hover-class mx-4">
+            <div class="gray-hide-class d-flex flex-row justify-content-between align-items-center me-3"
+                 (click)="createProject()" id="CreateProject"
+                 *ngIf="(teamPermission.length>0 && teamPermission[2].create === true)">
+              <img src="assets/img/plus-modal-icon.webp" class="img-fluid me-md-2 desktop-laptop-img-widht">
+              <span class="font-size-14 font-weight-500 d-none d-md-block">New Project</span>
+            </div>
+            <div class="gray-hide-class dropdown notification-class notification-margin" data-bs-toggle="dropdown"
+                 aria-expanded="false"
+                 (click)="loadNotifications()">
+              <img src="assets/img/bell-icon.webp"
+                   class="img-fluid desktop-laptop-img-widht d-flex flex-row justify-content-between align-items-center">
+              <svg *ngIf="unreadCount > 0" width="8" height="8" viewBox="0 0 8 8" fill="none"
+                   xmlns="http://www.w3.org/2000/svg" class="notification-indicator">
+                <circle cx="4" cy="4" r="3.5" fill="#DA1E28" stroke="#E5E0DF"/>
+              </svg>
+
+              <ul class="dropdown-menu modal-common-border dropdown-menu-end mt-1" style="box-shadow: 0px 2px 16px 0px #00000014;
+                ;padding:16px;min-width: 16rem;max-height: 300px;overflow-x: hidden;overflow-y: auto;">
+                <li class="d-flex flex-column justify-content-between align-items-left"
+                    style="border-bottom: 1px solid #e4dfdf;padding:0.6rem; cursor: auto"
+                    *ngFor="let notification of notifications">
+                  <div class="d-flex flex-row justify-content-between"
+                       [style.cursor]="notification.metaData && notification.metaData.redirectTo ? 'pointer' : (notification.metaData && notification.metaData.read ? 'default' : 'auto')">
+                    <div class="font-size-14 font-weight-500 col-9" (click)="update(notification)"
+                         style="padding-right: 7px;">
+                      <button class="font-size-14 font-weight-500 dark-color bg-transparent border-0 text-start"
+                              [style.cursor]="notification.metaData && notification.metaData.redirectTo ? 'pointer' : (notification.metaData && notification.metaData.read ? 'default' : 'auto')"
+                              [disabled]="(notification.metaData && !notification.metaData.redirectTo) && (notification.metaData && !notification.metaData.read)"
+                              (click)="redirectToNotificationItem(notification)">{{notification.messageAsText}}</button>
+                    </div>
+                    <div class="d-flex flex-row justify-content-between align-items-center col-3">
+                      <span class="me-2 font-size-12 font-weight-400 dark-gray-color text-end col-10"
+                            style="margin-top: 0rem;">{{ commonService.getFormattedTime(notification.receivedAt!) }}</span>
+                      <img src="assets/img/red-indicator.webp" *ngIf="!notification.read" class="img-fluid col-1"
+                           width="6px" height="6px" style="margin-top: -1rem;">
+                    </div>
+                  </div>
+                  <!--  <div class="col-12">
+                      <span class="font-size-12 font-weight-500 dark-gray-color">Dan C mentioned you</span>
+                    </div>-->
+                </li>
+                <!--       <li class="d-flex flex-column justify-content-between align-items-center"
+                           style="border-bottom: 1px solid #e4dfdf;padding:0.6rem">
+                         <div class="d-flex flex-row justify-content-between col-12">
+                           <div class="font-size-14 font-weight-500">
+                             <span class="font-size-14 font-weight-500 dark-color">#opportunities</span>
+                           </div>
+                           <div class="d-flex flex-row justify-content-between align-items-center">
+                             <span class="me-2 font-size-12 font-weight-400 dark-gray-color">5m</span>
+                             <img src="assets/img/red-indicator.webp" class="img-fluid" width="6px" height="6px">
+                           </div>
+
+                         </div>
+                         <div class="col-12">
+                           <span class="font-size-12 font-weight-500 dark-gray-color">2 new messages</span>
+                         </div>
+                       </li>-->
+                <li class="d-flex flex-column justify-content-between align-items-center" *ngIf="unreadCount > 0">
+
+                  <a (click)="readAll()"
+                     class="text-center mt-1 py- font-size-12 font-weight-500 dark-gray-color hv-class" href="#">Mark
+                    All as Read</a>
+                </li>
+                <li *ngIf="notificationsCount === 0" class="text-center py-2">No notifications</li>
+
+                <!--                <li class="d-flex flex-row justify-content-start align-items-center">-->
+                <!--                  <a class="d-flex flex-row dropdown-item font-size-14 font-weight-500 dark-color align-items-center"-->
+                <!--                     href="#" style="background: #fff;">-->
+                <!--                    <input type="checkbox" style="width: 18px;height: 18px;" class="me-2">-->
+                <!--                    In Progress-->
+                <!--                  </a></li>-->
+                <!--                <li class="d-flex flex-row justify-content-start align-items-center">-->
+                <!--                  <a class="d-flex flex-row dropdown-item font-size-14 font-weight-500 dark-color align-items-center"-->
+                <!--                     href="#" style="background: #fff">-->
+                <!--                    <input type="checkbox" style="width: 18px;height: 18px;" class="me-2">-->
+                <!--                    Pending Approval-->
+                <!--                  </a></li>-->
+                <!--                <li class="d-flex flex-row justify-content-start align-items-center">-->
+                <!--                  <a class="d-flex flex-row dropdown-item font-size-14 font-weight-500 dark-color align-items-center"-->
+                <!--                     href="#" style="background: #fff;">-->
+                <!--                    <input type="checkbox" style="width: 18px;height: 18px;" class="me-2">-->
+                <!--                    Complete-->
+                <!--                  </a></li>-->
+              </ul>
+
+            </div>
+          </div>
+          <div class="common-hover-class d-flex flex-row justify-content-start align-items-center" id="iconId"
+               style="max-width: 18%;">
+            <img [src]="getMemberImgUrl()" (error)="onImgError($event, 'assets/img/app-icon.svg')"
+                 class="img-fluid dropdown profile-icon"
+                 data-bs-toggle="dropdown" aria-expanded="false">
+            <ul class="dropdown-menu modal-common-border hv-class-new mt-1" style="box-shadow: 0px 2px 16px 0px #00000014;">
+              <li><a class="dropdown-item font-size-14 font-weight-500 dark-color" style="background: #fff;"
+                     (click)="profile()">Profile</a></li>
+              <li *ngIf="teams.length > 0 && (teamPermission.length>0 && teamPermission[1].update === true)">
+                <a class="dropdown-item font-size-14 font-weight-500 dark-color"
+                   style="background: #fff;"
+                   (click)="editTeam()">Team</a>
+              </li>
+              <li>
+                <a class="dropdown-item font-size-14 font-weight-500 dark-color"
+                   style="background: #fff;">
+                  Support
+                </a>
+              </li>
+              <li><a class="dropdown-item font-size-14 font-weight-500 dark-color" style="background: #fff;"
+                     (click)="logout()">Log Out</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,223 @@
+/*@import url('https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap');*/
+/** {*/
+/*  margin: 0;*/
+/*  padding: 0;*/
+/*  box-sizing: border-box;*/
+/*  font-family: 'Inter', sans-serif;*/
+/*  !*font-family: 'Outfit', sans-serif;*!*/
+/*  !*font-family: 'Poppins', sans-serif;*!*/
+/*}*/
+/*html, body {*/
+/*  width: 100%;*/
+/*  max-width: 100%;*/
+/*  overflow-x: hidden;*/
+/*  font-family: 'Inter', sans-serif;*/
+
+/*}*/
+
+/*.white-background{*/
+/*  background-color: #f7f3f2;*/
+/*  min-height: 100vh;*/
+/*  height: 100%;*/
+/*  position: relative;*/
+/*  overflow-y:scroll;*/
+/*  overflow-x: hidden;*/
+/*}*/
+/*.white-background::-webkit-scrollbar{*/
+/*  display: none;*/
+/*}*/
+/*.white-background{*/
+/*  -ms-overflow-style: none;*/
+/*  scrollbar-width:none;*/
+/*}*/
+/*.common-button{*/
+
+/*}*/
+/*.font-size-12{*/
+/*  font-size: 12px;*/
+/*}*/
+/*.font-weight-500{*/
+/*  font-weight: 500;*/
+/*}*/
+
+/*.font-size-14{*/
+/*  font-size: 14px;*/
+/*}*/
+/*.font-weight-400{*/
+/*  font-weight: 400;*/
+/*}*/
+/*.font-size-16{*/
+/*  font-size: 16px;*/
+/*}*/
+/*.white-color{*/
+/*  color: #fff;*/
+/*}*/
+/*.dark-color{*/
+/*  color: #000;*/
+/*}*/
+/*.grey-color{*/
+/*  color: #6c6b6a;*/
+/*}*/
+/*.opacity-1{*/
+/*  opacity: 0.1;*/
+/*}*/
+/*.font-size-32{*/
+/*  font-size: 32px;*/
+/*}*/
+/*.black-btn{*/
+/*  background: #000;*/
+/*  border-radius: 8px;*/
+/*  padding:12px;*/
+/*  color: #FFFFFF;*/
+/*  font-size: 14px;*/
+/*  font-weight: 500;*/
+/*  background-clip: padding-box;*/
+/*  border: 0px solid #000;*/
+/*  cursor: pointer;*/
+/*}*/
+
+
+/*.white-btn{*/
+/*  background: #fff;*/
+/*  border-radius: 8px;*/
+/*  padding:12px;*/
+/*  color: #000;*/
+/*  font-size: 14px;*/
+/*  font-weight: 500;*/
+/*  background-clip: padding-box;*/
+/*  border: 0px solid #000;*/
+/*  cursor: pointer;*/
+/*}*/
+
+
+/*.grey-btn2{*/
+/*  background: #e5e0df;*/
+/*  border-radius: 8px;*/
+/*  padding:12px;*/
+/*  color: #000;*/
+/*  font-size: 14px;*/
+/*  font-weight: 500;*/
+/*  background-clip: padding-box;*/
+/*  border: 0px solid #000;*/
+/*  cursor: pointer;*/
+/*  outline:none;*/
+/*}*/
+
+/*.sky-blue-btn{*/
+/*  background:#0865fe;*/
+/*  border-radius: 8px;*/
+/*  padding:12px;*/
+/*  color: #FFFFFF;*/
+/*  font-size: 14px;*/
+/*  font-weight: 500;*/
+/*  background-clip: padding-box;*/
+/*  border: 0px solid #000;*/
+/*  cursor: pointer;*/
+/*}*/
+/*.light-green-btn{*/
+/*  background:#a9ff1c;*/
+/*  border-radius: 8px;*/
+/*  padding:12px;*/
+/*  color: #000;*/
+/*  font-size: 14px;*/
+/*  font-weight: 500;*/
+/*  background-clip: padding-box;*/
+/*  border: 0px solid #000;*/
+/*  cursor: pointer;*/
+/*}*/
+
+/*.modal-background{*/
+/*  background: #f7f3f2;*/
+/*}*/
+/*.white-profile-input{*/
+/*  background: #fff;*/
+/*  border-radius: 16px;*/
+/*  padding: 12px;*/
+/*}*/
+/*.white-input-background{*/
+/*  padding: 12px;*/
+/*  border-radius: 8px;*/
+/*  border: 0px solid #fff;*/
+/*  outline-color: #FFFFFF;*/
+/*  background-clip: border-box;*/
+/*}*/
+
+/*.font-size-10{*/
+/*  font-size: 10px;*/
+/*}*/
+/*.dark-gray-color{*/
+/*  color: #565151;*/
+/*}*/
+/*.gray-background-common-class{*/
+/*  background: #e5e0df;*/
+/*  border-radius: 8px;*/
+/*  border: 0px solid #e5e0df;*/
+/*  padding: 8px 8px;*/
+
+/*}*/
+/*.black-btn-2{*/
+/*  background: #000;*/
+/*  border-radius: 8px;*/
+/*  padding:8px;*/
+/*  color: #fff;*/
+/*  font-size: 14px;*/
+/*  font-weight: 500;*/
+/*  background-clip: padding-box;*/
+/*  border: 0px solid #000;*/
+/*  cursor: pointer;*/
+/*  outline:none;*/
+/*}*/
+/*.modal-common-border{*/
+/*  border: 0px solid #fff;*/
+/*  border-radius: 8px ;*/
+/*  !*padding: 16px;*!*/
+/*}*/
+/*.small-white-div{*/
+/*  background: #fff;*/
+/*  border-radius: 16px;*/
+/*  padding: 16px 0px;*/
+/*}*/
+/*.dark-choclate-color{*/
+/*  color:#ba4e00;*/
+/*}*/
+/*.dark-choclate-color2{*/
+/*  color:#a2191f;*/
+/*}*/
+/*.rose-background{*/
+/*  background: #ffd7d9;*/
+/*  border-radius: 8px;*/
+/*  padding: 8px;*/
+/*}*/
+
+/*input:-webkit-autofill,*/
+/*input:-webkit-autofill:hover,*/
+/*input:-webkit-autofill:active,*/
+/*input:-webkit-autofill:focus {*/
+/*  background-color: #FFFFFF ;*/
+/*  color: #000 !important;*/
+/*  -webkit-box-shadow: 0 0 0 1000px white inset !important;*/
+/*  -webkit-text-fill-color: #000 !important;*/
+/*}*/
+/*.font-gray-dark{*/
+/*  color: #565151;*/
+/*}*/
+/*.common-hover-class:hover{*/
+/*  cursor: pointer;*/
+/*  transition: 1s ease-in-out;*/
+/*}*/
+/*.black-common-button*/
+/*{*/
+/*  padding: 12px;*/
+/*  border-radius: 8px;*/
+/*  background: #000;*/
+/*  color: #fff;*/
+/*}*/
+/*.black-common-button:hover{*/
+/*  padding: 12px;*/
+/*  border-radius: 8px;*/
+/*  background: #000;*/
+/*  color: #fff;*/
+/*}*/
+
+/*"src/responsive.css",*/
+/*"src/common-style.css",*/

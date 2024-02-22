@@ -1,0 +1,40 @@
+<div class="modal-dialog modal-dialog-centered">
+  <div class="modal-content" style="background: transparent;">
+    <div class="add-member-modal">
+      <div class="add-member-modal-header">
+        <div class="add-member-modal-heading">
+          <h6 class="add-member-modal-title">Share Roster</h6>
+          <h6 class="add-member-modal-sub-title">Preview</h6>
+        </div>
+        <button class="modal-close-btn" data-bs-dismiss="modal" aria-label="Close" (click)="activeModal.dismiss()">x</button>
+      </div>
+      <div class="add-member-modal-body">
+        <div class="avatar-upload">
+          <div class="avatar-edit">
+            <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg" #fileInput (change)="uploadFile($event)"/>
+            <label for="imageUpload" *ngIf="editFile" [ngClass]="['custom-label', 'upload-image']"></label>
+            <label *ngIf="removeUpload" [ngClass]="['custom-label', 'remove-image']" (click)="removeUploadedFile()"></label>
+          </div>
+          <div class="avatar-preview">
+            <div id="imagePreview" [style.backgroundImage]="'url('+ imageUrl +')'">
+            </div>
+          </div>
+        </div>
+        <form class="add-member-modal-form">
+          <label class="form-label">Email</label>
+          <div class="add-member-modal-form-input-group">
+            <input type="email" class="form-control" placeholder="Email, comma separated" [(ngModel)]="invitedEmails" name="emails">
+            <button type="submit" class="add-member-modal-add-btn" (click)="invite()">Share</button>
+          </div>
+        </form>
+      </div>
+      <div class="add-member-modal-footer">
+        <p class="add-member-modal-footer-title">Copy this private URL to share</p>
+        <div class="add-member-modal-link">
+          <p>{{inviteUrl}}</p>
+          <button class="copy-link-btn" >Copy link</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

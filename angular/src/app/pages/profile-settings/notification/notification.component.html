@@ -1,0 +1,281 @@
+<div class="editing-page">
+    <app-profile-menu></app-profile-menu>
+    <main class="editing-page-wrapper">
+        <div class="edit-profile-container">
+            <h2 class="profile-page-title">Notification</h2>
+            <form class="user-edit-profile-notification-form" id="notificationForm" [formGroup]="notificationForm" (ngSubmit)="onSubmit()">
+                <hr class="edit-profile-hr">
+                <div class="user-edit-profile-form-field-details" formGroupName="channelNotification">
+                    <h2 class="user-edit-profile-form-field-title">channels and Direct messages</h2>
+                    <div class="user-edit-profile-notification-section">
+                      <div class="form-check notification-check-rouned">
+                        <input class="form-check-input" type="radio" name="channelDirectMessages" id="flexRadioDefault1" checked=""
+                               formControlName="channelDirectMessages" value="AllMessages">
+                        <label class="form-check-label" for="flexRadioDefault1">
+                          All new messages
+                        </label>
+                      </div>
+                      <div class="form-check notification-check-rouned">
+                        <input class="form-check-input" type="radio" name="channelDirectMessages" id="flexRadioDefault2" formControlName="channelDirectMessages" value="DirectMessages">
+                        <label class="form-check-label" for="flexRadioDefault2">
+                          Direct messages, mentions and keywords
+                        </label>
+                      </div>
+                    </div>
+                </div>
+                <hr class="edit-profile-hr">
+                <div class="user-edit-profile-form-field-details">
+                    <h2 class="user-edit-profile-form-field-title">Deals</h2>
+                    <div class="user-edit-profile-notification-section" formGroupName="dealNotification">
+                        <div class="form-check notification-check-square">
+                            <input class="form-check-input" type="checkbox" value="" id="Notificationdeals1" checked="" formControlName="newOneAdded">
+                            <label class="form-check-label" for="Notificationdeals1">
+                                New deal added
+                            </label>
+                        </div>
+                        <div class="form-check notification-check-square">
+                            <input class="form-check-input" type="checkbox" value="" id="Notificationdeals2" checked="" formControlName="changeInStatus">
+                            <label class="form-check-label" for="Notificationdeals2">
+                                Change in status
+                            </label>
+                        </div>
+                        <div class="form-check notification-check-square">
+                            <input class="form-check-input" type="checkbox" value="" id="Notificationdeals3" checked="" formControlName="descriptionUpdated">
+                            <label class="form-check-label" for="Notificationdeals3">
+                                Deal description updated
+                            </label>
+                        </div>
+                        <div class="form-check notification-check-square">
+                            <input class="form-check-input" type="checkbox" value="" id="Notificationdeals4" checked="" formControlName="pricingUpdated">
+                            <label class="form-check-label" for="Notificationdeals4">
+                                Pricing updated
+                            </label>
+                        </div>
+                        <div class="form-check notification-check-square">
+                            <input class="form-check-input" type="checkbox" value="" id="Notificationdeals5" checked="" formControlName="startDateUpdated">
+                            <label class="form-check-label" for="Notificationdeals5">
+                                Start date updated
+                            </label>
+                        </div>
+                        <div class="form-check notification-check-square">
+                            <input class="form-check-input" type="checkbox" value="" id="Notificationdeals6" checked="" formControlName="expiryDateUpdated">
+                            <label class="form-check-label" for="Notificationdeals6">
+                                Expiry date updated
+                            </label>
+                        </div>
+                        <div class="form-check notification-check-square">
+                            <input class="form-check-input" type="checkbox" value="" id="Notificationdeals7" checked="" formControlName="priorityUpdated">
+                            <label class="form-check-label" for="Notificationdeals7">
+                                Priority updated
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <hr class="edit-profile-hr">
+                <div class="user-edit-profile-form-field-details">
+                    <h2 class="user-edit-profile-form-field-title">Deliverables</h2>
+                    <div class="user-edit-profile-notification-section" formGroupName="deliverableNotification">
+                        <div class="form-check notification-check-square">
+                            <input class="form-check-input" type="checkbox" value="" id="Notificationdeals8" checked="" formControlName="newOneAdded">
+                            <label class="form-check-label" for="Notificationdeals8">
+                                New deliverable added
+                            </label>
+                        </div>
+                        <div class="form-check notification-check-square">
+                            <input class="form-check-input" type="checkbox" value="" id="Notificationdeals9" checked="" formControlName="changeInStatus">
+                            <label class="form-check-label" for="Notificationdeals9">
+                                Change in status
+                            </label>
+                        </div>
+                        <div class="form-check notification-check-square">
+                            <input class="form-check-input" type="checkbox" value="" id="Notificationdeals10" checked="" formControlName="reviewerAdded">
+                            <label class="form-check-label" for="Notificationdeals10">
+                                Reviewer added
+                            </label>
+                        </div>
+                        <div class="form-check notification-check-square">
+                            <input class="form-check-input" type="checkbox" value="" id="Notificationdeals11" checked="" formControlName="descriptionUpdated">
+                            <label class="form-check-label" for="Notificationdeals11">
+                                Description updated
+                            </label>
+                        </div>
+                        <div class="form-check notification-check-square">
+                            <input class="form-check-input" type="checkbox" value="" id="Notificationdeals12" checked="" formControlName="priorityUpdated">
+                            <label class="form-check-label" for="Notificationdeals12">
+                                Priority updated
+                            </label>
+                        </div>
+                        <div class="form-check notification-check-square">
+                            <input class="form-check-input" type="checkbox" value="" id="Notificationdeals13" checked="" formControlName="evidenceAdded">
+                            <label class="form-check-label" for="Notificationdeals13">
+                                Evidence added
+                            </label>
+                        </div>
+                        <div class="form-check notification-check-square">
+                            <input class="form-check-input" type="checkbox" value="" id="Notificationdeals14" checked="" formControlName="evidenceUpdated">
+                            <label class="form-check-label" for="Notificationdeals14">
+                                Evidence updated
+                            </label>
+                        </div>
+                        <div class="form-check notification-check-square">
+                            <input class="form-check-input" type="checkbox" value="" id="Notificationdeals15" checked="" formControlName="overdueReminder">
+                            <label class="form-check-label" for="Notificationdeals15">
+                                Overdue reminder
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <hr class="edit-profile-hr">
+                <div class="user-edit-profile-form-field-details">
+                    <div class="">
+                        <h2 class="user-edit-profile-form-field-title">APP Notification schedule</h2>
+                        <p class="user-edit-profile-form-field-sub-title">You will only receive notifications in
+                            the
+                            hours that you choose. Outside those times, notification will be paused.</p>
+                    </div>
+                    <div class="user-edit-profile-notification-schedule" formGroupName="applicationNotificationSchedule">
+                        <div class="col-sm-5  col-12">
+                            <select class="form-select" formControlName="language">
+                              <option value="Afrikaans">Afrikaans</option>
+                              <option value="Albanian">Albanian</option>
+                              <option value="Arabic">Arabic</option>
+                              <option value="Armenian">Armenian</option>
+                              <option value="Basque">Basque</option>
+                              <option value="Bengali">Bengali</option>
+                              <option value="Bulgarian">Bulgarian</option>
+                              <option value="Catalan">Catalan</option>
+                              <option value="Cambodian">Cambodian</option>
+                              <option value="Chinese (Mandarin)">Chinese (Mandarin)</option>
+                              <option value="Croatian">Croatian</option>
+                              <option value="Czech">Czech</option>
+                              <option value="Danish">Danish</option>
+                              <option value="Dutch">Dutch</option>
+                              <option value="English" selected>English</option>
+                              <option value="Estonian">Estonian</option>
+                              <option value="Fiji">Fiji</option>
+                              <option value="Finnish">Finnish</option>
+                              <option value="French">French</option>
+                              <option value="Georgian">Georgian</option>
+                              <option value="German">German</option>
+                              <option value="Greek">Greek</option>
+                              <option value="Gujarati">Gujarati</option>
+                              <option value="Hebrew">Hebrew</option>
+                              <option value="Hindi">Hindi</option>
+                              <option value="Hungarian">Hungarian</option>
+                              <option value="Icelandic">Icelandic</option>
+                              <option value="Indonesian">Indonesian</option>
+                              <option value="Irish">Irish</option>
+                              <option value="Italian">Italian</option>
+                              <option value="Japanese">Japanese</option>
+                              <option value="Javanese">Javanese</option>
+                              <option value="Korean">Korean</option>
+                              <option value="Latin">Latin</option>
+                              <option value="Latvian">Latvian</option>
+                              <option value="Lithuanian">Lithuanian</option>
+                              <option value="Macedonian">Macedonian</option>
+                              <option value="Malay">Malay</option>
+                              <option value="Malayalam">Malayalam</option>
+                              <option value="Maltese">Maltese</option>
+                              <option value="Maori">Maori</option>
+                              <option value="Marathi">Marathi</option>
+                              <option value="Mongolian">Mongolian</option>
+                              <option value="Nepali">Nepali</option>
+                              <option value="Norwegian">Norwegian</option>
+                              <option value="Persian">Persian</option>
+                              <option value="Polish">Polish</option>
+                              <option value="Portuguese">Portuguese</option>
+                              <option value="Punjabi">Punjabi</option>
+                              <option value="Quechua">Quechua</option>
+                              <option value="Romanian">Romanian</option>
+                              <option value="Russian">Russian</option>
+                              <option value="Samoan">Samoan</option>
+                              <option value="Serbian">Serbian</option>
+                              <option value="Slovak">Slovak</option>
+                              <option value="Slovenian">Slovenian</option>
+                              <option value="Spanish">Spanish</option>
+                              <option value="Swahili">Swahili</option>
+                              <option value="Swedish ">Swedish </option>
+                              <option value="Tamil">Tamil</option>
+                              <option value="Tatar">Tatar</option>
+                              <option value="Telugu">Telugu</option>
+                              <option value="Thai">Thai</option>
+                              <option value="Tibetan">Tibetan</option>
+                              <option value="Tonga">Tonga</option>
+                              <option value="Turkish">Turkish</option>
+                              <option value="Ukrainian">Ukrainian</option>
+                              <option value="Urdu">Urdu</option>
+                              <option value="Uzbek">Uzbek</option>
+                              <option value="Vietnamese">Vietnamese</option>
+                              <option value="Welsh">Welsh</option>
+                              <option value="Xhosa">Xhosa</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-3 col-12">
+                            <select class="form-select" formControlName="startTime">
+                                <option selected="">00:00:00</option>
+                                <option selected="">01:00:00</option>
+                                <option selected="">02:00:00</option>
+                                <option selected="">03:00:00</option>
+                                <option selected="">04:00:00</option>
+                                <option selected="">05:00:00</option>
+                                <option selected="">06:00:00</option>
+                                <option selected="">07:00:00</option>
+                                <option selected="">08:00:00</option>
+                                <option selected="">09:00:00</option>
+                                <option selected="">10:00:00</option>
+                                <option selected="">11:00:00</option>
+                                <option selected="">12:00:00</option>
+                                <option selected="">13:00:00</option>
+                                <option selected="">14:00:00</option>
+                                <option selected="">15:00:00</option>
+                                <option selected="">16:00:00</option>
+                                <option selected="">17:00:00</option>
+                                <option selected="">18:00:00</option>
+                                <option selected="">19:00:00</option>
+                                <option selected="">20:00:00</option>
+                                <option selected="">21:00:00</option>
+                                <option selected="">22:00:00</option>
+                                <option selected="">23:00:00</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-3 col-12">
+                            <select class="form-select" formControlName="endTime">
+                              <option selected="">00:00:00</option>
+                              <option selected="">01:00:00</option>
+                              <option selected="">02:00:00</option>
+                              <option selected="">03:00:00</option>
+                              <option selected="">04:00:00</option>
+                              <option selected="">05:00:00</option>
+                              <option selected="">06:00:00</option>
+                              <option selected="">07:00:00</option>
+                              <option selected="">08:00:00</option>
+                              <option selected="">09:00:00</option>
+                              <option selected="">10:00:00</option>
+                              <option selected="">11:00:00</option>
+                              <option selected="">12:00:00</option>
+                              <option selected="">13:00:00</option>
+                              <option selected="">14:00:00</option>
+                              <option selected="">15:00:00</option>
+                              <option selected="">16:00:00</option>
+                              <option selected="">17:00:00</option>
+                              <option selected="">18:00:00</option>
+                              <option selected="">19:00:00</option>
+                              <option selected="">20:00:00</option>
+                              <option selected="">21:00:00</option>
+                              <option selected="">22:00:00</option>
+                              <option selected="">23:00:00</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="main-body-footer-container main-body-footer-absolute mt-5">
+            <button type="button" class="body-footer-cancel-btn" [routerLink]="['/']">Cancel</button>
+            <button type="submit" class="body-footer-save-btn" form="notificationForm">Save</button>
+        </div>
+    </main>
+    <div class="open-asidebar" onclick="openasidebar()">
+        <img src="../../../../assets/img/icon_send.svg" id="open_img">
+    </div>
+</div>

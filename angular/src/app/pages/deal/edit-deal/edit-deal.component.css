@@ -1,0 +1,65 @@
+.regular-from-group .input-group-text ~ .form-control{
+	padding-left: 0px ;
+}
+.deliverable-table-section-title{
+	border: unset;
+}
+
+.regular-from-group .input-group-text ~ .form-control{
+  padding-left: 0px ;
+}
+
+.file-input {
+  display: none;
+
+}
+.bg_none {
+  background: none;
+}
+
+
+.create-dela-link {
+  font-family: var(--font-family);
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+  color: var(--white-08);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 15px;
+  margin: 0;
+}
+
+ .create-dela-link img {
+  width: 12px;
+  height: 12px;
+  margin: 0;
+}
+
+.creator-invite-link {
+  color: var(--grey-2);
+  font-size: 14px;
+  text-transform: capitalize;
+  cursor: pointer;
+}
+
+.creator-invite-link:hover {
+  color: var(--grey-4);
+}
+
+.uploaded-file{
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+.uploaded-file .file-title{
+  color: var(--white-07);
+  margin-left: 8px ;
+}
+.uploaded-file .delete-file{
+  cursor: pointer;
+  margin-left: 8px ;
+}

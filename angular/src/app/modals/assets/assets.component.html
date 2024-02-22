@@ -1,0 +1,58 @@
+<div class="modal-dialog modal-dialog-centered m-0 modal-lg">
+  <div class="modal-content modal-container">
+    <div class="modal-header">
+      <h1 class="modal-title font-size-16 font-weight-500" id="exampleModalLabel">
+        <img src="assets/img/arrow-left.webp" class="img-fluid me-3" width="24px" height="24px" (click)="close(null)">Assets
+      </h1>
+      <img src="assets/img/closebutton-icon.webp" class="img-fluid" width="24px" height="24px" (click)="close(null)">
+    </div>
+    <div class="modal-body mb-4">
+      <div class="d-flex flex-column justify-content-between col-12">
+        <div id="buttons-container" class="buttons-container">
+          <div class="toggle-button mobile-font" [class.active]="activeButton === 'done'" (click)="toggleButton('done')">Published
+          </div>
+          <div class="toggle-button mobile-font" [class.active]="activeButton === 'approved'" (click)="toggleButton('approved')">
+            Approved</div>
+          <div class="toggle-button mobile-font" [class.active]="activeButton === 'notstarted'"
+            (click)="toggleButton('notstarted')">Waiting For Review</div>
+        </div>
+        <label class="font-size-12 font-weight-400 mt-4">Files ({{fileList.length}})</label>
+        <div class="d-flex flex-row justify-content-between mt-2 align-items-center white-input-background"
+          *ngFor="let assets of fileList" style="background: #fff;" (click)="openImageModal(assets.cdnUrl)">
+          <div class="d-flex flex-row align-items-center justify-content-start col-7 col-md-8">
+            <img src="assets/img/document-attachment.webp" class="img-fluid me-2" width="16px" height="16px">
+            <span class="font-size-14 font-weight-500 text-dark">{{assets.fileName}}.{{assets.ext}}</span>
+          </div>
+          <div class="d-flex flex-row align-items-center justify-content-end col-5 col-md-4">
+            <span class="font-size-14 font-weight-400 dark-gray-color">{{assets.createdAt | date}}</span>
+            <img src="assets/img/chevron-icon.webp" class="img-fluid ms-2" width="16px" height="16px">
+          </div>
+        </div>
+
+        <label class="font-size-12 font-weight-400 mt-4">Links ({{urlList.length}})</label>
+        <div class="d-flex flex-row justify-content-between mt-2 align-items-center white-input-background col-12"
+          *ngFor="let assets of urlList" style="background: #fff;">
+          <div class="d-flex flex-row align-items-center justify-content-start col-6 col-md-8" *ngIf="assets.url">
+            <img src="assets/img/link.webp" class="img-fluid me-2 col-1" width="16px" height="16px">
+            <a class="font-size-14 font-weight-500 text-dark col-11" href="assets.url" target="_blank" style="text-decoration: none;">{{assets.url}}</a>
+          </div>
+          <div class="d-flex flex-row align-items-center justify-content-end col-6 col-md-4" *ngIf="assets.url">
+            <span class="font-size-14 font-weight-400 dark-gray-color">{{assets.createdAt | date}}</span>
+          </div>
+        </div>
+
+
+        <label class="font-size-12 font-weight-400 mt-4">Captions ({{captionList.length}})</label>
+        <div class="d-flex flex-row justify-content-between mt-2 align-items-center white-input-background col-12"
+          *ngFor="let assets of captionList" style="background: #fff;">
+          <div class="d-flex flex-row align-items-center justify-content-start col-md-8 col-6" *ngIf="assets.caption">
+            <span class="font-size-14 font-weight-500 text-dark text-truncate">{{assets.caption}}</span>
+          </div>
+          <div class="d-flex flex-row align-items-center justify-content-end col-md-4 col-6" *ngIf="assets.caption">
+            <span class="font-size-14 font-weight-400 dark-gray-color">{{assets.createdAt | date}}</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>

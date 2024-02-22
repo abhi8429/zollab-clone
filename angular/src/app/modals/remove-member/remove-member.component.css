@@ -1,0 +1,23 @@
+.grey-btn2:hover{
+  background: #e5e0df;
+  border-radius: 8px;
+  padding:12px;
+  color: #000;
+  font-size: 14px;
+  font-weight: 500;
+  background-clip: padding-box;
+  border: 0px solid #000;
+  cursor: pointer;
+  outline:none;
+}
+.black-btn:hover{
+  background:#000;
+  border-radius: 8px;
+  padding:12px;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  background-clip: padding-box;
+  border: 0px solid #000;
+  cursor: pointer;
+}

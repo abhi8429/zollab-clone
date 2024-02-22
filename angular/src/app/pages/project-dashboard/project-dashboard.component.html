@@ -1,0 +1,249 @@
+<div class="white-background" (scroll)="onScroll($event)">
+  <app-header (teamChanged)="loadData()"></app-header>
+  <hr class="opacity-1">
+  <div class="container">
+    <div class="body-section-class padding-manage-class-body">
+      <!-- <div class="d-md-none d-flex flex-row align-items-center justify-content-start white-hide-class col-12" style="padding:0px;">
+        <div class="btn-group"   data-bs-toggle="dropdown" aria-expanded="false" data-bs-reference="parent">
+          <div class="d-flex flex-row align-items-center">
+            <img src="assets/img/profile-finger-icon.webp"
+                 class="img-fluid desktop-laptop-img-widht me-2"></div>
+          <button type="button" class="btn dark-gray-color white-hide-class adjust-font-size2"
+                  style="font-weight: 400;margin-left:2px;"
+                  data-bs-toggle="dropdown" aria-expanded="false" data-bs-reference="parent">
+            Team / Gamedist
+          </button>
+          <button type="button" class="btn dropdown-toggle dropdown-toggle-split white-hide-class"
+                  style="color: #000;padding: 10px;"
+                  data-bs-toggle="dropdown" aria-expanded="false" data-bs-reference="parent">
+            <span class="visually-hidden">Toggle Dropdown</span>
+          </button>
+
+          <ul class="dropdown-menu dropdown-menu-start col-12 common-hover-class"
+              style="min-width: 11rem;background: #fff;border: 0px solid #fff;transform:translate3d(-20px, 46px, 0px);">
+            <li >
+              <div class="d-flex flex-row align-items-center justify-content-start px-2 mb-2">
+                <img src="assets/img/foreign-boy-icon.webp"
+                     width="16px" height="16px" class="img-fluid me-2">
+                <a class="dropdown-item font-size-14 font-weight-500"
+                   style="background: #fff;padding:0;">
+                  teamName
+                </a>
+              </div>
+            </li>
+            <li>
+              <div class="d-flex flex-row align-items-center justify-content-start px-2">
+                <a class="dropdown-item font-size-14 font-weight-500"
+                   style="background: #fff;padding: 0;">Create New
+                </a>
+                <img src="assets/img/plus-modal-icon.webp" width="16px" height="16px" class="img-fluid">
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div> -->
+      <div class="col-12 tex-left project-title mt-4 d-none d-md-block">Projects</div>
+      <div class="col-12 d-flex flex-row justify-content-between align-items-center padding-cls" *ngIf="isProjectAvailable">
+        <div class="col-md-6 col-10 d-flex flex-row justify-content-start align-items-center">
+          <div class="gray-background-common-class dark-gray-color d-flex flex-row justify-content-between align-items-center toggle-btn"
+          [class.active]="activeButton==='DueNow'" (click)="dueNow('DueNow')">
+       <span class="font-size-14 font-weight-500 text-center" style="position: relative;">
+         <img src="assets/img/white-indicator.png" class="img-fluid me-2" width="6px" height="6px" style="margin-top: -5px;" *ngIf="activeButton==='DueNow'">
+         <span class="font-size-14 font-weight-500">Due Now</span>
+       </span>
+     </div>     
+     <div class="gray-background-common-class mx-3 dark-gray-color toggle-btn d-flex flex-row justify-content-between align-items-center"
+     [class.active]="activeButton==='Upcoming'" (click)="upcoming('Upcoming')">
+  <span class="font-size-14 font-weight-500" style="position: relative;">
+    <img src="assets/img/white-indicator.png" class="img-fluid me-2" width="6px" height="6px" style="margin-top: -5px;" *ngIf="activeButton==='Upcoming'">
+    <span class="font-size-14 font-weight-500">Upcoming</span>
+  </span>
+</div>
+
+<div class="gray-background-common-class dark-gray-color toggle-btn d-flex flex-row justify-content-between align-items-center"
+     [class.active]="activeButton==='All'"  (click)="all('All')">
+  <span class="font-size-14 font-weight-500" style="position: relative;">
+    <img src="assets/img/red-indicator.webp" class="img-fluid me-2" width="6px" height="6px" style="margin-top: -5px;" *ngIf="activeButton==='All'">
+    <span class="font-size-14 font-weight-500">All</span>
+  </span>
+</div>
+        </div>
+        <div class="col-md-6 col-2 d-flex flex-row justify-content-end" >
+          <div class="gray-background-common-class dropdown" data-bs-toggle="dropdown" aria-expanded="false" id="filter">
+            <img src="assets/img/filter-logo.webp" class="img-fluid" width="21px" height="21px"></div>
+
+          <ul class="dropdown-menu modal-common-border" style="box-shadow: rgba(0, 0, 0, 0.08) 0px 2px 16px 0px;">
+            <li class="d-flex flex-row justify-content-start align-items-center">
+              <a class="d-flex flex-row dropdown-item font-size-14 font-weight-500 dark-color align-items-center"
+                 style="background: #fff">
+                <input type="checkbox" style="width: 18px;height: 18px;" class="me-2" (change)="pendingApproval($event)" #pendingApprovalCheckbox>
+                Pending Approval
+              </a></li>
+            <li class="d-flex flex-row justify-content-start align-items-center">
+              <a class="d-flex flex-row dropdown-item font-size-14 font-weight-500 dark-color align-items-center"
+                 style="background: #fff;">
+                <input type="checkbox" style="width: 18px;height: 18px;" class="me-2" (change)="complete($event)" #completeCheckbox>
+                Complete
+              </a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="d-flex flex-column justify-content-center align-items-center" style="padding: 0px; height: 75vh;" *ngIf="!isProjectAvailable">
+        <img src="assets/img/dotted-circle.webp" class="img-fluid" width="32px;" height="32px;">
+        <div class="d-flex flex-column align-items-center text-center mt-3">
+          <p class="font-size-16 font-weight-500 dark-color">No Project</p>
+          <p class="font-size-14 font-weight-500 dark-gray-color">You do not currently have any projects to view.</p>
+          <button class="light-green-btn" (click)="createProject()" *ngIf="(teamPermission.length>0 && teamPermission[2].create === true)">Create New Project</button>
+        </div>
+      </div>
+      <div #scrollContainer class="d-flex flex-column justify-content-start mt-4 mt-md-0 position-scroll-class padding-manage-class"
+           *ngIf="isProjectAvailable" (scroll)="onScroll($event)">
+        <div class="d-flex flex-column justify-content-between small-white-div mb-2 col-12"
+             *ngFor="let project of projects;" (click)="selectProject(project)">
+          <div class="d-flex flex-row justify-content-between align-items-center col-12" style="padding: 0px 16px;">
+            <div class="d-flex flex-row justify-content-start  align-items-center col-9 col-md-10">
+              <div class="position-relative d-flex flex-column me-3 col-3 col-md-2 col-lg-1">
+                <img [src]="team?.avatarUrl"  (error)="teamAvatarImgError($event)" class="img-fluid " style="width: 60px; height: 60px; border-radius: 50%;">
+                <img src="assets/img/green-indicator.webp" class="img-fluid position-absolute bottom-0 online-icon"
+                     width="12px" height="12px">
+              </div>
+              <div class="d-flex flex-column justify-content-start col-8 col-md-10 col-lg-11">
+                <span class="adjust-font-size font-weight-500 dark-color mb-1">{{project.title}}</span>
+                <span class="font-size-14 font-weight-500 dark-gray-color">{{team?.teamName}}</span>
+              </div>
+            </div>
+            <div class="d-flex flex-column justify-content-between align-items-end col-3 col-md-2">
+              <div class="d-flex flex-row justify-content-between align-items-center mb-3">
+                <div class="me-2">
+                  <div class="user-images-container" *ngIf="project?.projectMemberImage" [attr.data-toggle]="'tooltip'" [attr.data-placement]="'bottom'" data-bs-toggle="tooltip" [title]="getTooltipContent()">
+                    <img *ngFor="let projectMember of project?.projectMemberImage.slice(0, 2); let i = index"
+                         [src]="projectMember"  (error)="handleImageError($event)">
+                  </div>
+                </div>
+
+                <div class="image-icon text-center d-flex flex-row align-items-center justify-content-between gray-background-common-class" *ngIf="project?.projectMemberImage.length>2">
+                  <button class="font-size-10 font-weight-500 bg-transparent border-0"
+                          triggers="mouseenter:mouseleave"
+                          placement="top"
+                          (mouseenter)="showImages = true"
+                          (mouseleave)="showImages = false"
+                          [ngbPopover]="popoverContent"
+                          container="body"
+                          popoverClass="custom-popover">
+                    +{{project?.projectMemberImage.length - 2}}
+                  </button>
+                  <!-- Tooltip content -->
+                  <ng-template #popoverContent class="mb-3">
+                    <div *ngIf="showImages">
+                      <div class="tooltip-images-container image-row">
+                        <img *ngFor="let pimg of project?.projectMemberImage" [src]="pimg.avtarUrl"  (error)="handleImageError($event)"
+                        style="height: 26px; width: 26px;" alt="" class="tooltip-image">
+                      </div>
+                    </div>
+                  </ng-template>
+
+                </div>
+              </div>
+              <img src="assets/img/foreign-boy-icon.webp" class="img-fluid" width="27px" height="8px" *ngIf="project?.projectMemberImage && project.projectMemberImage.length === 0">
+
+              <div class="d-flex flex-row justify-content-start">
+                <span class="font-size-12 font-weight-500 dark-choclate-color">{{project.status}}</span>
+              </div>
+            </div>
+          </div>
+          <div class="d-flex flex-row justify-content-between align-items-center rose-background mt-3"
+               style="margin: 0px 16px;" *ngFor="let deliverable of project.deliverables"
+               [ngClass]="{
+       'status-not-started': deliverable.status === 'NOT_STARTED',
+       'status-in-review': deliverable.status === 'IN_REVIEW',
+       'status-approved': deliverable.status === 'APPROVED',
+       'status-done': deliverable.status === 'DONE'
+     }">
+            <div class="d-flex flex-row justify-content-start col-8 col-md-10"><span class="font-size-12 font-weight-500">{{deliverable.description}}</span>
+            </div>
+            <div class="d-flex flex-row justify-content-end col-4 col-md-2">
+            <span
+              class="font-size-12 font-weight-500 dark-choclate-color2">Due: 3 days ago</span>
+            </div>
+          </div>
+          <hr class="opacity-1">
+          <!-- Remove the d-none for future use-->
+          <div class="d-flex flex-row justify-content-between align-items-center mt-2 d-none" style="padding: 0px 16px;">
+            <div class="d-flex flex-row text-truncate col-8"><span
+              class="font-size-14 text-truncate font-weight-500 dark-color" style="max-width: 90%">Here’s a media kit, can you let me know what you think of this revised version I just mocked up?</span>
+            </div>
+            <div class="d-flex flex-row align-items-center">
+              <span class="font-size-12 font-weight-500 dark-gray-color">3 minutes</span>
+              <img src="assets/img/red-indicator.webp" class="img-fluid ms-2" width="8px;" height="8px">
+            </div>
+          </div>
+        </div>
+
+        <!-- Remove the d-none for future use-->
+        <div class="d-flex flex-column justify-content-between mt-3 small-white-div d-none">
+          <div class="d-flex flex-row justify-content-between align-items-center" style="padding: 0px 16px;">
+            <div class="d-flex flex-row justify-content-between align-items-center">
+              <div class="position-relative d-flex flex-column me-3">
+                <img src="assets/img/new-profile-icon-2.webp" class="img-fluid " width="56px" height="56px">
+                <img src="assets/img/grey-indicator.webp" class="img-fluid position-absolute bottom-0"
+                     style="right: 0.4rem" width="12px" height="12px">
+              </div>
+              <div class="d-flex flex-column justify-content-start">
+                <span class="adjust-font-size font-weight-500 dark-color mb-1">Halloween Promo</span>
+                <span class="font-size-14 font-weight-500 dark-gray-color">Gamedist</span>
+              </div>
+            </div>
+            <div class="d-flex flex-column justify-content-between align-items-center">
+              <div class="d-flex flex-row justify-content-between align-items-center ms-4 mb-2">
+                <div class="me-2" style="width: 40px; height: 24px;">
+                  <img src="assets/img/boy-profile-icon2.webp" class="img-fluid" width="40px" height="24px">
+                </div>
+                <div class="gray-background-common-class text-center"
+                     style="border-radius: 50%; width: 24px; height: 24px;padding: 0px">
+                  <span class="text-center font-size-12">+3</span>
+                </div>
+              </div>
+              <div class="d-flex flex-row justify-content-start">
+                <span class="font-size-12 font-weight-500 dark-choclate-color">Pending Approval</span>
+              </div>
+            </div>
+          </div>
+          <hr class="opacity-1">
+          <div class="d-flex flex-row justify-content-between align-items-center mt-2" style="padding: 0px 16px;">
+            <div class="d-flex flex-row text-truncate col-8">
+              <img src="assets/img/folder-shared-icon.webp" class="img-fluid me-2" width="16px;" height="16px;">
+              <span class="font-size-14 text-truncate font-weight-500 dark-gray-color" style="max-width: 90%">
+              deliverables.zip
+            </span>
+            </div>
+            <div class="d-flex flex-row align-items-center">
+              <span class="font-size-12 font-weight-500 dark-gray-color">3 days</span>
+            </div>
+          </div>
+        </div>
+        <button *ngIf="showScrollToTop" (click)="scrollToTop()" class="scroll-to-top-btn d-none d-md-block">
+          &#8593;
+        </button>
+        <button *ngIf="showScrollToTop" (click)="scrollToTop()" class="scroll-to-top-btn d-md-none">
+          &#8593;
+        </button>
+      </div>
+    </div>
+    <hr class="opacity-1 d-none d-sm-block position-absolute" style="bottom: 1rem">
+  </div>
+ <app-footer></app-footer>
+  <!-- <div class="footer-section-class d-none d-sm-block position-fixed col-12 padding-manage-class"
+       style="bottom:0rem; border-top: 1px solid #e4dfdf;padding: 1rem; background: #f7f3f2;">
+    <div class="d-flex flex-row justify-content-between align-items-center col-lg-10 offset-lg-1">
+      <div class="font-size-12 font-weight-500 dark-gray-color mt-3">
+        © 2024 Zollab
+      </div>
+      <div class="font-size-12 font-weight-500 dark-gray-color mt-3">
+        <span style="margin-right: 1rem;">Terms</span>
+        <span style="margin-right: 1rem">Privacy</span>
+        <span>Supports</span>
+      </div>
+    </div>
+  </div>
+</div> -->

@@ -1,0 +1,149 @@
+
+.workspace-creation-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 130px;
+    padding: 60px 260px;
+}
+
+.workspace-creation-logo-bar {
+    display: flex;
+    flex-direction: row;
+    align-items: end;
+    padding: 10px;
+    gap: 10px;
+    width: 100%;
+    max-width: 900px;
+    justify-content: space-between;
+}
+
+.workspace-creation-logobar-user-info {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0px;
+    gap: 10px;
+}
+
+.workspace-creation-logobar-user-avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50px;
+    -webkit-border-radius: 50px;
+    -moz-border-radius: 50px;
+    -ms-border-radius: 50px;
+    -o-border-radius: 50px;
+}
+
+.workspace-creation-logobar-user-name {
+    margin: 0;
+    font-family: var(--font-family);
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 28px;
+    color: var(--white);
+}
+
+.workspace-creation-user-welcome-section {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0px;
+    gap: 90px;
+    width: 100%;
+    max-width: 900px;
+}
+
+.workspace-creation-user-welcome-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 30px;
+    width: 100%;
+    max-width: 475px;
+}
+
+.workspace-creation-content-title {
+    font-family: var(--font-family);
+    font-style: normal;
+    font-weight: 500;
+    font-size: 40px;
+    line-height: 48px;
+    color: var(--white);
+    margin: 0;
+}
+
+.workspace-creation-content-sub-title {
+    font-family: var(--font-family);
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 28px;
+    color: var(--light-grey);
+    margin: 0;
+}
+
+.workspace-create-btn {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+    max-width: 211px;
+    height: 49px;
+    background: linear-gradient(0deg, var(--white), var(--white)), var(--purpule);
+    border-radius: 5px;
+    font-family: var(--font-family);
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    text-align: center;
+    color: var(--black);
+}
+
+.workspace-creation-user-welcome-img img {
+    border-radius: 40px;
+    -webkit-border-radius: 40px;
+    -moz-border-radius: 40px;
+    -ms-border-radius: 40px;
+    -o-border-radius: 40px;
+    width: 335px;
+    height: 184px;
+    object-fit: cover;
+}
+
+.workspace-creation-footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 20px;
+    width: 100%;
+    max-width: 900px;
+}
+
+.workspace-creation-terms-and-policy-text {
+    margin: 0;
+    font-family: var(--font-family);
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 18px;
+    color: var(--grey-2);
+}
+
+.workspace-creation-footer-title a {
+    font-family: var(--font-family);
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 28px;
+    color: var(--light-grey);
+    text-decoration: none;
+    margin: 0;
+}

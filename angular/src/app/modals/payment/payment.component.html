@@ -1,0 +1,57 @@
+<!-- <div class="" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="background:#f7f3f2;;border-radius: 16px; width: 100%;">-->
+
+<div class="modal-dialog modal-dialog-centered m-0 modal-lg slide-top">
+  <div class="modal-content" style="background: #f7f3f2;">
+    <div class="modal-header" style="border:0px solid #f7f3f2;padding-bottom: 0px">
+      <h1 class="modal-title font-size-16" id="exampleModalLabel">Payment</h1>
+      <!--              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
+      <img src="assets/img/closebutton-icon.webp" class="img-fluid" width="24px" height="24px"
+           (click)="close(null)">
+    </div>
+    <div class="modal-body" style="border: 0px solid #f7f3f2;padding-bottom:0px;">
+      <div class="d-flex flex-row justify-content-start col-12 mt-2">
+      <button class="black-btn-2">Card</button>
+      <button class="gray-background-common-class mx-2 font-size-14 font-weight-500 font-gray-dark" (click)="paypalPayment()">PayPal</button>
+      <button class="gray-background-common-class font-size-14 font-weight-500 font-gray-dark" (click)="bankPayment()">Bank Account</button>
+      </div>
+      <div class="d-flex flex-column justify-content-start mt-4">
+        <label class="font-size-12 font-weight-400 text-dark mb-2">Card Number</label>
+        <div class="col-12 common-white-input d-flex flex-row justify-content-between align-items-center">
+          <input type="text" class="inner-input col-11 me-2 me-md-3 font-size-14 font-weight-400 d-flex flex-row align-items-center" placeholder="**** **** **** ****">
+          <img src="assets/img/payment-icon.webp" class="img-fluid" width="20px" height="20px"></div>
+      </div>
+      <div class="d-flex flex-row justify-content-between align-items-center mt-3">
+        <div class="col-6 d-flex flex-column justify-content-between pe-2">
+          <label class="font-size-12 font-weight-400 mb-1 text-dark">Expiry</label>
+          <input type="text" placeholder="12/26" class="common-white-input font-size-14 font-weight-400 text-dark">
+        </div>
+        <div class="col-6 d-flex flex-column justify-content-between ps-2">
+          <label class="font-size-12 font-weight-400 mb-1 text-dark">CCV</label>
+          <input type="text" placeholder="****" class="common-white-input font-size-14 font-weight-400 text-dark">
+        </div>
+      </div>
+      <div class="d-flex flex-column justify-content-between align-items-center text-center mt-4">
+        <a class="font-size-14 font-weight-500 light-red-color">Remove Saved Card</a>
+      </div>
+      <hr style="color: #e5e0df; border: 1px solid;opacity: 0.6">
+      <div class="d-flex flex-row justify-content-between">
+        <span class="font-size-14 font-weight-500 text-dark">Already Paid?</span>
+        <span class="font-size-14 font-weight-500 dark-gray-color text-decoration-underline">Mark as Paid</span>
+      </div>
+      <hr style="color: #e5e0df; border: 1px solid;opacity: 0.6">
+      <div class="d-flex flex-row justify-content-between align-items-center mb-3">
+        <div class="d-flex flex-row justify-content-start align-items-center">
+          <img src="assets/img/foreign-boy.webp" class="img-fluid" width="24px" height="24px" >
+          <span class="font-size-14 font-weight-400 text-dark mx-2">Pay Dan Gona</span>
+          <img src="assets/img/vector.webp" class="img-fluid" width="8px" height="5px">
+        </div>
+        <div class="d-flex flex-row justify-content-end align-items-center">
+          <span class="font-size-14 font-weight-500 light-green-color ">$12,000.00</span>
+        </div>
+      </div>
+      <div class="d-flex flex-row justify-content-between align-items-center mb-4">
+        <button class="col-12 light-green-btn font-size-14 font-weight-500" (click)="submitPayment()">Submit Payment</button>
+      </div>
+  </div>
+</div>
+

@@ -1,0 +1,163 @@
+<div class="white-background">
+  <app-header class="d-none d-md-block"></app-header>
+  <hr class="opacity-1 d-none d-md-block mb-5">
+  <div class="body-section-class col-lg-8 offset-lg-2 col-xl-6 offset-xl-3 padding-manage-class pt-3 pt-md-0">
+    <div class="d-flex flex-row justify-content-between col-12">
+      <div class="col-8 d-flex flex-row justify-content-start align-items-center">
+        <img src="assets/img/app-icon.svg" class="img-fluid me-2" width="24px" height="24px">
+        <span class="font-size-16 font-weight-500 dark-gray-color">Gamedist -> New Project</span>
+      </div>
+      <div class="d-flex flex-row justify-content-end align-items-center">
+        <img src="assets/img/magic-vand.webp" class="img-fluid" width="24px" height="24px">
+      </div>
+    </div>
+    <form #projectForm="ngForm">
+      <div class="d-flex flex-column justify-content-start col-12 mt-4">
+        <label class="d-flex flex-row justify-content-start font-size-12 font-weight-500 mb-2"
+        >Project Start Date</label>
+       <!-- <span
+          class="text-danger font-size-12 font-weight-500"
+          *ngIf="
+                submitted &&
+                projectStatedAt.errors?.['required']">
+              This is required field
+            </span> -->
+       <!--   <span class="text-danger font-size-12 font-weight-500" *ngIf="projectStatedAt.hasError('matDatepickerParse')">
+          "{{projectStatedAt.getError('matDatepickerParse').text}}"
+          is not a valid date!
+        </span> -->
+        <!-- <span class="text-danger font-size-12 font-weight-500">{{ errorMessages.projectStatedAt }}</span> -->
+        <!--        <input type="date" placeholder="New Project"-->
+<!--               id="session-date"-->
+<!--               class="white-input-background mt-2 font-size-14 font-weight-400 change"-->
+<!--               name="startDate"-->
+<!--               [(ngModel)]="project.projectStartedAt"-->
+<!--               #projectStatedAt="ngModel"-->
+<!--               required>-->
+
+<span class="text-danger font-size-12 font-weight-500 mb-1">{{ errorMessages.projectStatedAt }}</span>
+        <input class="form-control select-input-clndr" [ngClass]="{ 'is-invalid': submitted && errorMessages.projectStatedAt!=='' }"
+        (click)="d.toggle();" placeholder="YYYY/MM/DD" name="dp" ngbDatepicker #d="ngbDatepicker" (dateSelect)="validateDates()"
+        [(ngModel)]="project.projectStartedAt" [minDate]="minDate" readonly>
+
+        <!-- <div class="d-flex flex-row justify-content-start position-relative">
+          <input matInput [matDatepicker]="picker" placeholder="MM/DD/YYYY" style="border-top-right-radius: 0; border-bottom-right-radius: 0;" class="m-0 p-0 col-11 border-0 white-input-background font-size-14 font-weight-400 change position-relative"
+                 name="startDate"  #projectStatedAt="ngModel" [(ngModel)]="project.projectStartedAt"
+                 maxlength="10" required (ngModelChange)="validateDates()"
+                 [ngClass]="{ 'is-invalid': submitted && projectStatedAt.invalid }"
+                 [class.with-icon]="submitted && projectStatedAt.invalid">
+         <div class="m-0 p-0 d-flex flex-row justify-content-end align-items-end border-0 col-1" style="">
+           <mat-datepicker-toggle matIconSuffix [for]="picker" class="w-100 date-material-class"></mat-datepicker-toggle>
+           <mat-datepicker #picker></mat-datepicker>
+         </div>
+        </div> -->
+        <!--      <input id="datepicker" width="276" />-->
+      </div>
+      <hr style="color: #e5e0df; border: 1px solid;opacity: 0.6" class="mb-4">
+      <div class="d-flex flex-row justify-content-between mb-3">
+        <div class="font-size-16 font-weight-500 dark-gray-color">Usage Expiration</div>
+        <!-- <div><label class="switch">
+          <input type="checkbox"
+                 [(ngModel)]="project.usageExpiration"
+                 [ngModelOptions]="{standalone: true}">
+          <span class="slider round"></span>
+        </label></div> -->
+
+        <div class="toggle-container">
+          <span class="enable-label"></span>
+          <label class="switch mb-0">
+            <input type="checkbox" [(ngModel)]="project.usageExpiration" [ngModelOptions]="{standalone: true}">
+            <span class="slider round"></span>
+          </label>
+          <span class="disable-label"></span>
+        </div>
+      </div>
+      <ng-container *ngIf="project.usageExpiration === true">
+        <div class="d-flex flex-column justify-content-start col-12 mt-3">
+          <label class="d-flex flex-row justify-content-start font-size-12 font-weight-500 mb-2">First Use</label>
+          <!-- <span
+            class="text-danger font-size-12 font-weight-500"
+            *ngIf="
+                submitted &&
+                firstUseAt.errors?.['required']">
+              This is required field
+            </span>
+          <span class="text-danger font-size-12 font-weight-500" *ngIf="firstUseAt.hasError('matDatepickerParse')">
+          "{{firstUseAt.getError('matDatepickerParse').text}}"
+          is not a valid date!
+        </span> -->
+          <span class="text-danger font-size-12 font-weight-500 mb-1">{{ errorMessages.firstUseAt }}</span>
+          <!--          <input type="date" placeholder="New Project"-->
+<!--                 class="white-input-background mt-2 font-size-14 font-weight-400 change"-->
+<!--                 id="session-date2"-->
+<!--                 name="firstUseAt"-->
+<!--                 [(ngModel)]="project.firstUseAt"-->
+<!--                 #firstUseAt="ngModel"-->
+<!--                 required>-->
+          <!-- <div class="d-flex flex-row justify-content-start position-relative">
+            <input matInput [matDatepicker]="picker" placeholder="MM/DD/YYYY" class="col-11 white-input-background font-size-14 font-weight-400 change position-relative" name="firstUseAt"
+                   #firstUseAt="ngModel"   [(ngModel)]="project.firstUseAt" maxlength="10" required (ngModelChange)="validateDates()"
+                   [ngClass]="{ 'is-invalid': submitted && firstUseAt.invalid }"
+                   [class.with-icon]="submitted && firstUseAt.invalid">
+            <div class="col-1 d-flex flex-row justify-content-end align-items-end">
+              <mat-datepicker-toggle matIconSuffix [for]="picker" class="date-material-class"></mat-datepicker-toggle>
+              <mat-datepicker #picker class="date-material-class"></mat-datepicker>
+            </div>
+          </div> -->
+          <input class="form-control select-input-clndr" #firstUseAt="ngModel" [ngClass]="{ 'is-invalid': submitted && errorMessages.firstUseAt!=='' }"
+          (click)="d1.toggle();" placeholder="YYYY/MM/DD" name="dp1" ngbDatepicker #d1="ngbDatepicker" (dateSelect)="validateDates()"
+          [(ngModel)]="project.firstUseAt" [minDate]="minDate" readonly>
+
+        </div>
+        <div class="d-flex flex-column justify-content-start mt-3">
+          <label class="font-size-12 font-weight-500 mb-2">Expiration from First Use</label>
+          <!-- <span
+            class="text-danger font-size-12 font-weight-500"
+            *ngIf="
+                submitted &&
+                expirationFromFirstUseAt.errors?.['required']">
+              This is required field
+            </span>
+          <span class="text-danger font-size-12 font-weight-500" *ngIf="expirationFromFirstUseAt.hasError('matDatepickerParse')">
+          "{{expirationFromFirstUseAt.getError('matDatepickerParse').text}}"
+          is not a valid date!
+        </span> -->
+          <span class="text-danger font-size-12 font-weight-500 mb-1">{{ errorMessages.expirationFromFirstUseAt }}</span>
+        </div>
+        <input class="form-control select-input-clndr" [ngClass]="{ 'is-invalid': submitted && errorMessages.expirationFromFirstUseAt!=='' }"
+          (click)="d2.toggle();" placeholder="YYYY/MM/DD" name="dp2" ngbDatepicker #d2="ngbDatepicker" (dateSelect)="validateDates()"
+          [(ngModel)]="project.expirationFromFirstUseAt" [minDate]="minDate" readonly>
+        <!-- <div class="btn-group  col-12 mt-1">
+          <div class="w-100 d-flex flex-row justify-content-start position-relative">
+            <input matInput [matDatepicker]="pickerNew" placeholder="MM/DD/YYYY" class="col-11 white-input-background font-size-14 font-weight-400 change position-relative"
+                   name="expirationFromFirstUseAt"
+                   #expirationFromFirstUseAt="ngModel"   [(ngModel)]="project.expirationFromFirstUseAt" maxlength="10" required (ngModelChange)="validateDates()"
+                   [ngClass]="{ 'is-invalid': submitted && expirationFromFirstUseAt.invalid }"
+                   [class.with-icon]="submitted && expirationFromFirstUseAt.invalid">
+           <div class="col-1 d-flex flex-row justify-content-end align-items-end ">
+             <mat-datepicker-toggle matIconSuffix [for]="pickerNew" class="date-material-class"></mat-datepicker-toggle>
+             <mat-datepicker #pickerNew></mat-datepicker>
+           </div>
+          </div>
+        </div> -->
+        <!--    <hr style="color: #e5e0df; border: 1px solid;opacity: 0.6" class="d-none d-md-block">-->
+        <div class="d-flex flex-row justify-content-start col-12 mt-3 mb-3">
+          <span class="font-size-12 font-weight-400 dark-gray-color">First use must be before the project end date. You then have 12 months from this date to use the project deliverables.</span>
+        </div>
+      </ng-container>
+    </form>
+    <div class="d-flex flex-row justify-content-between col-12 mb-4 mobile-spacing-class">
+      <div class="col-6 pe-1">
+        <button type="button" class="btn grey-btn2" data-bs-dismiss="modal" (click)="back()" style="width: 99%">
+          Back
+        </button>
+      </div>
+      <div class="col-6 ps-1">
+        <button type="button" class="btn light-green-btn" (click)="next()" style="width: 99%">Next</button>
+      </div>
+    </div>
+  </div>
+  <hr class="opacity-1 d-none d-md-block position-absolute" style="bottom: 1rem">
+  <app-footer></app-footer>
+</div>
+

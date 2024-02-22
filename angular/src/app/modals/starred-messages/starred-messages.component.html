@@ -1,0 +1,85 @@
+<div class="modal-dialog modal-dialog-centered m-0 modal-lg">
+  <div class="modal-content" style="background: #f7f3f2;overflow-y: auto;
+  height: 600px;">
+    <div class="modal-header" style="border:0px solid #f7f3f2;padding-bottom: 0px">
+      <h1 class="modal-title font-size-16 font-weight-500" id="exampleModalLabel">
+        <button class="border-0 bg-transparent" (click)="goBack()"><img src="assets/img/arrow-left.webp" class="img-fluid me-3" width="24px" height="24px">{{msgTitle}}</button>
+      </h1>
+      <img src="assets/img/closebutton-icon.webp" class="img-fluid" width="24px" height="24px" (click)="close(null)">
+    </div>
+    <div class="modal-body mb-4" style="border: 0px solid #f7f3f2;padding-bottom:0px;">
+      <div *ngIf="noItemsFound" class="d-flex align-items-center justify-content-center mb-4">
+        <p>No Message found.</p>
+      </div>
+      <div class="d-flex flex-row justify-content-start col-12" *ngFor="let item of startMessage;">
+        <div class="col-1 d-flex flex-column align-items-start justify-content-end">
+          <img [src]="imageUrl" style="width: 30px;
+          height: 30px;
+          border-radius: 50%;">
+        </div>
+        <div class="d-flex flex-column justify-content-start col-11">
+          <div class="d-flex flex-row justify-content-between mb-1">
+            <span class="font-size-12 font-weight-400 font-gray-dark">{{item.memberName}}</span>
+            <!-- <span class="font-size-12 font-weight-400 font-gray-dark">11:38</span> -->
+            <span class="font-size-12 font-weight-400 font-gray-dark"
+              [class]="item.key.sentBy===teamService.userId ?'justify-content-end align-item-end' : 'justify-content-start align-item-start'">
+              {{getFormattedTime(item.sentAt!)}}
+            </span>
+          </div>
+          <button class="mb-1 common-white-input font-size-14 font-weight-400"
+            (click)="navigateToMessageChatDashBoard(item)">
+
+
+            <ng-container *ngIf="item.zollabContentId
+              && item.zollabContent?.contentId
+              && item.zollabContent?.type === 'IMAGE'">
+              <div class="d-flex flex-row align-items-center chatting-common-div col-12 mb-1" style="background-color: #e5e0df; border-radius: 6px;">
+                <img [src]="item.zollabContent?.cdnUrl" class="img-fluid">
+              </div>
+            </ng-container>
+            <ng-container *ngIf="item.zollabContentId
+              && item.zollabContent?.contentId
+              && item.zollabContent?.type === 'VIDEO'">
+              <div class="d-flex flex-row align-items-center chatting-common-div col-12 mb-1" style="background-color: #e5e0df; border-radius: 6px">
+                <video controls [src]="item.zollabContent?.cdnUrl" class="img-fluid">
+                </video>
+              </div>
+            </ng-container>
+            <ng-container *ngIf="item.zollabContentId
+          && item.zollabContent?.contentId
+          && item.zollabContent?.type === 'APPLICATION'" >
+              <div class="d-flex flex-row align-items-center chatting-common-div col-12">
+                <div class="col-12 zip-class d-flex flex-column align-items-center mb-1" style="background-color: #e5e0df; border-radius: 6px">
+                  <img src="assets/img/zip.webp" class="img-fluid mt-3" width="48px" height="48px">
+                  <span class="font-size-14 font-weight-500 mb-4">
+                    <a [href]="item.zollabContent?.cdnUrl" target="_blank">{{item.zollabContent?.fileName}}
+                      .{{item.zollabContent?.ext}}</a>
+                  </span>
+                </div>
+              </div>
+            </ng-container>
+
+            <span>{{item.messageAsText}}</span>
+          </button>
+          <!-- </div> -->
+        </div>
+
+      </div>
+      <!-- <div class="d-flex flex-row justify-content-start col-12 mt-3">
+        <div class="col-1 d-flex flex-column align-items-start justify-content-end">
+          <img src="assets/img/foreign-boy.webp" class="img-fluid" width="24px" height="24px">
+        </div>
+        <div class="d-flex flex-column justify-content-start col-11">
+          <div class="d-flex flex-row justify-content-between mb-1">
+            <span class="font-size-12 font-weight-400 font-gray-dark">Dan Gona</span>
+            <span class="font-size-12 font-weight-400 font-gray-dark">09:50</span>
+          </div>
+          <div class="d-flex flex-row justify-content-between">
+            <input type="text" class="col-12 common-white-input font-size-14 font-weight-400"
+              placeholder="Here’s the full IG reel for this week, can you let me know what you think?">
+          </div>
+        </div>
+
+      </div> -->
+    </div>
+  </div>

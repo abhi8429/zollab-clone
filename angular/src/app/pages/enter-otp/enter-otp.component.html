@@ -1,0 +1,37 @@
+<div class="page-background">
+    <div class="container-fluid">
+        <div class="sign-up-page">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="left-side-content">
+                        <div class="logo-bar">
+                            <a href=""><img src="../../../assets/img/logo.svg"></a>
+                        </div>
+                        <div class="left-side-content-text my-5">
+                            <div class="left-side-content-heading">
+                                <h2 class="left-side-content-heading-title">Enter OTP</h2>
+                            </div>
+                            <form class="sign-up-email-form">
+                              <div class="send-email-code-container">
+                                <input class="send-email-code-box" id="digitOne" name="digitOne" type="text" maxlength="1" [(ngModel)]="digitOne">
+                                <input class="send-email-code-box" id="digitTwo" name="digitTwo" type="text" maxlength="1" [(ngModel)]="digitTwo">
+                                <input class="send-email-code-box" id="digitThree" name="digitThree" type="text" maxlength="1" [(ngModel)]="digitThree">
+                                <input class="send-email-code-box" id="digitFour" name="digitFour" type="text" maxlength="1" [(ngModel)]="digitFour">
+                              </div>
+                                <div class="sign-up-email-form-btn">
+                                    <button type="submit"
+                                        class="sign-up-email-form-continue-btn" (click)="submitOtp()">Continue</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 d-none d-lg-block">
+                    <div class="right-side-content">
+                        <img src="../../../assets/img/dark-theme.png">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

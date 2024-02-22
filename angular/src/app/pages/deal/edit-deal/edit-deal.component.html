@@ -1,0 +1,447 @@
+<div class="workspace deal-pages">
+  <app-left-menu (selectedWorkspace)="updateWorkflow($event)" (hideLeftMenu)="hideLeftMenu = $event" [hideLeftBar]="hideLeftMenu"></app-left-menu>
+  <app-selected-workspace *ngIf="!!selectedWorkspace" [selectedWorkspace]="selectedWorkspace"></app-selected-workspace>
+    <main class="twosidebar-flow">
+        <div class="twosidebar-flow-head">
+            <div class="flow-head-title">
+                <img src="../../../../assets/img/leftside-bar-bottom..svg">
+                <h6>Edit Deal</h6>
+            </div>
+            <div class="flow-head-use-links">
+                <a class="edit-dela-link pointer" data-bs-toggle="modal" data-bs-target="#sharedeal"><img src="../../../../assets/img/share.svg">Share</a>
+                <a class="edit-dela-link pointer" (click)="delete()"><img src="../../../../assets/img/dustbin.svg">Delete</a>
+                <a [routerLink]="['/deals']" [state]="{selectedWorkspace: selectedWorkspace}"><img src="../../../../assets/img/close.svg" class="img-14x14"></a>
+            </div>
+        </div>
+        <div class="twosidebar-flow-body">
+            <div class="create-deal-page">
+                <div class="regular-from-group">
+                    <div class="edit-deal-heading">
+                        <div class="edit-deal-titles">
+                            <!--<p class="edit-deal-sub-title">{{selectedWorkspace.name}} / <span>{{selectedDeal.summary}}</span></p>-->
+                          <h2 class="edit-deal-title">
+                            <div ngbDropdown class="d-inline-block">
+                              <span ngbDropdownToggle id="deliverable_status" [class]="'status-section-'+selectedDeal.status?.toLowerCase()" data-bs-toggle="dropdown" aria-expanded="false">{{selectedDeal.status}}</span>
+                              <ul class="dropdown-menu custom-dropdown" ngbDropdownMenu aria-labelledby="deliverable_status">
+                                <li *ngFor="let nxtStatus of getNextStatus(selectedDeal.status!)"><a role="button" class="dropdown-item" (click)="updateStatus(nxtStatus.id)">{{nxtStatus.name}}</a></li>
+                                <!--<li><a role="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#changerequired">Changes needed</a></li>-->
+                              </ul>
+                            </div>
+                          </h2>
+                        </div>
+                        <!--<div class="edit-deal-profile" (click)="goto()">
+                            <div class="edit-deal-profile-icon">
+                                <img src="assets/img/avatar-famale.svg">
+                            </div>
+                            Kathryn
+                        </div>-->
+                    </div>
+                </div>
+              <form id = "dealForm" [formGroup]="dealForm" (ngSubmit)="update()" class="regular-from-group" (keydown.enter)="$event.preventDefault()">
+                <div class="regular-from-group">
+                  <label>Deal Summary</label>
+                  <div class="input-group">
+                    <input type="text" class="form-control border-end-0" placeholder="Add summary about deal" formControlName="summary">
+                    <span class="input-group-text">00/50</span>
+                  </div>
+                </div>
+                <div class="row w-100 align-items-end">
+                  <div class="col-md-3">
+                <div class="regular-from-group max-258">
+                  <label>Reviewer</label>
+                  <select class="form-select" formControlName="reviewerId">
+                    <option *ngFor="let reviewer of reviewers" [value]="reviewer.memberId">{{!!reviewer.memberName ? reviewer.memberName : reviewer.memberEmail}}</option>
+                  </select>
+                </div>
+                  </div>
+                <div class="col-md-3">
+                  <p (click)="inviteMembers()"
+                     class="m-0 creator-invite-link d-flex align-items-center gap-1 text-decoration-none ">
+                    <img src="../../../../assets/img/white_+.svg" width="10px" height="10px">
+                    Invite Reviewer
+                  </p>
+                </div>
+                  </div>
+                <div class="regular-from-group">
+                    <label>Description</label>
+                    <div class="description-box">
+                        <textarea placeholder="Enter deal details" class="form-control" formControlName="description"></textarea>
+                      <div class="description-box-useful-link">
+                        <button class="btn-transparent" type="button">
+                          <label for="fileUpload" title="Upload" >
+                            <img src="../../../../assets/img/attachment.svg" class="img-20x20">
+                          </label>
+                          <input #fileUpload id="fileUpload" title="upload" onclick="this.value = null" type="file" class="file-input"
+                                 (change)="addAttachment($event)" accept="*" multiple/>
+                         </button>
+                        <button class="btn-transparent" type="button">
+                          <label for="imageUpload" title="Upload" >
+                            <img src="../../../../assets/img/nature-img.svg" class="img-20x20">
+                          </label>
+                          <input #imageUpload id="imageUpload" title="upload" onclick="this.value = null" type="file" class="file-input"
+                                 (change)="addAttachment($event)" accept=".png,.jpg,.jpeg,.jfif,.pjpeg,.pjp" multiple/>
+                         </button>
+                        <!-- <button type="button"> -->
+                         <!-- <label for="voiceUpload" title="Upload" >
+                            <img src="assets/img/icon_mic.svg" class="img-20x20">
+                          </label>
+                          <input #voiceUpload id="voiceUpload" title="upload" onclick="this.value = null" type="file" class="file-input"
+                                 (change)="addAttachment($event)" accept=".mp3" multiple/>-->
+                        <!-- </button> -->
+                      </div>
+                    </div>
+                </div>
+
+                <div class="regular-from-group">
+                  <div class="uploaded-file" *ngFor="let attachment of savedAttachments">
+                    <img src="../../../../assets/img/attachment.svg" class="img-20x20">
+                    <span class="file-title">{{attachment.fileName}}</span>
+                    <img src="../../../../assets/img/x.svg" class="img-20x20 delete-file" (click)="removeSaveAttachment(attachment)">
+                  </div>
+                </div>
+
+                <div class="regular-from-group">
+                  <div class="uploaded-file" *ngFor="let attachment of attachments">
+                    <img src="../../../../assets/img/attachment.svg" class="img-20x20">
+                    <span class="file-title">{{attachment.name}}</span>
+                    <img src="../../../../assets/img/x.svg" class="img-20x20 delete-file" (click)="removeAttachment(attachment)">
+                  </div>
+                </div>
+
+                <div class="regular-from-group">
+                    <label>Pricing</label>
+                    <div class="input-group max-640">
+                        <button class="input-group-text  border-end-0" style="border-left:1px solid;"><img src="../../../../assets/img/dollar.svg" class="img-14x14"></button>
+                        <input type="text" class="form-control border-start-0" formControlName="price">
+                    </div>
+                </div>
+                <div class="row row-cols-sm-auto">
+                  <div class="col-12 position-relative">
+                    <div class="dp-hidden position-absolute">
+                      <div class="input-group date-input-group">
+                        <input
+                          name="datepicker"
+                          class="form-control invisible"
+                          ngbDatepicker
+                          #datepicker="ngbDatepicker"
+                          [autoClose]="'outside'"
+                          (dateSelect)="onDateSelection($event)"
+                          [displayMonths]="2"
+                          [dayTemplate]="t"
+                          outsideDays="hidden"
+                          [startDate]="fromDate!"
+                          tabindex="-1"
+                        />
+                        <ng-template #t let-date let-focused="focused">
+                      <span
+                        class="custom-day"
+                        [class.focused]="focused"
+                        [class.range]="isRange(date)"
+                        [class.faded]="isHovered(date) || isInside(date)"
+                        (mouseenter)="hoveredDate = date"
+                        (mouseleave)="hoveredDate = null"
+                      >
+                        {{ date.day }}
+                      </span>
+                        </ng-template>
+                      </div>
+                    </div>
+                    <div class="regular-from-group max-258">
+                      <label>Starts On</label>
+                      <div class="input-group date-input-group">
+                        <input
+                          #dpFromDate
+                          class="form-control"
+                          placeholder="yyyy-mm-dd"
+                          name="dpFromDate"
+                          [value]="formatter.format(fromDate)"
+                          (input)="fromDate = validateInput(fromDate, dpFromDate.value)"
+                          formControlName="startedAt"
+                        />
+                        <span (click)="datepicker.toggle()" class="input-group-text"><img src="../../../../assets/img/calender.svg" class="img-20x20"></span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12 position-relative">
+                    <div class="regular-from-group max-258">
+                      <label>Expires on</label>
+                      <div class="input-group date-input-group">
+                        <input
+                          #dpToDate
+                          class="form-control"
+                          placeholder="yyyy-mm-dd"
+                          name="dpToDate"
+                          [value]="formatter.format(toDate)"
+                          (input)="toDate = validateInput(toDate, dpToDate.value)"
+                          formControlName="expiredAt"
+                        />
+                        <span (click)="datepicker.toggle()" class="input-group-text"><img src="../../../../assets/img/calender.svg" class="img-20x20"></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="regular-from-group">
+                    <div class="d-flex align-items-center justify-content-between w-100">
+                        <label class="d-flex align-items-center" style="gap: 8px;"><img src="../../../../assets/img/tag.svg">Tags</label>
+                        <label class="">Optional</label>
+                    </div>
+                    <div class="add-tag-input-box">
+                        <span class="add-tag-btn" *ngFor="let tag of tags">
+          {{tag}}
+                          <span class="remove-tag" (click)="removeTag(tag)">×</span>
+        </span>
+                      <input
+                        placeholder="Add Tag"
+                        #tagInput type="text"
+                        class="add-tag-btn add-tag  bg-transparent w-10"
+                        (keyup)="onKeyUp($event)"
+                        formControlName="tag">
+                    </div>
+                </div>
+                <div class="regular-from-group">
+                    <div class="form-check form-switch my-check">
+                        <input class="form-check-input" type="checkbox" role="switch" id="noti" formControlName="notification">
+                        <label class="form-check-label" for="noti">Set notification reminder for deal expiry
+                        </label>
+                    </div>
+                </div>
+              </form>
+                <div class="linked-deliverable-section mt-sm-3 mt-2" id="linked-deliverables">
+                    <div class="linked-deliverable-section-head">
+                        <div class="linked-deliverable-heading">
+                            <h6 class="linked-deliverable-heading-title">Linked Deliverables</h6>
+                            <p class="linked-deliverable-heading-sub-title">Associate deliverable linked with this
+                                deal</p>
+                        </div>
+                        <!--<div class="linked-deliverable-section-head-useful-link" [routerLink]="['/createDeliverable']" [state]="{selectedWorkspace: selectedWorkspace, selectedDeal: selectedDeal}">
+                            <a><img src="assets/img/pulse.svg"></a>
+                        </div>-->
+
+                      <div class="linked-deliverable-section-head-useful-link" [routerLink]="['/createDeliverable']" [state]="{selectedWorkspace: selectedWorkspace, selectedDeal: selectedDeal}">
+                        <a role="button" class="create-dela-link"><img src="../../../../assets/img/pulse.svg">ADD NEW
+                          DELIVERABLE</a>
+                      </div>
+                    </div>
+                    <div class="linked-deliverable-section-body">
+                        <div class="linked-deliverable-table-section">
+                            <div class="deliverable-summary-section deliverable-table-section-title">Deliverable
+                                summary
+                            </div>
+                            <div class="Priority-section deliverable-table-section-title">
+                                Priority
+                            </div>
+                            <div class="repeat-section deliverable-table-section-title">
+                                Repeat
+                            </div>
+                            <div class="due-on-section deliverable-table-section-title">
+                                Due on
+                            </div>
+                            <div class="linked-deliv-status-section deliverable-table-section-title">
+                                Status
+                            </div>
+                        </div>
+                      <ng-container *ngFor="let deliverable of deliverables">
+                        <hr class="custom-hr">
+                        <div class="linked-deliverable-table-section" [routerLink]="['/editDeliverable']" [state]="{selectedWorkspace: selectedWorkspace, selectedDeliverable: deliverable}">
+                            <div class="deliverable-summary-section">{{deliverable.summary}}
+                            </div>
+                            <div class="Priority-section">
+                                <img src="../../../../assets/img/flag.svg">
+                                <span>{{deliverable.priority}}</span>
+                            </div>
+                            <div class="repeat-section">
+                              <p>{{!!deliverable.repeatLabel ? deliverable.repeatLabel : 'Never'}}</p>
+                            </div>
+                            <div class="due-on-section">
+                              {{deliverable.dueAt}}
+                            </div>
+                            <div class="linked-deliv-status-section">
+                                <span [class]="'edit-deliverable-'+deliverable.status">{{deliverable.statusLabel}}</span>
+                            </div>
+                        </div>
+                      </ng-container>
+                        <!--<hr class="custom-hr">
+                        &lt;!&ndash; <div class="deliverable-list-table-section">
+                            <div class="deliverable-summary-section">
+                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi mollitia sint harum
+                                    enim magnam, quasi beatae nostrum dolor voluptas esse perferendis quaerat! Totam
+                                    maiores, deleniti voluptatum error maxime earum dolorum voluptas sit!</p>
+                                <a href="#">5 post series<img src="assets/img/down-icon.svg"
+                                        class="deliverable-list-series-active"></a>
+                            </div>
+                            <div class="Priority-section">
+                                <img src="assets/img/flag.svg">
+                                <p>Medium</p>
+                            </div>
+                            <div class="repeat-section">
+                                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aliquam accusantium
+                                    illo
+                                    id.</p>
+                            </div>
+                            <div class="due-on-section">
+                                <p>Dec 12, 2022</p>
+                            </div>
+                            <div class="status-section">
+                            </div>
+                        </div> &ndash;&gt;
+                        <div class="linked-deliverable-table-section">
+                            <div class="deliverable-summary-section">
+                                A instagram post promoting product
+                                <a href="#">5 post series<img src="assets/img/down-icon.svg" class="deliverable-list-series-active"></a>
+                            </div>
+                            <div class="Priority-section">
+                                <img src="assets/img/flag.svg">
+                                <span>Low</span>
+                            </div>
+                            <div class="repeat-section">
+                                Never
+                            </div>
+                            <div class="due-on-section">
+                                Dec 12, 2022
+                            </div>
+                            <div class="linked-deliv-status-section">
+                                <span class="edit-deliverable-in-prodress">In progress</span>
+                            </div>
+                        </div>
+                        <hr class="custom-hr">
+                        <div class="linked-deliverable-table-section">
+                            <div class="deliverable-summary-section">A instagram post promoting product
+                            </div>
+                            <div class="Priority-section">
+                                <img src="assets/img/flag.svg">
+                                <span>Low</span>
+                            </div>
+                            <div class="repeat-section">
+                                Never
+                            </div>
+                            <div class="due-on-section">
+                                Dec 12, 2022
+                            </div>
+                            <div class="linked-deliv-status-section">
+                                <span class="edit-deliverable-in-prodress">In progress</span>
+                            </div>
+                        </div>
+                        <hr class="custom-hr">
+                        <div class="linked-deliverable-table-section">
+                            <div class="deliverable-summary-section">20 tweets and a video
+                            </div>
+                            <div class="Priority-section">
+                                <img src="assets/img/flag.svg">
+                                <span>Low</span>
+                            </div>
+                            <div class="repeat-section">
+                                Never
+                            </div>
+                            <div class="due-on-section">
+                                Dec 12, 2022
+                            </div>
+                            <div class="linked-deliv-status-section">
+                                <span class="edit-deliverable-change-required">Changes needed</span>
+                            </div>
+                        </div>
+                        <hr class="custom-hr">
+                        <div class="linked-deliverable-table-section">
+                            <div class="deliverable-summary-section">Lorem ipsum dolor sit amet consectetur
+                                adipisicing elit. Necessitatibus debitis qui recusandae?
+                            </div>
+                            <div class="Priority-section">
+                                <img src="assets/img/flag.svg">
+                                <span>Low</span>
+                            </div>
+                            <div class="repeat-section">
+                                Every Tue, Thu, Sat
+                            </div>
+                            <div class="due-on-section">
+                                NA
+                            </div>
+                            <div class="linked-deliv-status-section">
+                                <span class="edit-deliverable-rejected">Rejected</span>
+                            </div>
+                        </div>
+                        <hr class="custom-hr">
+                        <div class="linked-deliverable-table-section">
+                            <div class="deliverable-summary-section">Lorem ipsum dolor sit amet consectetur
+                                adipisicing elit. Necessitatibus debitis qui recusandae?
+                            </div>
+                            <div class="Priority-section">
+                                <img src="assets/img/flag.svg">
+                                <span>Medium</span>
+                            </div>
+                            <div class="repeat-section">
+                                Every Tue, Thu, Sat
+                            </div>
+                            <div class="due-on-section">
+                                NA
+                            </div>
+                            <div class="linked-deliv-status-section">
+                                <span class="edit-deliverable-done">Done</span>
+                            </div>
+                        </div>-->
+                        <hr class="custom-hr">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="main-body-footer-container main-body-footer-absolute mt-5">
+            <!--<button type="button" class="body-generate-report-btn" >Generate Report</button>-->
+
+            <button type="button" class="body-footer-cancel-btn" [routerLink]="['/deals']" [state]="{selectedWorkspace: selectedWorkspace}">Cancel</button>
+            <button type="submit" class="body-footer-save-btn" form="dealForm">Save</button>
+        </div>
+    </main>
+  <app-right-menu [workspace]="selectedWorkspace" [hideRightBar]="hideLeftMenu" (hideRightMenu)="hideLeftMenu = $event"></app-right-menu>
+</div>
+
+
+<!-- edit deal modal -->
+<div class="modal fade" id="sharedeal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="sharedeal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="background: transparent;">
+            <div class="add-member-modal">
+                <div class="add-member-modal-header">
+                    <div class="add-member-modal-heading">
+                        <h6 class="add-member-modal-title">Share deal</h6>
+                        <h6 class="add-member-modal-sub-title">Share the deal with creators and members</h6>
+                    </div>
+                    <button class="modal-close-btn" data-bs-dismiss="modal" aria-label="Close">x</button>
+                </div>
+                <div class="add-member-modal-body">
+                    <form class="add-member-modal-form">
+                        <label class="form-label">Email</label>
+                        <div class="add-member-modal-form-input-group">
+                            <input type="email" class="form-control" placeholder="Email, comma separated">
+                            <button type="submit" class="add-member-modal-add-btn">Share</button>
+                        </div>
+                    </form>
+                    <div class="add-member-modal-member-box">
+                        <div class="add-member-modal-member">
+                            <img src="../../../../assets/img/mini-avatar.png" class="img-24x24">
+                            <p class="add-member-modal-member-name">Kate Buyers </p>
+                        </div>
+                        <div class="add-member-modal-member">
+                            <img src="../../../../assets/img/mini-avatar.png" class="img-24x24">
+                            <p class="add-member-modal-member-name">John Doe</p>
+                        </div>
+                        <div class="add-member-modal-member">
+                            <img src="../../../../assets/img/mini-avatar.png" class="img-24x24">
+                            <p class="add-member-modal-member-name">Roger Grim </p>
+                        </div>
+                        <div class="add-member-modal-member">
+                            <img src="../../../../assets/img/mini-avatar.png" class="img-24x24">
+                            <p class="add-member-modal-member-name">Elton John </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="add-member-modal-footer">
+                    <p class="add-member-modal-footer-title">Copy this private URL to share</p>
+                    <div class="add-member-modal-link">
+                        <p>https ://stella.app/8979870yij</p>
+                        <button class="copy-link-btn">Copy link</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- edit deal modal -->
+

@@ -1,0 +1,294 @@
+.set-up-profile-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 60px 260px;
+    gap: 50px;
+}
+
+.set-up-profile-logo-bar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 10px;
+    gap: 10px;
+    max-width: 900px;
+    width: 100%;
+}
+
+.set-up-profile-main-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0px;
+    gap: 30px;
+    width: 100%;
+    max-width: 660px;
+}
+
+.set-up-profile-content-heading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0px 60px;
+    gap: 15px;
+}
+
+.set-up-profile-content-title {
+    font-family: var(--font-family);
+    font-style: normal;
+    font-weight: 600;
+    font-size: 40px;
+    line-height: 48px;
+    text-align: center;
+    color: var(--white);
+    margin: 0;
+}
+
+.set-up-profile-content-sub-title {
+    font-family: var(--font-family);
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    text-align: center;
+    color: var(--light-grey);
+    margin: 0;
+}
+
+.set-up-profile-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0px;
+    gap: 24px;
+    width: 100%;
+    max-width: 400px;
+}
+
+.set-up-profile-input-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 10px;
+    width: 100%;
+}
+
+.set-up-profile-form .set-up-profile-input-group .form-label {
+    font-family: var(--font-family);
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    display: flex;
+    align-items: center;
+    color: var(--light-grey);
+    margin: 0;
+}
+
+
+.set-up-profile-form .set-up-profile-input-group .form-control {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 10px;
+    height: 48px;
+    border: 1px solid var(--light-grey);
+    border-radius: 5px;
+    background-color: var(--transparent);
+    color: var(--placeholder);
+}
+
+.set-up-profile-form .set-up-profile-input-group .form-control::placeholder {
+    font-family: var(--font-family);
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    color: var(--placeholder);
+}
+
+
+/* .set-up-profile-form .set-up-profile-input-group .form-control[type='password'] {
+    background-image: url("../img/eye.svg");
+    background-repeat: no-repeat;
+    background-position-x: 96%;
+    background-position-y: center;
+    margin-right: 15px;
+    background-size: auto;
+} */
+
+.password-eye-btn {
+    background-color: var(--transparent);
+    border-left: none;
+}
+
+.set-up-profile-form .set-up-profile-input-group textarea {
+    padding: 15px;
+    min-height: 90px !important;
+    border: 1px solid var(--light-grey);
+    border-radius: 5px;
+    resize: none;
+    color: var(--placeholder);
+}
+
+.set-up-profile-btn {
+    width: 100%;
+}
+
+.set-up-profile-next-btn {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    height: 49px;
+    background: linear-gradient(0deg, var(--white), var(--white)), var(--purpule);
+    border-radius: 5px;
+    width: 100%;
+}
+
+.set-up-profile-add-image {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    width: 120px;
+    height: 120px;
+    border: 1px dashed var(--light-grey);
+    border-radius: 105px;
+    position: relative;
+}
+
+.set-up-profile-image-plus-avatar {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0px;
+    width: 35px;
+    height: 35px;
+    background: var(--white);
+    border-radius: 105px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+.set-up-profile-add-image img {
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+}
+
+.set-up-profile-image-plus-avatar img {
+    width: 14px;
+    height: 14px;
+}
+.avatar-upload {
+  position: relative;
+  max-width: 205px;
+  margin: 10px auto 30px;
+}
+
+.avatar-upload .avatar-edit {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0px;
+  width: 35px;
+  height: 35px;
+  background: var(--white);
+  border-radius: 105px;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  z-index: 9;
+}
+
+.avatar-upload .avatar-edit input {
+  display: none;
+}
+
+.avatar-upload .avatar-edit .custom-label {
+  display: inline-block;
+  width: 34px;
+  height: 34px;
+  margin-bottom: 0;
+  border-radius: 100%;
+  background: #FFFFFF;
+  border: 1px solid transparent;
+  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  font-weight: normal;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.avatar-upload .avatar-edit .upload-image {
+  background: #FFFFFF;
+}
+
+.avatar-upload .avatar-edit .remove-image {
+  background: #FFFFFF;
+}
+
+.avatar-upload .avatar-edit .custom-label:hover {
+  opacity: 1;
+}
+
+.avatar-upload .avatar-edit .custom-label:after {
+  position: absolute;
+  text-align: center;
+  margin: auto;
+  top: 8px;
+  right: 0;
+  left: 2px;
+  width: 18px;
+}
+
+.avatar-upload .avatar-edit .upload-image:after {
+  content: url('/assets/img/+.svg');
+  top: 7px;
+  left: 52%;
+  transform: translate(-50%, 0);
+}
+
+.avatar-upload .avatar-edit .remove-image:after {
+  content: url('/assets/img/close.svg');
+  filter: invert(1);
+  top: 9px;
+  left: 52%;
+  transform: translate(-50%, 0);
+}
+
+.avatar-upload .avatar-preview {
+  width: 120px;
+  height: 120px;
+  position: relative;
+  border-radius: 100%;
+  overflow: hidden;
+  border: 1px dashed var(--light-grey);
+  -webkit-box-shadow: 0 0 45px rgba(0, 0, 0, .2);
+  -moz-box-shadow: 0 0 45px rgba(0, 0, 0, .2);
+  box-shadow: 0 0 45px rgba(0, 0, 0, .2);
+}
+
+.avatar-upload .avatar-preview>div {
+  width: 100%;
+  height: 100%;
+  border-radius: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}

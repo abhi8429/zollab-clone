@@ -1,0 +1,30 @@
+<div class="modal-dialog modal-dialog-centered m-0 modal-lg">
+    <div class="modal-content" style="background: #f7f3f2;overflow-y: auto;
+    height: 600px;">
+      <div class="modal-header" style="border:0px solid #f7f3f2;padding-bottom: 0px">
+        <h1 class="modal-title font-size-16 font-weight-500" id="exampleModalLabel">
+        </h1>
+        <img src="assets/img/closebutton-icon.webp" class="img-fluid" width="24px" height="24px" (click)="close()">
+      </div>
+      <div class="modal-body mb-4" style="border: 0px solid #f7f3f2;padding-bottom:0px;">
+        
+
+        <ng-container *ngIf="contentType === 'image'">
+            <img [src]="data" alt="Preview" style="width: 100%; height: 85%; overflow-y: hidden;"/>
+          </ng-container>
+          <ng-container *ngIf="contentType === 'document'">
+            <!-- Render document preview here -->
+            <!-- You may use an <iframe> or other appropriate elements -->{{data}}
+              <!-- <pdf-viewer [src]="pdfSrc" style="display: block;"></pdf-viewer> -->
+              <!-- <app-pdf-viewer  [pdfSrc]="data"></app-pdf-viewer> -->
+              <img [src]="data" alt="Preview" style="width: 100%; height: 85%; overflow-y: hidden;"/>
+          </ng-container>
+          <!-- <video *ngIf="contentType === 'video'"
+          class="img-fluid"
+          [src]="data" controls>
+   </video> -->
+      </div>
+    </div>
+</div>
+
+

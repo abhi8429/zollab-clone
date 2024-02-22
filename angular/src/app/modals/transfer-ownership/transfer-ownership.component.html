@@ -1,0 +1,30 @@
+<div class="modal-dialog modal-dialog-centered m-0 modal-lg">
+  <div class="modal-content" style="background: #f7f3f2;">
+    <div class="modal-header" style="border:0px solid #f7f3f2;padding-bottom: 0px">
+      <h1 class="modal-title font-size-16 font-weight-500" id="exampleModalLabel">Transfer Ownership</h1>
+      <!--              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
+      <img src="assets/img/closebutton-icon.webp" class="img-fluid" width="24px" height="24px" (click)="close(false)">
+    </div>
+    <div class="modal-body" style="border: 0px solid #f7f3f2;padding-bottom: 0px;">
+      <div class="d-flex flex-row justify-content-start mb-2">
+        <span class="font-size-14 font-weight-500">
+          Are you sure you would like to make<strong> Henry Rew</strong> the owner of <strong>Halloween Promo</strong>? This action cannot be undone.
+        </span>
+      </div>
+    </div>
+    <div class="modal-footer" style="border-top: 0px solid #f7f3f2;padding-top: 0px;padding-bottom:1rem">
+      <div class="d-flex flex-row  col-12 px-2">
+        <button type="button" class="btn grey-btn2 col-6 me-2"
+                (click)="close(false)" >
+          Cancel
+        </button>
+        <button type="button" class="btn dark-red-btn col-6"
+                (click)="close(true)">
+          Transfer
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+

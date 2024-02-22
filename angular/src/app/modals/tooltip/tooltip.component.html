@@ -1,0 +1,38 @@
+<div class="modal-dialog modal-dialog-centered m-0 modal-lg">
+  <div class="modal-content" style="background: #e8daff;">
+    <div class="modal-header" style="border:0px solid #f7f3f2;padding-bottom: 0px">
+      <h1 class="modal-title font-size-16 font-weight-500" id="exampleModalLabel">
+        <img src="assets/img/magic-vand.webp" width="24px" height="24px" class="img-fluid me-2"/>Zollab AI</h1>
+      <!--              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
+      <img src="assets/img/closebutton-icon.webp" class="img-fluid common-hover-class" width="24px" height="24px" (click)="close(false)">
+    </div>
+    <div class="modal-body" style="border: 0px solid #f7f3f2;padding-bottom: 0px;">
+      <div class="d-flex flex-row justify-content-start mb-2">
+        <span class="font-size-12 font-weight-400">
+         Email your contract and complete your project details automatically. Easy peasy.
+        </span>
+      </div>
+    </div>
+    <div class="modal-footer" style="border-top: 0px solid #f7f3f2;padding-top: 0px;padding-bottom:1rem;padding-left: 1.2rem">
+      <label class="col-12 d-flex justify-content-start align-items-center font-size-12 font-weight-400">Email to:</label>
+      <div class="d-flex flex-row  col-12 px-2 white-input-background font-size-14 font-weight-400 change justify-content-between position-relative"  style="background: #fff;">
+        <input type="text" class="col-11" placeholder="parse@devprojects.zollab.com" style="border: 0px solid #fff;outline: none" readonly>
+        <img src="assets/img/Copy.svg" class="img-fluid common-hover-class" width="16px" height="16px" ngxClipboard cbContent="parse@devprojects.zollab.com" (click)="hideAnimatedDiv()"
+        (mouseover)="hoverEffect()" (mouseleave)="mouseLeave()">
+        <span class="copied-class" *ngIf="isDisplay">Copied</span>
+        <span class="copyClipboard" *ngIf="isHover">Copy to Clipboard</span>
+      </div>
+      <div class="col-12 d-flex flex-row justify-content-center align-items-center text-center">
+        <span class="text-center font-size-12 font-weight-400">OR</span>
+      </div>
+      <input type='file' id="fileUpload" class="d-none"
+             accept=".pdf,.zip" #fileInput (change)="uploadFile($event)"/>
+      <div class="d-flex flex-row justify-content-start col-12">
+        <button class="black-btn col-12"
+        (click)="fileInput.click()">Upload File</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+

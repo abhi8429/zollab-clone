@@ -1,0 +1,96 @@
+<!-- <div class="" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="background:#f7f3f2;;border-radius: 16px; width: 100%;">-->
+<div class="modal-dialog modal-dialog-centered m-0 modal-lg">
+  <div class="modal-content" style="background: #f7f3f2;max-height: 80vh; overflow-y: auto;padding: 12px;">
+    <div class="modal-header" style="border:0px solid #f7f3f2;padding-bottom: 0px">
+      <h1 class="modal-title font-size-16 font-weight-500 dark-color" id="exampleModalLabel">{{title}} Deliverable(s)</h1>
+      <!--              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
+      <img src="assets/img/closebutton-icon.webp" class="img-fluid" width="24px" height="24px"
+           (click)="close()">
+    </div>
+    <div class="modal-body" style="border: 0px solid #f7f3f2;padding-bottom:0px;padding-top:0px;">
+      <div class="d-flex flex-row justify-content-between align-items-center mt-3 light-red-div col-12" *ngIf="deliverableStep!=='publish'">
+        <div class="d-flex flex-row justify-content-start align-items-center col-8 col-md-9 col-xl-9">
+          <span class="font-size-12 font-weight-500 light-red-color">{{deliverable?.description}}
+            ({{deliverable?.schedule}})</span>
+        </div>
+        <div class="d-flex flex-row justify-content-end align-items-center col-4 col-md-3 col-xl-3">
+          <span class="d-flex flex-row font-size-12 font-weight-400  me-2 light-red-color">Due: 3d ago</span>
+          <!-- <a class="font-size-12 font-weight-500  common-hover-class light-red-color">Upload</a>-->
+        </div>
+      </div>
+      <hr style="color: #e5e0df; border: 1px solid;opacity: 0.6">
+      <label class="font-size-12 font-weight-400 dark-color mb-1">File(Optional)</label>
+      <div class="white-profile-input d-flex flex-row justify-content-between">
+        <div class="d-flex flex-row align-items-center"
+             (click)="fileInput.click()">
+          <ng-container *ngIf="!isImageOrVideo">
+            <div style="width: 40px; height: 40px">
+              <img src="assets/img/deliverable-default-icon.webp"
+                   width="40px" height="40px" class="img-fluid">
+            </div>
+            <div class="d-flex flex-column ms-2 align-items-start">
+              <span class="font-size-14 font-weight-500 dark-color">{{contentFileName}}</span>
+              <span class="font-size-12 font-weight-500">{{contentFile?.size}} MB</span>
+            </div>
+          </ng-container>
+          <input type='file' id="fileUpload" class="d-none"
+                 accept=".pdf,.zip,.docx,image/*,video/*" #fileInput (change)="uploadFile($event)"/>
+          <img [src]="contentUrl"
+               *ngIf="isImage" class="img-fluid">
+          <video *ngIf="isVideo"
+                 class="img-fluid"
+                 [src]="contentUrl" controls>
+          </video>
+        </div>
+      </div>
+<!--      <div class="d-flex flex-row justify-content-between align-items-center">-->
+<!--        <hr>-->
+<!--        <h1>OR</h1>-->
+<!--        <hr>-->
+<!--      </div>-->
+      <div class="col-12 mt-3" *ngIf="fileUploaded">
+        <button class="grey-btn2 col-12" (click)="removeAttachment()">Remove
+        </button>
+      </div>
+      <p class="mt-3" *ngIf="!fileUploaded"><span>OR</span></p>
+      <div class="col-12 d-flex flex-column justify-content-start align-items-center mt-3"
+           *ngIf="!contentFile">
+        <label class="col-12 font-size-12 font-weight-400 dark-color mb-1">File Link (Optional)</label>
+        <input type="text" class="col-12 white-input-background font-size-14 font-weight-400" placeholder="Insert Link"
+               [(ngModel)]="url"
+               (change)="urlAdded()">
+      </div>
+      <div class="col-12 d-flex flex-column justify-content-start align-items-center mt-3" *ngIf="deliverableStep!=='publish'">
+        <label class="col-12 font-size-12 font-weight-400 dark-color mb-1">Caption (Optional)</label>
+        <input type="text" class="col-12 white-input-background font-size-14 font-weight-400"
+               placeholder="Insert Caption"
+               [(ngModel)]="caption">
+      </div>
+      <hr style="color: #e5e0df; border: 1px solid;opacity: 0.6" >
+      <div class="col-12 d-flex flex-column justify-content-start align-items-center mt-3 mb-3" *ngIf="deliverableStep!=='publish'">
+        <label class="col-12 font-size-12 font-weight-400 dark-color mb-1">Sheduled Publish Date (Optional)</label>
+<!--        <input type="date" class="col-12 white-input-background font-size-14 font-weight-400"-->
+<!--               placeholder="Insert Caption">-->
+        <div class=" col-12 d-flex flex-row justify-content-start position-relative" style="background: #fff;border-radius: 8px">
+          <input matInput [matDatepicker]="picker" placeholder="MM-DD-YYYY" class="col-11 white-input-background font-size-14 font-weight-400 change position-relative"
+                 name="datePicker">
+          <!--          <mat-hint>MM/DD/YYYY</mat-hint>-->
+         <div class="col-1 d-flex flex-row justify-content-end align-items-end" style="position: absolute;top: 2.8rem;right: 1rem;">
+           <mat-datepicker-toggle matIconSuffix [for]="picker" style="opacity: 1" class="col-12 date-icon-fix"></mat-datepicker-toggle>
+           <mat-datepicker #picker></mat-datepicker>
+         </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer" style="border-top: 0px solid #f7f3f2;padding-top: 0px;padding-bottom:1rem">
+
+      <div class="col-12 d-flex flex-row ps-2">
+        <button class="light-green-btn col-12 font-size-14 font-weight-500"
+                (click)="uploadNow()">Upload
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+

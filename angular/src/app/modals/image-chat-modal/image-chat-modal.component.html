@@ -1,0 +1,42 @@
+<div class="modal-dialog modal-dialog-centered m-0 modal-lg"
+     style="background: #000; border: 0px solid #000;border-radius:8px">
+  <div class="modal-content" style="background:#000;">
+    <div class="modal-header" style="border:0px solid #000;padding-bottom: 0px">
+      <div class="d-flex flex-row justify-content-start align-items-center col-6">
+        <h1 class="modal-title font-size-16 font-weight-500 text-white" id="exampleModalLabel">
+          <img src="assets/img/white-arrow.webp" class="img-fluid me-3" width="24px" height="24px">banner.png</h1>
+      </div>
+      <div class="d-flex flex-row align-items-center justify-content-end col-6">
+        <img src="assets/img/share.webp" class="img-fluid" width="24px" height="24px" (click)="openShareFile()">
+        <img src="assets/img/cloud-white.webp" class="img-fluid mx-2" width="24px" height="24px" (click)="openZipFile()">
+        <img src="assets/img/close-white-icon.webp" class="img-fluid" width="24px" height="24px"
+             (click)="close(null)">
+      </div>
+    </div>
+    <div class="modal-body mb-4" style="border: 0px solid #f7f3f2;padding-bottom:0px;">
+      <div class="d-flex flex-column justify-content-between col-12">
+
+        <div class="progress mt-5 mb-5 col-md-1 col-2 offset-5">
+          <div class="progress-value"></div>
+        </div>
+<!--        this is showing for images-->
+        <!--        <img src="assets/img/banner.webp" class="img-fluid">-->
+
+
+<!-- this is showing for videos
+      <video controls autoplay>-->
+<!--          <source-->
+<!--            src=""-->
+<!--            type="video/mp4">-->
+<!--        </video>-->
+
+      </div>
+      <div class="warm-gray-div d-flex flex-row justify-content-between col-12 align-items-center mt-4">
+        <input type="text" class="col-9 warm-gray-input" placeholder="Message">
+        <img src="assets/img/face-icon.webp" class="img-fluid" width="24px" height="24px">
+        <img src="assets/img/image-icon.webp" class="img-fluid mx-1" width="24px" height="24px">
+        <img src="assets/img/document-attachment2.webp" class="img-fluid" width="24px" height="24px">
+      </div>
+    </div>
+  </div>
+

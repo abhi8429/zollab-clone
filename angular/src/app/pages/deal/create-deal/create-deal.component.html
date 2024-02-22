@@ -1,0 +1,229 @@
+<div class="workspace deal-pages">
+  <app-left-menu (selectedWorkspace)="updateWorkflow($event)" (hideLeftMenu)="hideLeftMenu = $event"
+                 [hideLeftBar]="hideLeftMenu"></app-left-menu>
+  <app-selected-workspace *ngIf="!!selectedWorkspace" [selectedWorkspace]="selectedWorkspace"></app-selected-workspace>
+  <main class="twosidebar-flow">
+    <div class="twosidebar-flow-head">
+      <div class="flow-head-title">
+        <img src="../../../../assets/img/leftside-bar-bottom..svg">
+        <h6>Create a deal</h6>
+      </div>
+      <div class="flow-head-use-links">
+        <a [routerLink]="['/deals']" [state]="{selectedWorkspace: selectedWorkspace}"><img src="../../../../assets/img/close.svg"
+                                                                                          class="img-14x14"></a>
+      </div>
+    </div>
+    <form [formGroup]="dealForm" (ngSubmit)="create()" (keydown.enter)="$event.preventDefault()">
+      <div class="twosidebar-flow-body">
+        <div class="create-deal-page">
+          <div class="regular-from-group">
+            <label>Deal Summary</label>
+            <div class="input-group">
+              <input type="text" class="form-control border-end-0" placeholder="Add summary about deal"
+                     formControlName="summary" [ngClass]="{ 'is-invalid': submitted && f['summary'].errors }">
+              <span class="input-group-text">00/50</span>
+              <div *ngIf="submitted && f['summary'].errors" class="invalid-feedback">
+                <div *ngIf="f['summary'].errors['required']">Summary is required</div>
+              </div>
+            </div>
+          </div>
+          <div class="row w-100 align-items-end">
+            <div class="col-md-3">
+              <div class="regular-from-group max-700">
+                <label>Reviewer</label>
+                <select class="form-select" formControlName="reviewerId">
+                  <option *ngFor="let member of members" [value]="member.memberId">{{!!member.memberName ? member.memberName : member.memberEmail}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <p (click)="inviteMembers()"
+                 class="m-0 creator-invite-link d-flex align-items-center gap-1 text-decoration-none ">
+                <img src="../../../../assets/img/white_+.svg" width="10px" height="10px">
+                Invite Reviewer
+              </p>
+            </div>
+          </div>
+            <!--<div class="col-md-3">
+              <button class="btn btn-dark mt-3" type="button" (click)="inviteMembers()"> Invite Reviewer</button>
+            </div>-->
+
+          <div class="regular-from-group">
+            <label>Description</label>
+            <div class="description-box">
+              <textarea placeholder="Enter deal details" class="form-control" formControlName="description"
+                        [ngClass]="{ 'is-invalid': submitted && f['description'].errors }"></textarea>
+              <div class="description-box-useful-link">
+                <button class="btn-transparent" type="button">
+                  <label for="fileUpload" title="Upload">
+                    <img src="../../../../assets/img/attachment.svg" class="img-20x20">
+                  </label>
+                  <input #fileUpload id="fileUpload" title="upload" onclick="this.value = null" type="file"
+                         class="file-input"
+                         (change)="addAttachment($event)" accept=".pdf,.doc,.docx,.ppt,.pptx" multiple/>
+                </button>
+                <button class="btn-transparent" type="button">
+                  <label for="imageUpload" title="Upload">
+                    <img src="../../../../assets/img/nature-img.svg" class="img-20x20">
+                  </label>
+                  <input #imageUpload id="imageUpload" title="upload" onclick="this.value = null" type="file"
+                         class="file-input"
+                         (change)="addAttachment($event)" accept=".png,.jpg,.jpeg,.jfif,.pjpeg,.pjp" multiple/>
+                </button>
+                <!--<button class="btn-transparent" type="button">
+                  <label for="voiceUpload" title="Upload">
+                    <img src="assets/img/icon_mic.svg" class="img-20x20">
+                  </label>
+                  <input #voiceUpload id="voiceUpload" title="upload" onclick="this.value = null" type="file"
+                         class="file-input"
+                         (change)="addAttachment($event)" accept=".mp3" multiple/>
+                </button>-->
+              </div>
+              <div *ngIf="submitted && f['description'].errors" class="invalid-feedback">
+                <div *ngIf="f['description'].errors['required']">Description is required</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="regular-from-group">
+            <div class="uploaded-file" *ngFor="let attachment of attachments">
+              <img src="../../../../assets/img/attachment.svg" class="img-20x20">
+              <span class="file-title">{{attachment.name}}</span>
+              <img src="../../../../assets/img/x.svg" class="img-20x20 delete-file" (click)="removeAttachment(attachment)">
+            </div>
+          </div>
+
+          <div class="regular-from-group">
+            <label>Pricing</label>
+            <div class="input-group max-640">
+              <button class="input-group-text  border-end-0" style="border-left:1px solid;"><img
+                      src="../../../../assets/img/dollar.svg" class="img-14x14"></button>
+              <input type="text" class="form-control border-start-0" placeholder="Add pricing" formControlName="price"
+                     [ngClass]="{ 'is-invalid': submitted && f['price'].errors }">
+              <div *ngIf="submitted && f['price'].errors" class="invalid-feedback">
+                <div *ngIf="f['price'].errors['required']">Price is required</div>
+              </div>
+            </div>
+          </div>
+          <div class="row row-cols-sm-auto">
+            <div class="col-12 position-relative">
+              <div class="dp-hidden position-absolute">
+                <div class="input-group date-input-group">
+                  <input
+                    name="datepicker"
+                    class="form-control invisible"
+                    ngbDatepicker
+                    #datepicker="ngbDatepicker"
+                    [autoClose]="true"
+                    (dateSelect)="onDateSelection($event)"
+                    [displayMonths]="2"
+                    [dayTemplate]="t"
+                    outsideDays="hidden"
+                    [startDate]="fromDate!"
+                    tabindex="-1"
+                  />
+                  <ng-template #t let-date let-focused="focused">
+                      <span
+                        class="custom-day"
+                        [class.focused]="focused"
+                        [class.range]="isRange(date)"
+                        [class.faded]="isHovered(date) || isInside(date)"
+                        (mouseenter)="hoveredDate = date"
+                        (mouseleave)="hoveredDate = null"
+                      >
+                        {{ date.day }}
+                      </span>
+                  </ng-template>
+                </div>
+              </div>
+              <div class="regular-from-group max-258">
+                <label>Starts On</label>
+              <div class="input-group date-input-group">
+                <input
+                  #dpFromDate
+                  class="form-control"
+                  placeholder="yyyy-mm-dd"
+                  name="dpFromDate"
+                  [value]="formatter.format(fromDate)"
+                  (input)="fromDate = validateInput(fromDate, dpFromDate.value)"
+                  formControlName="startedAt"
+                  [ngClass]="{ 'is-invalid': submitted && f['startedAt'].errors }"
+                />
+                <span (click)="datepicker.toggle()" class="input-group-text"><img src="../../../../assets/img/calender.svg" class="img-20x20"></span>
+                <div *ngIf="submitted && f['startedAt'].errors" class="invalid-feedback">
+                  <div *ngIf="f['startedAt'].errors['required']">Starts On is required</div>
+                </div>
+              </div>
+              </div>
+            </div>
+            <div class="col-12 position-relative">
+              <div class="regular-from-group max-258">
+                <label>Expires on</label>
+              <div class="input-group date-input-group">
+                <input
+                  #dpToDate
+                  class="form-control"
+                  placeholder="yyyy-mm-dd"
+                  name="dpToDate"
+                  [value]="formatter.format(toDate)"
+                  (input)="toDate = validateInput(toDate, dpToDate.value)"
+                  formControlName="expiredAt"
+                  [ngClass]="{ 'is-invalid': submitted && f['expiredAt'].errors }"
+                />
+                <span (click)="datepicker.toggle()" class="input-group-text"><img src="../../../../assets/img/calender.svg" class="img-20x20"></span>
+                <div *ngIf="submitted && f['expiredAt'].errors" class="invalid-feedback">
+                  <div *ngIf="f['expiredAt'].errors['required']">Expires On is required</div>
+                </div>
+              </div>
+              </div>
+            </div>
+          </div>
+          <div class="regular-from-group">
+            <div class="d-flex align-items-center justify-content-between w-100">
+              <label class="d-flex align-items-center" style="gap: 8px;"><img src="../../../../assets/img/tag.svg">Tags</label>
+              <label class="">Optional</label>
+            </div>
+            <div class="add-tag-input-box" id="tag-input"  (click)="focusTagInput()">
+              <!--<div class="add-tag-btn" contenteditable="true">Brand Name tag</div>
+              <div class="add-tag-btn" contenteditable="true">Sample tag</div>
+
+              &lt;!&ndash; on click add tag &ndash;&gt;
+              <div class="add-tag-btn" contenteditable="true"></div>
+              <div class="add-tag-btn add-tag"><img src="assets/img/rouder-add-tag.svg" (click)="addTag()">Add tag</div>
+              &lt;!&ndash; add this code ahead of "add tag" and make it focused &ndash;&gt;
+-->
+              <span class="add-tag-btn" *ngFor="let tag of tags">
+          {{tag}}
+                <span class="remove-tag" (click)="removeTag(tag)">×</span>
+        </span>
+              <input
+                placeholder="Add Tag"
+                #tagInput type="text"
+                class="add-tag-btn add-tag bg-transparent w-10"
+                (keyup)="onKeyUp($event)"
+                formControlName="tag">
+            </div>
+          </div>
+          <div class="regular-from-group">
+            <div class="form-check form-switch my-check">
+              <input class="form-check-input" type="checkbox" role="switch" id="noti" formControlName="notification">
+              <label class="form-check-label" for="noti">Set notification reminder for deal expiry
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="main-body-footer-container main-body-footer-absolute mt-5">
+<!--        <button type="button" class="body-generate-report-btn" >Generate Report</button>-->
+
+        <button type="button" class="body-footer-cancel-btn" [routerLink]="['/deals']" [state]="{selectedWorkspace: selectedWorkspace}">Cancel</button>
+        <button type="submit" class="body-footer-save-btn">Save</button>
+      </div>
+    </form>
+  </main>
+  <app-right-menu [workspace]="selectedWorkspace" [hideRightBar]="hideLeftMenu"
+                  (hideRightMenu)="hideLeftMenu = $event"></app-right-menu>
+
+</div>
+
+

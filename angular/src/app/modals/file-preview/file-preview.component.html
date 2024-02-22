@@ -1,0 +1,33 @@
+<div class="modal-dialog modal-dialog-centered">
+  <div class="modal-content" style="background: transparent;">
+    <div class="add-member-modal">
+      <div class="add-member-modal-header">
+        <div class="add-member-modal-heading">
+          <h6 class="add-member-modal-sub-title m-0">{{!!file ? file.name : post.fileName}}</h6>
+        </div>
+        <button class="modal-close-btn" data-bs-dismiss="modal" aria-label="Close" (click)="activeModal.dismiss()">x</button>
+
+      </div>
+      <div class="add-member-modal-body">
+        <div class="videomodal" *ngIf="!!file">
+          <video width="100%" height="100%" controls preload="auto" *ngIf="file.type.includes('video')">
+            <source
+              [src]="URL.createObjectURL(file)"
+              type="video/mp4">
+          </video>
+          <img width="100%" height="100%" *ngIf="file.type.includes('image')" [src]="URL.createObjectURL(file) | sanitize" alt=""/>
+          <iframe width="100%" height="100%" *ngIf="file.type.includes('pdf')" [src]="URL.createObjectURL(file) | sanitize"></iframe>
+        </div>
+        <div class="videomodal" *ngIf="!!post">
+          <video width="100%" height="100%" controls preload="auto" *ngIf="post.ext?.includes('VIDEO')">
+            <source
+              [src]="post.cdnUrl! | sanitize"
+              type="video/mp4">
+          </video>
+          <img width="100%" height="100%" *ngIf="post.type?.includes('IMAGE')" [src]="post.cdnUrl" alt=""/>
+          <iframe width="100%" height="100%" *ngIf="post.ext?.includes('pdf')" [src]="post.cdnUrl! | sanitize"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

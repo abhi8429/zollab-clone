@@ -1,0 +1,499 @@
+<div class="editing-page">
+    <aside class="editing-page-aside" id="asidebar">
+        <div class="editing-page-aside-content">
+            <div class="back-to-workspace">
+                <img src="../../../../../assets/img/back_icon.svg"><a href="/angular/src">Back to workspace</a>
+            </div>
+            <div class="editing-page-aside-menu">
+                <h6 class="editing-page-aside-menu-title">SETTINGS</h6>
+              <ul class="editing-page-aside-menu-list">
+                <li class="editing-page-aside-menu-item"><a [routerLink]="['/manageMembers']" [state]="{selectedWorkspace: selectedWorkspace}" class="editing-page-aside-menu-link">Manage Member</a></li>
+                <li class="editing-page-aside-menu-item"><a [routerLink]="['/editWorkspace']" [state]="{selectedWorkspace: selectedWorkspace}" class="editing-page-aside-menu-link">Edit workspace</a></li>
+                <li class="editing-page-aside-menu-item"><a [routerLink]="['/roles']" [state]="{selectedWorkspace: selectedWorkspace}" class="editing-page-aside-menu-link editing-page-aside-menu-link-active">Roles and
+                  Permissions</a></li>
+              </ul>
+            </div>
+        </div>
+    </aside>
+    <main class="editing-page-wrapper">
+        <div class="roles-and-permissions-container">
+            <div class="roles-and-permissions-page-heading">
+                <div class="d-flex align-items-center justify-content-between w-100 flex-wrap">
+                    <h2 class="roles-and-permissions-page-title">
+                        <a [routerLink]="['/roles']" [state]="{selectedWorkspace: selectedWorkspace}" class="roles-and-permissions-page-title-back-icon">
+                            <img src="../../../../../assets/img/back_icon_white.svg">
+                        </a>
+                        Edit role / {{selectedRole.roleName}}
+                    </h2>
+                    <a [routerLink]="['/roles']" [state]="{selectedWorkspace: selectedWorkspace}" *ngIf="selectedRole.userDefined" class="dnager-link text-decoration-none roles-and-permissions-page-heading-link">Delete
+                        role</a>
+                </div>
+                <p class="roles-and-permissions-page-sub-title">You can create custom roles to fit your specific
+                    needs regarding member permissions.<br>
+                    You can assign it to new or existing members.</p>
+            </div>
+            <div class="create-role-from-section">
+                <div class="w-100">
+                    <label class="form-label">Role name</label>
+                    <input type="text" class="form-control" [(ngModel)]="selectedRole.roleName">
+                </div>
+                <div class="w-100">
+                    <label class="form-label">Role description</label>
+                    <textarea type="text" class="form-control" placeholder="Able to approve and interact with deliverables. " [(ngModel)]="selectedRole.roleDesc"></textarea>
+                </div>
+            </div>
+            <div class="create-role-main-content">
+                <p class="create-role-main-content-title">Configure ROLE Permissions</p>
+                <div class="input-group create-role-search-input">
+                    <input type="text" class="form-control" placeholder="Search by name">
+                    <button class="input-group-text"><img src="../../../../../assets/img/search.svg"></button>
+                </div>
+              <form class="w-100" id="permissionForm" [formGroup]="permissionForm" (ngSubmit)="updateRole()">
+                <div class="create-role-check-filedset px-0">
+                  <div class="create-role-check-filedset-section responsive-none">
+                    <div class="action-section header-title">
+                      Actions
+                    </div>
+                    <div class="view-section header-title">
+                      View
+                    </div>
+                    <div class="add-section header-title">
+                      Add
+                    </div>
+                    <div class="edit-and-change-section header-title">
+                      Edit/change
+                    </div>
+                    <div class="delete-section header-title">
+                      Delete
+                    </div>
+                  </div>
+                  <hr class="edit-profile-hr responsive-none">
+                  <ng-container formArrayName="MANAGE WORKSPACE">
+                    <div class="create-role-check-filedset-title" >Manage workspace </div>
+                    <hr class="edit-profile-hr">
+                    <ng-container formGroupName="0">
+                      <div class="create-role-check-filedset-section" formGroupName="Workspaces">
+                        <div class="action-section">
+                          Workspaces
+                        </div>
+                        <div class="view-section">
+                          <input class="form-check-input" type="checkbox" value="" checked="" formControlName="read">
+                        </div>
+                        <div class="add-section">
+                          <input class="form-check-input" type="checkbox" value="" formControlName="create">
+                        </div>
+                        <div class="edit-and-change-section">
+                          <input class="form-check-input" type="checkbox" value="" formControlName="update">
+                        </div>
+                        <div class="delete-section">
+                          <input class="form-check-input" type="checkbox" value="" formControlName="delete">
+                        </div>
+                      </div>
+                    </ng-container>
+                    <hr class="edit-profile-hr">
+                    <ng-container formGroupName="1">
+                      <div class="create-role-check-filedset-section" formGroupName="Channels">
+                        <div class="action-section">
+                          Channels
+                        </div>
+                        <div class="view-section">
+                          <input class="form-check-input" type="checkbox" value="" checked="" formControlName="read">
+                        </div>
+                        <div class="add-section">
+                          <input class="form-check-input" type="checkbox" value="" formControlName="create">
+                        </div>
+                        <div class="edit-and-change-section">
+                          <input class="form-check-input" type="checkbox" value="" formControlName="update">
+                        </div>
+                        <div class="delete-section">
+                          <input class="form-check-input" type="checkbox" value="" formControlName="delete">
+                        </div>
+                      </div>
+                    </ng-container>
+                    <hr class="edit-profile-hr">
+                    <ng-container formGroupName="2">
+                      <div class="create-role-check-filedset-section" formGroupName="Members">
+                        <div class="action-section">
+                          Members
+                        </div>
+                        <div class="view-section">
+                          <input class="form-check-input" type="checkbox" value="" checked="" formControlName="read">
+                        </div>
+                        <div class="add-section">
+                          <input class="form-check-input" type="checkbox" value="" formControlName="create">
+                        </div>
+                        <div class="edit-and-change-section">
+                          <input class="form-check-input" type="checkbox" value="" formControlName="update">
+                        </div>
+                        <div class="delete-section">
+                          <input class="form-check-input" type="checkbox" value="" formControlName="delete">
+                        </div>
+                      </div>
+                    </ng-container>
+                    <hr class="edit-profile-hr">
+                    <ng-container formGroupName="3">
+                      <div class="create-role-check-filedset-section" formGroupName="Roles">
+                        <div class="action-section">
+                          Roles
+                        </div>
+                        <div class="view-section">
+                          <input class="form-check-input" type="checkbox" value="" checked="" formControlName="read">
+                        </div>
+                        <div class="add-section">
+                          <input class="form-check-input" type="checkbox" value="" formControlName="create">
+                        </div>
+                        <div class="edit-and-change-section">
+                          <input class="form-check-input" type="checkbox" value="" formControlName="update">
+                        </div>
+                        <div class="delete-section">
+                          <input class="form-check-input" type="checkbox" value="" formControlName="delete">
+                        </div>
+                      </div>
+                    </ng-container>
+                    <hr class="edit-profile-hr">
+                    <ng-container formGroupName="4">
+                      <div class="create-role-check-filedset-section" formGroupName="Direct Messaging">
+                        <div class="action-section">
+                          Direct messaging
+                        </div>
+                        <div class="view-section">
+                          <input class="form-check-input" type="checkbox" value="" checked="" formControlName="read">
+                        </div>
+                        <div class="add-section">
+                          <input class="form-check-input" type="checkbox" value="" formControlName="create">
+                        </div>
+                        <div class="edit-and-change-section">
+                          <input class="form-check-input" type="checkbox" value="" formControlName="update">
+                        </div>
+                        <div class="delete-section">
+                          <input class="form-check-input" type="checkbox" value="" formControlName="delete">
+                        </div>
+                      </div>
+                    </ng-container>
+                    <hr class="edit-profile-hr">
+                    <ng-container formGroupName="5">
+                      <div class="create-role-check-filedset-section" formGroupName="Leave workspace">
+                        <div class="action-section">
+                          Leave workspace
+                        </div>
+                        <div class="view-section">
+                          <input class="form-check-input" type="checkbox" value="" checked="" formControlName="read">
+                        </div>
+                        <div class="add-section">
+                          <input class="form-check-input" type="checkbox" value="" formControlName="create">
+                        </div>
+                        <div class="edit-and-change-section">
+                          <input class="form-check-input" type="checkbox" value="" formControlName="update">
+                        </div>
+                        <div class="delete-section">
+                          <input class="form-check-input" type="checkbox" value="" formControlName="delete">
+                        </div>
+                      </div>
+                    </ng-container>
+                  </ng-container>
+                  <hr class="edit-profile-hr">
+                  <ng-container formArrayName="MANAGE DEALS">
+                    <ng-container>
+                      <div class="create-role-check-filedset-title">Manage Deals </div>
+                      <hr class="edit-profile-hr">
+                      <ng-container formGroupName="0">
+                        <div class="create-role-check-filedset-section" formGroupName="Deals">
+                          <div class="action-section">
+                            Deals
+                          </div>
+                          <div class="view-section">
+                            <input class="form-check-input" type="checkbox" value="" checked="" formControlName="read">
+                          </div>
+                          <div class="add-section">
+                            <input class="form-check-input" type="checkbox" value="" formControlName="create">
+                          </div>
+                          <div class="edit-and-change-section">
+                            <input class="form-check-input" type="checkbox" value="" checked="" formControlName="update">
+                          </div>
+                          <div class="delete-section">
+                            <input class="form-check-input" type="checkbox" value="" formControlName="delete">
+                          </div>
+                        </div>
+                      </ng-container>
+                      <hr class="edit-profile-hr">
+                      <ng-container formGroupName="1">
+                        <div class="create-role-check-filedset-section" formGroupName="All Deals">
+                          <div class="action-section">
+                            All Deals
+                          </div>
+                          <div class="view-section">
+                            <input class="form-check-input" type="checkbox" value="" checked="" formControlName="read">
+                          </div>
+                          <div class="add-section">
+                            <input class="form-check-input" type="checkbox" value="" formControlName="create">
+                          </div>
+                          <div class="edit-and-change-section">
+                            <input class="form-check-input" type="checkbox" value="" checked="" formControlName="update">
+                          </div>
+                          <div class="delete-section">
+                            <input class="form-check-input" type="checkbox" value="" formControlName="delete">
+                          </div>
+                        </div>
+                      </ng-container>
+                      <hr class="edit-profile-hr">
+                      <ng-container formGroupName="2">
+                        <div class="create-role-check-filedset-section" formGroupName="Deal status">
+                          <div class="action-section">
+                            Deal status
+                          </div>
+                          <div class="view-section">
+                            <input class="form-check-input" type="checkbox" value="" checked="" formControlName="read">
+                          </div>
+                          <div class="add-section">
+                            <input class="form-check-input" type="checkbox" value="" formControlName="create">
+                          </div>
+                          <div class="edit-and-change-section">
+                            <input class="form-check-input" type="checkbox" value="" checked="" formControlName="update">
+                          </div>
+                          <div class="delete-section">
+                            <input class="form-check-input" type="checkbox" value="" formControlName="delete">
+                          </div>
+                        </div>
+                      </ng-container>
+                      <hr class="edit-profile-hr">
+                      <ng-container formGroupName="3">
+                        <div class="create-role-check-filedset-section" formGroupName="Linked deliverables">
+                          <div class="action-section">
+                            Linked Deliverables
+                          </div>
+                          <div class="view-section">
+                            <input class="form-check-input" type="checkbox" value="" checked="" formControlName="read">
+                          </div>
+                          <div class="add-section">
+                            <input class="form-check-input" type="checkbox" value="" formControlName="create">
+                          </div>
+                          <div class="edit-and-change-section">
+                            <input class="form-check-input" type="checkbox" value="" checked="" formControlName="update">
+                          </div>
+                          <div class="delete-section">
+                            <input class="form-check-input" type="checkbox" value="" formControlName="delete">
+                          </div>
+                        </div>
+                      </ng-container>
+                    </ng-container>
+                  </ng-container>
+                  <hr class="edit-profile-hr">
+                  <ng-container formArrayName="MANAGE DELIVERABLES">
+                    <ng-container>
+                      <div class="create-role-check-filedset-title">Manage Deliverables</div>
+                      <hr class="edit-profile-hr">
+                      <ng-container formGroupName="0">
+                        <div class="create-role-check-filedset-section" formGroupName="Deliverable">
+                          <div class="action-section">
+                            Deliverable
+                          </div>
+                          <div class="view-section">
+                            <input class="form-check-input" type="checkbox" value="" checked="" formControlName="read">
+                          </div>
+                          <div class="add-section">
+                            <input class="form-check-input" type="checkbox" value="" formControlName="create">
+                          </div>
+                          <div class="edit-and-change-section">
+                            <input class="form-check-input" type="checkbox" value="" checked="" formControlName="update">
+                          </div>
+                          <div class="delete-section">
+                            <input class="form-check-input" type="checkbox" value="" formControlName="delete">
+                          </div>
+                        </div>
+                      </ng-container>
+                      <hr class="edit-profile-hr">
+                      <ng-container formGroupName="1">
+                        <div class="create-role-check-filedset-section" formGroupName="All deliverables">
+                          <div class="action-section">
+                            All deliverables
+                          </div>
+                          <div class="view-section">
+                            <input class="form-check-input" type="checkbox" value="" checked="" formControlName="read">
+                          </div>
+                          <div class="add-section">
+                            <input class="form-check-input" type="checkbox" value="" formControlName="create">
+                          </div>
+                          <div class="edit-and-change-section">
+                            <input class="form-check-input" type="checkbox" value="" checked="" formControlName="update">
+                          </div>
+                          <div class="delete-section">
+                            <input class="form-check-input" type="checkbox" value="" formControlName="delete">
+                          </div>
+                        </div>
+                      </ng-container>
+                      <hr class="edit-profile-hr">
+                      <ng-container formGroupName="2">
+                        <div class="create-role-check-filedset-section" formGroupName="Deliverable status">
+                          <div class="action-section">
+                            Deliverable status
+                          </div>
+                          <div class="view-section">
+                            <input class="form-check-input" type="checkbox" value="" checked="" formControlName="read">
+                          </div>
+                          <div class="add-section">
+                            <input class="form-check-input" type="checkbox" value="" formControlName="create">
+                          </div>
+                          <div class="edit-and-change-section">
+                            <input class="form-check-input" type="checkbox" value="" checked="" formControlName="update">
+                          </div>
+                          <div class="delete-section">
+                            <input class="form-check-input" type="checkbox" value="" formControlName="delete">
+                          </div>
+                        </div>
+                      </ng-container>
+                      <hr class="edit-profile-hr">
+                      <ng-container formGroupName="3">
+                        <div class="create-role-check-filedset-section" formGroupName="Deliverable status - In progress">
+                          <div class="action-section">
+                            Deliverable status - In progress
+                          </div>
+                          <div class="view-section">
+                            <input class="form-check-input" type="checkbox" value="" checked="" formControlName="read">
+                          </div>
+                          <div class="add-section">
+                            <input class="form-check-input" type="checkbox" value="" formControlName="create">
+                          </div>
+                          <div class="edit-and-change-section">
+                            <input class="form-check-input" type="checkbox" value="" checked="" formControlName="update">
+                          </div>
+                          <div class="delete-section">
+                            <input class="form-check-input" type="checkbox" value="" formControlName="delete">
+                          </div>
+                        </div>
+                      </ng-container>
+                      <hr class="edit-profile-hr">
+                      <ng-container formGroupName="4">
+                        <div class="create-role-check-filedset-section" formGroupName="Deliverable status - In review">
+                          <div class="action-section">
+                            Deliverable status - In review
+                          </div>
+                          <div class="view-section">
+                            <input class="form-check-input" type="checkbox" value="" checked="" formControlName="read">
+                          </div>
+                          <div class="add-section">
+                            <input class="form-check-input" type="checkbox" value="" formControlName="create">
+                          </div>
+                          <div class="edit-and-change-section">
+                            <input class="form-check-input" type="checkbox" value="" checked="" formControlName="update">
+                          </div>
+                          <div class="delete-section">
+                            <input class="form-check-input" type="checkbox" value="" formControlName="delete">
+                          </div>
+                        </div>
+                      </ng-container>
+                      <hr class="edit-profile-hr">
+                      <ng-container formGroupName="5">
+                        <div class="create-role-check-filedset-section" formGroupName="Deliverable status - Approved">
+                          <div class="action-section">
+                            Deliverable status - Approved
+                          </div>
+                          <div class="view-section">
+                            <input class="form-check-input" type="checkbox" value="" checked="" formControlName="read">
+                          </div>
+                          <div class="add-section">
+                            <input class="form-check-input" type="checkbox" value="" formControlName="create">
+                          </div>
+                          <div class="edit-and-change-section">
+                            <input class="form-check-input" type="checkbox" value="" checked="" formControlName="update">
+                          </div>
+                          <div class="delete-section">
+                            <input class="form-check-input" type="checkbox" value="" formControlName="delete">
+                          </div>
+                        </div>
+                      </ng-container>
+                      <hr class="edit-profile-hr">
+                      <ng-container formGroupName="6">
+                        <div class="create-role-check-filedset-section" formGroupName="Deliverable status - Changes needed">
+                          <div class="action-section">
+                            Deliverable status - Changes needed
+                          </div>
+                          <div class="view-section">
+                            <input class="form-check-input" type="checkbox" value="" checked="" formControlName="read">
+                          </div>
+                          <div class="add-section">
+                            <input class="form-check-input" type="checkbox" value="" formControlName="create">
+                          </div>
+                          <div class="edit-and-change-section">
+                            <input class="form-check-input" type="checkbox" value="" checked="" formControlName="update">
+                          </div>
+                          <div class="delete-section">
+                            <input class="form-check-input" type="checkbox" value="" formControlName="delete">
+                          </div>
+                        </div>
+                      </ng-container>
+                      <hr class="edit-profile-hr">
+                      <ng-container formGroupName="7">
+                        <div class="create-role-check-filedset-section" formGroupName="Deliverable status - Done">
+                          <div class="action-section">
+                            Deliverable status - Done
+                          </div>
+                          <div class="view-section">
+                            <input class="form-check-input" type="checkbox" value="" checked="" formControlName="read">
+                          </div>
+                          <div class="add-section">
+                            <input class="form-check-input" type="checkbox" value="" formControlName="create">
+                          </div>
+                          <div class="edit-and-change-section">
+                            <input class="form-check-input" type="checkbox" value="" checked="" formControlName="update">
+                          </div>
+                          <div class="delete-section">
+                            <input class="form-check-input" type="checkbox" value="" formControlName="delete">
+                          </div>
+                        </div>
+                      </ng-container>
+                      <hr class="edit-profile-hr">
+                      <ng-container formGroupName="8">
+                        <div class="create-role-check-filedset-section" formGroupName="Evidence required list">
+                          <div class="action-section">
+                            Evidence required list
+                          </div>
+                          <div class="view-section">
+                            <input class="form-check-input" type="checkbox" value="" checked="" formControlName="read">
+                          </div>
+                          <div class="add-section">
+                            <input class="form-check-input" type="checkbox" value="" formControlName="create">
+                          </div>
+                          <div class="edit-and-change-section">
+                            <input class="form-check-input" type="checkbox" value="" checked="" formControlName="update">
+                          </div>
+                          <div class="delete-section">
+                            <input class="form-check-input" type="checkbox" value="" formControlName="delete">
+                          </div>
+                        </div>
+                      </ng-container>
+                      <hr class="edit-profile-hr">
+                      <ng-container formGroupName="9">
+                        <div class="create-role-check-filedset-section" formGroupName="Evidences">
+                          <div class="action-section">
+                            Evidences
+                          </div>
+                          <div class="view-section">
+                            <input class="form-check-input" type="checkbox" value="" checked="" formControlName="read">
+                          </div>
+                          <div class="add-section">
+                            <input class="form-check-input" type="checkbox" value="" formControlName="create">
+                          </div>
+                          <div class="edit-and-change-section">
+                            <input class="form-check-input" type="checkbox" value="" checked="" formControlName="update">
+                          </div>
+                          <div class="delete-section">
+                            <input class="form-check-input" type="checkbox" value="" formControlName="delete">
+                          </div>
+                        </div>
+                      </ng-container>
+                    </ng-container>
+                  </ng-container>
+                  <hr class="edit-profile-hr">
+                </div>
+              </form>
+            </div>
+        </div>
+        <div class="main-body-footer-container main-body-footer-absolute">
+            <button type="button" class="body-footer-cancel-btn">Cancel</button>
+          <button type="submit" class="body-footer-save-btn" form="permissionForm">Save</button>
+        </div>
+    </main>
+    <div class="open-asidebar" onclick="openasidebar()">
+        <img src="../../../../../assets/img/icon_send.svg" id="open_img">
+    </div>
+</div>

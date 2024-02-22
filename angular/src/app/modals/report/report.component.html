@@ -1,0 +1,77 @@
+<div class="modal-dialog modal-dialog-centered">
+  <div class="modal-content" style="background: transparent;">
+    <div class="add-member-modal p-0 gap-1">
+      <div class="reportmodal-head">
+        <div class="addlogo-box">
+         <!-- <div class="pulse-icon">
+            <img src="/assets/img/+.svg">
+          </div>-->
+        </div>
+        <div class="modal-helpful-btns float-right">
+          <a role="button" class="edit-dela-link" (click)="downloadReport()"><img src="/angular/src/assets/img/download-svg.svg"></a>
+          <button class="modal-close-btn" data-bs-dismiss="modal" aria-label="Close" (click)="activeModal.dismiss()">x</button>
+        </div>
+      </div>
+      <p class="modal-report mb-4"> {{report.summary}} Report</p>
+      <div class="reportmodal-body">
+        <div class="row-section">
+          <div class="text-center">
+            <h2 class="title">{{report.impressions | numberSuffix}}</h2>
+            <p class="sub-title m-0">impressions</p>
+          </div>
+          <div class="text-center">
+            <h2 class="title">{{report.engagements | numberSuffix}}</h2>
+            <p class="sub-title m-0">Engagements</p>
+          </div>
+          <div class="text-center">
+            <h2 class="title">{{report.engagementRate}} %</h2>
+            <p class="sub-title m-0">Engagement Rate </p>
+          </div>
+        </div>
+        <div [class]="report.contents?.length==1 ? 'member-grid reportmodal-single-body' : 'member-grid'">
+          <ng-container *ngFor="let content of report.contents">
+            <div class="box">
+              <div class="member-profile">
+                <img [src]="creator.avatars?.['50X50'] ? creator.avatars?.['50X50'] : 'assets/img/leftside-bar-bottom-2.svg'"
+                     alt="User">
+                <p>{{!!creator.name ? creator.name : creator.email}}</p>
+              </div>
+              <div class="member-video">
+                <img [src]="content.displayImage">
+              </div>
+              <div class="social-platform">
+                <p class="m-0 social-account social-text-container">{{!!content.title ? content.title : content.description}}</p>
+                <div class="social-media-app">
+                  <img [src]="content.work_platform?.logo_url">
+                </div>
+              </div>
+              <div class="social-app-details">
+                <div class="details">
+                  <img src="https://pixlok.com/wp-content/uploads/2021/10/Eye-Icon-wsj93.png">
+                  <p>{{content.engagement?.view_count | numberSuffix}}</p>
+                </div>
+                <div class="details">
+                  <img src="/angular/src/assets/img/comment.png">
+                  <p>{{content.engagement?.comment_count | numberSuffix}}</p>
+                </div>
+                <div class="details">
+                  <img src="/angular/src/assets/img/like.png">
+                  <p>{{content.engagement?.like_count | numberSuffix}}</p>
+                </div>
+                <div class="details">
+                  <img
+                    src="https://www.freeiconspng.com/thumbs/www-icon/vector-illustration-of-simple-share-icon--public-domain-vectors-23.png">
+                  <p>{{content.engagement?.share_count | numberSuffix}}</p>
+                </div>
+              </div>
+              <div class="copy-btn">
+                <img src="https://cdn-icons-png.flaticon.com/512/1621/1621635.png" class="img-20x20">
+              </div>
+            </div>
+          </ng-container>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

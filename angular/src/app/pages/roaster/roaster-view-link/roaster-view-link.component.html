@@ -1,0 +1,107 @@
+<div class="workspace deal-pages">
+    <main class="twosidebar-flow w-100 container-xl">
+        <div class="twosidebar-flow-body">
+            <div class="roster-container">
+                <div
+                    class="w-100 d-flex align-items-center flex-column flex-sm-row justify-content-between mb-4 mb-sm-0">
+                    <div>
+                        <img [src]="!!profileDetails?.roster?.rosterLogo ? profileDetails?.roster?.rosterLogo : ''" class="logo">
+                    </div>
+                    <div class="btn-group  me-sm-4">
+                        <button type="button" class="btn text-white" >
+                            {{profileDetails?.roster?.name}}
+                        </button>
+                    </div>
+                </div>
+
+                <div class="w-100 rosetr-main-creator position-relative" *ngFor="let profiles of profileDetails?.profiles?.content">
+                    <div class="rosetr-creator-row">
+                        <div class="creator">
+                            <img [src]="!!profiles.profile?.images?.instagram ? profiles.profile?.images?.instagram : profiles.profile?.images?.youtube"
+                                alt="user">
+                            <p>{{profiles.profile?.handle}}</p>
+                        </div>
+                      <div class="creator-social-media-platforms w-100">
+                        <div class="col">
+                          <img src="../../../../assets/img/twitch-1.png" />
+                          <div>
+                            <p class="m-0 roster-followers">{{!!profiles.profile?.twitchCount ? profiles.profile?.twitchCount : 0 | number:'1.0-0'}}</p>
+                            <!--                                    <span>(3,400 ccv)</span>-->
+                          </div>
+                        </div>
+                        <div class="col">
+                          <img src="../../../../assets/img/youtube.png" />
+                          <div>
+                            <p class="m-0 roster-followers">{{!!profiles.profile?.youtubeCount ? profiles.profile?.youtubeCount : 0 | number:'1.0-0'}}</p>
+                          </div>
+                        </div>
+                        <div class="col">
+                          <img src="../../../../assets/img/twitter-1.png" />
+                          <div>
+                            <p class="m-0 roster-followers">{{!!profiles.profile?.twitterCount ? profiles.profile?.twitterCount : 0 | number:'1.0-0'}}</p>
+                          </div>
+                        </div>
+                        <div class="col">
+                          <img src="../../../../assets/img/tik-tok-1.png" />
+                          <div>
+                            <p class="m-0 roster-followers">{{!!profiles.profile?.tiktokCount ? profiles.profile?.tiktokCount : 0 | number:'1.0-0'}}</p>
+                          </div>
+                        </div>
+                        <div class="col">
+                          <img src="../../../../assets/img/instagram.png" />
+                          <div>
+                            <p class="m-0 roster-followers">{{!!profiles.profile?.instagramCount ? profiles.profile?.instagramCount : 0 | number: '1.0-0'}}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+                <!--<div class="w-100 rosetr-added-creator position-relative">
+                    <div class="rosetr-creator-row">
+                        <div class="creator">
+                            <img src="https://plus.unsplash.com/premium_photo-1682124749533-4e67cca53ff0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=880&q=80"
+                                alt="user">
+                            <p>Aroplay</p>
+                        </div>
+                        <div class="creator-social-media-platforms w-100">
+                            <div class="creator-social-media-platforms w-100">
+                                <div class="col">
+                                    <img src="assets/img/twitch-1.png" class="mobile-show" />
+                                    <div>
+                                        <p class="m-0 roster-followers">1,543,213</p>
+                                        <span>(3,400 ccv)</span>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <img src="assets/img/youtube.png" class="mobile-show" />
+                                    <div>
+                                        <p class="m-0 roster-followers">2,430,304</p>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <img src="assets/img/twitter-1.png" class="mobile-show" />
+                                    <div>
+                                        <p class="m-0 roster-followers">1,240,302</p>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <img src="assets/img/tik-tok-1.png" class="mobile-show" />
+                                    <div>
+                                        <p class="m-0 roster-followers">1,240,302</p>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <img src="assets/img/instagram.png" class="mobile-show" />
+                                    <div>
+                                        <p class="m-0 roster-followers">364,243</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>-->
+
+            </div>
+        </div>
+    </main>
+</div>

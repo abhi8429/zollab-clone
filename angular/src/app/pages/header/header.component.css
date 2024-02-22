@@ -1,0 +1,175 @@
+.header-section-class{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.body-section-class{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+
+}
+.hv-class:hover{
+  color: #565151;
+}
+.hv-class-new:hover{
+  background: #fff;
+  cursor: pointer;
+}
+.footer-section-class
+{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+@media  screen and (max-width: 374px) {
+  .adjust-font-size{
+    font-size: 14px;
+  }
+}
+
+@media  screen and (max-width: 767px) {
+
+  ajust-font-size2{
+    font-size: 14px;
+  }
+  .font-size-manage{
+    font-size: 26px;
+    font-weight: 500px;
+  }
+  .white-hide-class{
+    background: #f7f3f2;
+    border-radius: 8px;
+    /*padding:0px 8px;*/
+    border: 0px solid #f7f3f2;
+  }
+  .gray-hide-class{
+    background:#f7f3f2;
+    border-radius: 8px;
+    border: 0px solid #f7f3f2;
+    padding: 8px 8px;
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+  }
+  .gray-hide-class:hover {
+    background: #e0d8d6; /* Change the background color on hover */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow on hover */
+  }
+  .padding-manage-class{
+    padding: 0rem 1rem;
+  }
+  .desktop-laptop-img-widht{
+    width: 24px;
+    height: 24px;
+  }
+  .margin-adjust{
+    margin-bottom: 0.5rem;
+  }
+}
+@media  screen and (min-width: 768px) {
+
+  .font-size-manage{
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .white-hide-class{
+    background: #fff;
+    border-radius: 8px;
+    /*padding:0px 8px;*/
+    /*margin: 0px 8px;*/
+    border: 0px solid #fff;
+  }
+  .gray-hide-class{
+    background:#e5e0df;
+    border-radius: 8px;
+    border: 0px solid #e5e0df;
+    padding: 8px 8px;
+    position: relative;
+    display: inline-block;
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+  }
+  .gray-hide-class:hover {
+    background: #e0d8d6; /* Change the background color on hover */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow on hover */
+  }
+  .desktop-laptop-img-widht{
+    width: 16px;
+    height: 16px;
+  }
+}
+@media  screen and (min-width: 768px) and (max-width: 1023px) {
+
+  .adjust-font-size2{
+    font-size: 12px;
+  }
+  .padding-manage-class{
+    padding: 0rem 1rem;
+  }
+}
+
+.profile-icon{
+  /*width: 40px; height: 40px;*/
+  border-radius: 50%;
+  @media  screen and (max-width: 768px){
+    width: 28px; height: 28px;
+  }
+}
+.prj-icon{
+  width: 20px; height: 20px; border-radius: 50%;
+  margin-left: .5rem;
+  @media  screen and (max-width: 768px){
+    margin-left: 0rem;
+  }
+}
+
+.notification-indicator {
+  position: absolute;
+  top: 30%;
+  left: 70%;
+  transform: translate(-50%, -50%);
+}
+.vertical-devider{
+  width: 0.5px;
+  border: 1px solid;
+  height: 16px;
+  margin-top: 0.4rem;
+  opacity: 12%;
+  color: #000;
+  margin-right: 2rem;
+  margin-left: 2rem;
+}
+@media screen and (min-width: 768px) {
+  .notification-class{
+    padding: 12px;
+    width: 40px;
+    height: 40px;
+  }
+  .profile-icon{
+    width: 32px;
+    height: 32px;
+  }
+}
+@media screen and (min-width: 1024px) {
+  .profile-icon{
+    width: 40px;
+    height: 40px;
+  }
+}
+/*@media  screen and (min-width: 1800px) {*/
+/*  .notification-margin{*/
+/*    margin-left: 2rem;*/
+/*  }*/
+
+/*}*/
+/*@media  screen and (min-width: 2000px) {*/
+/*  .notification-margin{*/
+/*    margin-left: 3.5rem;*/
+/*  }*/
+
+/*}*/
+/*@media  screen and (min-width: 2500px) {*/
+/*  .notification-margin{*/
+/*    margin-left: 4.5rem;*/
+/*  }*/
+
+/*}*/

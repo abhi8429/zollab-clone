@@ -1,0 +1,57 @@
+<div class="leftside-menu " id="leftside_menu">
+  <div class="leftside-menu-header">
+    <div class="leftside-menu-header-name" *ngIf="!!_selectedWorkspace">
+      <p>{{_selectedWorkspace.name}}</p>
+    </div>
+    <div class="leftside-menu-header-dropdown">
+      <a href="javascript:;" class="" role="button" data-bs-toggle="dropdown" aria-expanded="false"
+         (click)="workspaceSettings = !workspaceSettings">
+        <img src="../../../../assets/img/Ellipses.svg">
+      </a>
+      <ul class="dropdown-menu custom-dropdown" [class] = "workspaceSettings ? 'show' : ''">
+        <li><a class="dropdown-item" [routerLink]="['/manageMembers']" [state]="{selectedWorkspace: _selectedWorkspace}">Manage members</a></li>
+        <li><a class="dropdown-item" [routerLink]="['/editWorkspace']" [state]="{selectedWorkspace: _selectedWorkspace}">Edit workspace</a></li>
+        <li><a class="dropdown-item" [routerLink]="['/roles']" [state]="{selectedWorkspace: _selectedWorkspace}">Roles and permission</a>
+        </li>
+        <li><a class="dropdown-item dnager-link" [routerLink]="['/deleteWorkspace']" [state]="{workspace: _selectedWorkspace}">Leave workspace</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <!-- <div class="leftside-menu-members-container">
+    <p class="leftside-menu-titles">Members</p>
+    <div class="leftside-menu-members-list">
+      <div class="leftside-menu-members-list-item" *ngFor="let member of members">
+        <div class="leftside-menu-members-list-item-name" >
+          <img [src]="!!member.avatars?.['50X50'] ? member.avatars?.['50X50'] : 'assets/img/mini-avatar.png'">
+          <p>{{!!member.memberName ? member.memberName: member.memberEmail}}</p>
+        </div>
+        <div class=""></div>
+      </div>
+    </div>
+    <div class="add-member-box" data-bs-toggle="modal" data-bs-target="#addmember" (click)="inviteMembers()">
+      <div class="add-member-box-pulse-icon">
+        <img src="assets/img/white_+.svg">
+      </div>
+      <p>Add member</p>
+    </div>
+  </div> -->
+  <div class="leftside-menu-channels-container">
+    <p class="leftside-menu-titles">Channels</p>
+    <div class="add-channel-box pointer" (click)="addChannel()">
+      <div class="add-member-box-pulse-icon" >
+        <img src="../../../../assets/img/white_+.svg">
+      </div>
+      <p>Add Channel</p>
+    </div>
+    <div class="leftside-menu-channels-list" *ngFor="let channel of channelList">
+      <div class="channels-name pointer" (click)="emitChannelSelection(channel)">
+        <p>#</p>
+        <p>{{channel.name}}</p>
+      </div>
+      <div class="leftside-menu-list-count" *ngIf="channel.unreadMessageCount > 0">
+        {{channel.unreadMessageCount}}
+      </div>
+    </div>
+  </div>
+</div>

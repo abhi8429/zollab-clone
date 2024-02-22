@@ -1,0 +1,37 @@
+<div class="modal-dialog modal-dialog-centered">
+  <div class="modal-content" style="background: transparent;">
+    <form class="w-100" [formGroup]="createChannelForm" (ngSubmit)="saveChannel()" (keydown.enter)="$event.preventDefault()">
+    <div class="add-member-modal">
+      <div class="add-member-modal-header">
+        <div class="add-member-modal-heading">
+          <h6 class="add-member-modal-title">Create channel</h6>
+        </div>
+        <button class="modal-close-btn" data-bs-dismiss="modal" aria-label="Close" (click)="activeModal.dismiss()">x</button>
+      </div>
+      <div class="add-member-modal-body">
+        <div class="regular-from-group">
+          <label>Channel name</label>
+          <div class="input-group">
+            <span class="input-group-text create-channel-modal-input-text border-end-0">#</span>
+            <input type="text" class="form-control border-start-0" formControlName="channelName" placeholder="channel name"
+                   [ngClass]="{ 'is-invalid': submitted && createChannelForm.controls['channelName'].errors }">
+            <div *ngIf="submitted && createChannelForm.controls['channelName'].errors" class="invalid-feedback">
+              <div *ngIf="createChannelForm.controls['channelName'].errors['required']">Channel name is required</div>
+            </div>
+          </div>
+        </div>
+        <div class="regular-from-group">
+          <label>Description (Optional)</label>
+          <textarea class="form-control modal-textarea" placeholder="Enter Description" formControlName="channelDescription"></textarea>
+        </div>
+      </div>
+      <div class="add-member-modal-footer">
+        <div class="d-flex align-items-center justify-content-end w-100">
+          <button type="button" class="body-footer-cancel-btn" data-bs-dismiss="modal" aria-label="Close" (click)="activeModal.close()">Cancel</button>
+          <button type="submit" class="body-footer-save-btn">Save</button>
+        </div>
+      </div>
+    </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,24 @@
+<aside class="editing-page-aside" id="asidebar">
+  <div class="editing-page-aside-content">
+    <div class="back-to-workspace" [routerLink]="['/']">
+      <img src="../../../../../assets/img/back_icon.svg"><a href="">Back to workspace</a>
+    </div>
+    <div class="editing-page-aside-menu">
+      <h6 class="editing-page-aside-menu-title">Profile Settings </h6>
+      <ul class="editing-page-aside-menu-list">
+        <li class="editing-page-aside-menu-item" [routerLink]="['/profileSettings']">
+          <a class="editing-page-aside-menu-link" [routerLinkActive]="['editing-page-aside-menu-link-active']">Edit
+            Profile</a>
+        </li>
+        <li class="editing-page-aside-menu-item" [routerLink]="['/password']">
+          <a class="editing-page-aside-menu-link"
+             [routerLinkActive]="['editing-page-aside-menu-link-active']">Password</a>
+        </li>
+        <li class="editing-page-aside-menu-item" [routerLink]="['/notification']">
+          <a class="editing-page-aside-menu-link" [routerLinkActive]="['editing-page-aside-menu-link-active']">Notification</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</aside>
+

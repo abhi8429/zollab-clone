@@ -1,0 +1,38 @@
+.background-image{
+  /*background-image: url("src/assets/img/background-s-logo.png");*/
+  width: 100%;
+  height: 100vh;
+
+}
+#background-image2{
+  /*background-image2;*/
+  width: 100%;
+  /*height: 100vh;*/
+}
+.position-absolute-class{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100vh;
+}
+/*.email-btn{*/
+/*  background:#e5e0df !important;*/
+/*  color: #000 !important;*/
+/*  border: 0px solid #000 !important;*/
+/*}*/
+/*.email-btn:hover{*/
+/*  background: #e5e0df !important; !* Change the background color on hover *!*/
+/*  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);*/
+/*}*/
+
+@media screen and (min-width: 768px) and (max-width: 1367px) {
+  .margin-terms{
+    margin-right: 1rem;
+  }
+
+}
+.hv-class:hover{
+  cursor: pointer;
+}
+

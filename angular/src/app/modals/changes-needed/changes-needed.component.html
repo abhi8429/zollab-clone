@@ -1,0 +1,25 @@
+<div class="modal-dialog modal-dialog-centered">
+  <div class="modal-content" style="background: transparent;">
+    <div class="add-member-modal">
+      <div class="add-member-modal-header">
+        <div class="add-member-modal-heading">
+          <h6 class="add-member-modal-title">Suggest the required changes</h6>
+        </div>
+        <button class="modal-close-btn" data-bs-dismiss="modal" aria-label="Close" (click)="activeModal.dismiss()">x</button>
+      </div>
+      <div class="add-member-modal-body">
+        <div class="regular-from-group">
+          <label>Details</label>
+          <textarea class="form-control modal-textarea" [(ngModel)]="suggestedChanges"></textarea>
+        </div>
+      </div>
+      <div class="add-member-modal-footer">
+        <div class="d-flex align-items-center justify-content-end w-100">
+          <button type="button" class="body-footer-cancel-btn" data-bs-dismiss="modal" aria-label="Close" (click)="activeModal.dismiss()">Cancel
+          </button>
+          <button type="button" class="body-footer-save-btn" (click)="save()">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

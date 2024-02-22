@@ -1,0 +1,164 @@
+<!-- <div class="" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="background:#f7f3f2;;border-radius: 16px; width: 100%;">-->
+<div class="modal-dialog modal-dialog-centered m-0 modal-lg" style="background: #f7f3f2;border: none;border-radius: 16px!important;">
+  <div class="modal-content"
+       style="background: #f7f3f2;max-height: 80vh; overflow-y: auto;border: none;padding:12px;">
+    <div class="modal-header" style="border:0px solid #f7f3f2;padding-bottom: 0px">
+      <h1 class="modal-title font-size-16" id="exampleModalLabel">{{ headerText }}</h1>
+      <!--              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
+      <img src="assets/img/closebutton-icon.webp" class="img-fluid" width="24px" height="24px"
+           (click)="close(null)">
+    </div>
+    <div class="modal-body" style="border: 0px solid #f7f3f2;padding-bottom:0px;">
+      <div class="white-profile-input d-flex flex-row justify-content-between">
+        <div class="d-flex flex-row align-items-center">
+          <div style="width: 40px; height: 40px">
+            <img [src]="imageUrl" width="40px" height="40px">
+          </div>
+          <div class="d-flex flex-column ms-2 align-items-center">
+            <span class="font-size-14 font-weight-500">Team Avatar</span>
+            <span class="font-size-12 font-weight-500">{{ imageFileName }}</span>
+          </div>
+        </div>
+        <div>
+          <input type='file' id="imageUpload" class="d-none"
+                 accept=".png, .jpg, .jpeg" #fileInput (change)="uploadFile($event)"/>
+          <button class="grey-btn2" (click)="fileInput.click()">Upload</button>
+        </div>
+      </div>
+      <form #registerForm1="ngForm">
+        <div class="mt-3 mb-4 d-flex flex-column justify-content-start">
+          <label class="d-flex flex-row justify-content-start font-size-12 font-weight-500">Team Name</label>
+          <span
+            class="text-danger"
+            *ngIf="
+                (name.touched || submitted) &&
+                name.errors?.['required']">
+              Name is required
+            </span>
+          <input type="text" placeholder="Team Name"
+                 class="white-input-background mt-2 font-size-14 font-weight-400"
+                 [(ngModel)]="team.teamName"
+                 name="name"
+                 #name="ngModel"
+                 required>
+        </div>
+      </form>
+      <hr style="color: #e5e0df; border: 1px solid;opacity: 0.6">
+      <div class="d-flex flex-row justify-content-start">
+        <span class="font-size-12 font-weight-500">Invite</span>
+      </div>
+      <div *ngIf="emailRequiredWarning" class="text-danger">
+        {{ emailRequiredWarning }}
+      </div>
+      <div class="mt-3 d-flex flex-row modal-padding-class"
+           *ngFor="let teamMember of teamMembers; index as i;">
+        <div class="d-flex flex-row align-items-center col-md-8 col-7 me-3 me-md-2">
+          <!--          <div><img [src]="i%2 === 0 ? 'assets/img/green-ball.png' : 'assets/img/orange-ball.png'" class="img-fluid"
+                              width="24px;" height="24px"></div>-->
+          <div><img [src]="getMemberImgUrl(teamMember.memberId)"
+                    class="img-fluid"
+                    width="24px;" height="24px"
+                    (error)="onImgError($event, i)">
+          </div>
+          <div class="ms-2"><span
+            class="font-size-14 font-weight-500">{{ teamMember.memberEmail}}</span>
+          </div>
+        </div>
+        <div class="btn-group  col-md-4 col-5">
+          <button type="button" class="btn pe-md-5 text-start"
+                  [disabled]="!isRemovable(i)" data-bs-toggle="dropdown"
+                  aria-expanded="false" data-bs-reference="parent"
+                  style="background: #e5e0df;border: 0px solid #e5e0df; color: #000;font-size: 14px;font-weight: 500;padding: 10px">
+            {{teamMember?.role?.roleName}}
+          </button>
+          <button type="button" class="btn  dropdown-toggle dropdown-toggle-split text-end"
+                  style="background: #e5e0df;border: 0px solid #e5e0df;color: #000; padding: 10px;"
+                  [disabled]="!isRemovable(i)"
+                  data-bs-toggle="dropdown" aria-expanded="false" data-bs-reference="parent">
+            <span class="visually-hidden">Toggle Dropdown</span>
+          </button>
+          <ul class="dropdown-menu col-12"
+              style="background: #e5e0df;min-width: 4.5rem; font-size: 14px; font-weight: 500;
+            padding-left: 0.2rem;
+              padding-right: 0.2rem ">
+            <li *ngFor="let teamRole of teamRoles;">
+              <a class="dropdown-item" style="background: #e5e0df;font-size: 14px; font-weight: 500;"
+                 (click)="teamMember.role.roleName = teamRole.roleName">{{teamRole.roleName}}</a>
+            </li>
+            <li>
+              <a class="dropdown-item" style="background: #e5e0df;font-size: 14px; font-weight: 500;">--</a>
+            </li>
+            <li>
+              <a class="dropdown-item"
+                 style="background: #e5e0df;font-size: 14px; font-weight: 500;">Resend Invite</a>
+            </li>
+            <li>
+              <a class="dropdown-item"
+                 style="background: #e5e0df;font-size: 14px; font-weight: 500;"
+                 *ngIf="isRemovable(i)"
+                 (click)="removeMember(i)">Remove</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+<!--      <hr style="color: #e5e0df; border: 1px solid;opacity: 0.6">-->
+
+      <!--      <form #registerForm2="ngForm">-->
+      <div *ngIf="duplicateEmailWarning" class="text-danger">
+        {{ duplicateEmailWarning }}
+      </div>
+      <div class="d-flex flex-row col-12 mt-4 mb-4 modal-padding-class">
+        <div class="col-8 me-3 me-md-2">
+          <input type="email" class="white-input-background" placeholder="Email" style="width: 97%"
+                 [ngbTypeahead]="search"
+                 [inputFormatter]="formatter"
+                 [resultFormatter]="formatter"
+                 [(ngModel)]="user" required email
+                 (input)="onEmailInputChange()"
+                 (click)="emailWarning()">
+        </div>
+        <div class="btn-group col-4" data-bs-toggle="dropdown" aria-expanded="false" data-bs-reference="parent">
+          <button type="button" class="btn pe-md-5 text-start"
+                  data-bs-toggle="dropdown" aria-expanded="false" data-bs-reference="parent"
+                  style="background: #e5e0df;border: 0px solid #e5e0df; color: #000;font-size: 14px;font-weight: 500; padding: 10px;">
+            {{selectedMemberRole}}
+          </button>
+          <button type="button" class="btn  dropdown-toggle dropdown-toggle-split text-end"
+                  style="background: #e5e0df; border: 0px solid #e5e0df;color: #000;padding: 10px;"
+                  data-bs-toggle="dropdown" aria-expanded="false" data-bs-reference="parent">
+            <span class="visually-hidden">Toggle Dropdown</span>
+          </button>
+          <ul class="dropdown-menu col-12" style="background: #e5e0df;min-width: 6.1rem;">
+            <li *ngFor="let teamRole of teamRoles;">
+              <a class="dropdown-item" (click)="selectRole(teamRole)"
+                 style="background: #e5e0df;font-size: 14px; font-weight: 500;">{{teamRole.roleName}}</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <!-- </form>-->
+      <div class="col-12 d-flex flex-row mb-4">
+        <button class="black-btn col-12 font-size-14 font-weight-500"
+                (click)="inviteTeamMember()">Add
+        </button>
+      </div>
+      <hr style="color: #e5e0df; border: 1px solid;opacity: 0.6">
+    </div>
+    <div class="modal-footer" style="border-top: 0px solid #f7f3f2;padding-top: 0px;padding-bottom:1rem">
+      <div class="d-flex flex-row  col-12 px-2">
+      <div class="col-6">
+        <button type="button" class="btn grey-btn2" style=" margin-right: 1rem;
+    width: 97%;"
+                (click)="close(null)">Cancel
+        </button>
+      </div>
+      <div class="col-6">
+        <button type="button" class="btn light-green-btn w-100" style="margin-left: 0.5rem;
+"
+                (click)="saveTeam()">{{team.id ? 'Save' : 'Create'}}
+        </button>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>

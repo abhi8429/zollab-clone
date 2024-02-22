@@ -1,0 +1,54 @@
+<div class="modal-dialog modal-dialog-centered m-0 modal-lg"
+     style="background: #f7f3f2;border: none; border-radius: 16px !important;">
+  <div class="modal-content" style="background: #e8daff;border: none;padding: 12px !important;">
+    <div class="modal-header" style="border:0px solid #f7f3f2;padding-bottom: 0px">
+      <h1 class="modal-title font-size-16 font-weight-500" id="exampleModalLabel">Deliverables</h1>
+      <!--              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
+      <img src="assets/img/closebutton-icon.webp" class="img-fluid" width="24px" height="24px" (click)="close(false)">
+    </div>
+    <div class="modal-body" style="border: 0px solid #f7f3f2;padding-bottom:1rem;">
+      <div class="d-flex flex-row justify-content-between align-items-center mt-3 light-red-div col-12"
+           *ngFor="let deliverable of deliverables"
+           [ngClass]="{
+       'status-not-started': deliverable.status === 'NOT_STARTED',
+       'status-in-review': deliverable.status === 'IN_REVIEW',
+       'status-approved': deliverable.status === 'APPROVED',
+       'status-done': deliverable.status === 'DONE'
+     }">
+        <div class="col-md-7 col-5 d-flex flex-row justify-content-start align-items-center"><span class="font-size-12 font-weight-500">{{deliverable.description}}
+          ({{deliverable.schedule}})</span></div>
+        <div class="d-flex flex-row justify-content-end align-items-center col-md-5 col-7">
+          <span class="d-flex flex-row font-size-12 font-weight-400 me-2">Due: 3d ago</span>
+          <a class="font-size-12 font-weight-500 common-hover-class status-not-started" *ngIf="deliverable.status === 'NOT_STARTED'"
+             (click)="openUploadDeliverable(deliverable)">Upload</a>
+          <a class="font-size-12 font-weight-500 common-hover-class status-in-review" *ngIf="deliverable.status === 'IN_REVIEW'"
+             (click)="openApproveDeliverable(deliverable)">Approve</a>
+          <a class="font-size-12 font-weight-500 common-hover-class status-approved" *ngIf="deliverable.status === 'APPROVED'"
+          >Ready to publish</a>
+          <a class="font-size-12 font-weight-500 common-hover-class status-done" *ngIf="deliverable.status === 'DONE'"
+          >Published</a>
+        </div>
+      </div>
+      <!--      <div class="d-flex flex-row justify-content-between align-items-center mt-3 light-green-div">
+              <div>
+                <span class="font-size-12 font-weight-500 light-red-color">deliverable.description</span>
+              </div>
+              <div class="d-flex flex-row justify-content-start align-items-center">
+                <span class="d-flex flex-row font-size-12 font-weight-400 light-red-color me-2">Due: 3d ago</span>
+                <a class="font-size-12 font-weight-500 light-red-color common-hover-class">Upload</a>
+              </div>
+            </div>
+            <div class="d-flex flex-row justify-content-between align-items-center mt-3 light-red-div">
+              <div>
+                <span class="font-size-12 font-weight-500 light-red-color">deliverable.description</span>
+              </div>
+              <div class="d-flex flex-row justify-content-start align-items-center">
+                <span class="d-flex flex-row font-size-12 font-weight-400 light-red-color me-2">Due: 3d ago</span>
+                <a class="font-size-12 font-weight-500 light-red-color common-hover-class">Upload</a>
+              </div>
+            </div>-->
+    </div>
+  </div>
+</div>
+
+

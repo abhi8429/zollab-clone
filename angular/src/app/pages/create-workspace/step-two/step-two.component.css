@@ -1,0 +1,257 @@
+
+.workspace-step-1-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 30px;
+    gap: 30px;
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+}
+
+.workspace-step-1-add-project-details {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 30px;
+    max-width: 860px;
+    margin: auto;
+    padding: 90px 2px;
+}
+
+.workspace-step-1-heading {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 15px;
+}
+
+.workspace-step-pages {
+    font-family: var(--font-family);
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    color: var(--light-grey);
+    margin: 0;
+}
+
+.workspace-step-pages-title {
+    font-family: var(--font-family);
+    font-style: normal;
+    font-weight: 600;
+    font-size: 40px;
+    line-height: 48px;
+    color: var(--white);
+    margin: 0;
+}
+
+.workspace-step-pages-sub-title {
+    font-family: var(--font-family);
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    color: var(--light-grey);
+    margin: 0;
+}
+
+.workspace-step-1-page-next-page-btn {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    width: 96px;
+    height: 49px;
+    background: linear-gradient(0deg, var(--white), var(--white)), var(--purpule);
+    border-radius: 5px;
+    color: var(--black);
+}
+
+.workspace-step-1-input-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 5px;
+    width: 100%;
+}
+
+.workspace-step-1-input-group .form-control {
+    background: var(--transparent);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    height: 49px;
+    border: 1px solid var(--light-grey);
+    border-radius: 5px;
+    color: var(--grey-2);
+}
+
+
+.workspace-step-1-input-group .form-control::placeholder {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    color: var(--grey-2);
+}
+
+.workspace-step-1-input-group small {
+    font-family: var(--font-family);
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 15px;
+    color: var(--white-04);
+}
+
+.workspace-step-2-input-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 10px;
+    width: 100%;
+}
+
+.workspace-step-2-input-group textarea {
+    padding: 15px;
+    height: 100px;
+    border: 1px solid var(--light-grey);
+    border-radius: 5px;
+    width: 100%;
+    resize: none;
+    background: var(--transparent);
+    font-family: var(--font-family);
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    color: var(--placeholder);
+}
+
+.workspace-step-2-input-group textarea::placeholder {
+    color: var(--placeholder);
+}
+
+.workspace-step-2-input-group textarea:focus {
+    background: transparent;
+}
+
+.workspace-step-2-input-group-title {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 10px;
+    margin: 0;
+    justify-content: space-between;
+    width: 100%;
+}
+
+
+.workspace-step-2-input-group-title p {
+    font-family: var(--font-family);
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    display: flex;
+    align-items: center;
+    color: var(--light-grey);
+    margin: 0;
+}
+
+.workspace-step-2-input-group-title a {
+    text-decoration: none;
+    margin: 0;
+    font-family: var(--font-family);
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--link-color);
+}
+
+
+.workspace-step-1-page-container {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 0px;
+}
+
+.workspace-step-aside {
+    background: var(--regular-grey);
+    min-height: 100vh;
+    height: 100%;
+    width: 260px;
+}
+
+.workspace-step-aside-top {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0 15px;
+    height: 75px;
+    background: var(--grey-3);
+    border-bottom: 1px solid var(--grey-3);
+}
+
+.workspace-step-aside-top span {
+    width: 132px;
+    height: 22px;
+    background: var(--grey-2);
+    opacity: 0.6;
+    border-radius: 30px;
+}
+
+.workspace-step-top {
+    height: 75px;
+    background: var(--regular-grey);
+    border-bottom: 1px solid var(--transparent);
+}
+
+.workspace-step-1-add-project-details-btn-group {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0px;
+    gap: 30px;
+    width: 100%;
+}
+
+.workspace-step-1-add-project-details-btn-group a {
+    text-decoration: none;
+    font-family: var(--font-family);
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    color: var(--white);
+}
+.form-control:focus {
+    background-color: unset !important;
+    color: white;
+}
+
+select option {
+    background-color: var(--bs-body-color);
+}
+select:hover {
+    background-color: var(--bs-body-color);
+    background: var(--bs-body-color);
+}

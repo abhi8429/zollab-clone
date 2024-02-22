@@ -1,0 +1,53 @@
+.table-body-section .title-text{
+	border: unset;
+}
+.filter-selcet {
+	max-width: unset;
+}
+.search-filter-bar {
+    width: 100%;
+    max-width: 410px;
+    min-width: 410px;
+}
+.table-body-section{
+	justify-content: space-between;
+}
+.title-text,
+.start-on-section,
+.expires-on-section,
+.pricing-section{
+	min-width: calc(100vw - 95vw);
+/* 	min-width: 200px; */
+}
+.start-on-section{
+	max-width: 120px;
+}
+.status-section{
+	min-width: 120px;
+	max-width: 120px;
+}
+.deal-summary-section {
+	min-width: calc(100vw - 88vw);
+	max-width: calc(100vw - 88vw);
+}
+.table-body-section .dropdown-section{
+    justify-content: center;
+}
+
+
+.upload-progress-container {
+  background: #323232;
+  border-radius: 5px;
+  z-index: 1000;
+  position: absolute;
+  bottom: 2%;
+  right: 2%;
+  width: 350px;
+  height: max-content;
+  padding: 1rem;
+}
+
+.mid_darker_grey_text {
+  color: #7a7a7a;
+}
+

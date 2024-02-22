@@ -1,0 +1,52 @@
+<div class="modal-dialog modal-dialog-centered m-0 modal-lg">
+  <div class="modal-content" style="background: #f7f3f2;">
+    <div class="modal-header" style="border:0px solid #f7f3f2;padding-bottom: 0px">
+      <h1 class="modal-title font-size-16 font-weight-500" id="exampleModalLabel">Share File</h1>
+      <img src="assets/img/closebutton-icon.webp" class="img-fluid" width="24px" height="24px"
+           (click)="close(null)">
+    </div>
+    <div class="modal-body mb-4" style="border: 0px solid #f7f3f2;padding-bottom:0px;">
+      <div class="col-12 d-flex flex-column justify-content-between">
+        <label class="font-size-12 font-weight-400 mb-1">View Permissions</label>
+        <div class="btn-group  col-12">
+          <button type="button" class="btn pe-md-5 text-start" data-bs-toggle="dropdown" aria-expanded="false"
+                  data-bs-reference="parent"
+                  style="background: #e5e0df;border: 0px solid #e5e0df; color: #000;font-size: 14px;font-weight: 500;padding: 10px">
+            Anyone with the file link
+          </button>
+          <button type="button" class="btn  dropdown-toggle dropdown-toggle-split text-end"
+                  style="background: #e5e0df; border: 0px solid #e5e0df;color: #000; padding: 10px;"
+                  data-bs-toggle="dropdown" aria-expanded="false" data-bs-reference="parent">
+            <span class="visually-hidden">Toggle Dropdown</span>
+          </button>
+          <ul class="dropdown-menu col-12" style="background: #e5e0df;min-width: 6rem;">
+            <li>
+              <a class="dropdown-item" style="background: #e5e0df">roleName</a>
+            </li>
+            <li>
+              <a class="dropdown-item" style="background: #e5e0df">--</a>
+            </li>
+            <li>
+              <a class="dropdown-item"
+                 style="background: #e5e0df">Resend Invite</a>
+            </li>
+            <li>
+              <a class="dropdown-item"
+                 style="background: #e5e0df"
+              >Remove</a>
+            </li>
+          </ul>
+        </div>
+        <div class="col-12 d-flex flex-row justify-content-between align-content-center mt-3">
+          <div class="col-6 pe-1">
+            <button class="col-12 light-green-btn font-size-14 font-weight-500">Share</button>
+          </div>
+          <div class="col-6 ps-1">
+            <button class="col-12 gray-btn font-size-14 font-weight-500">Copy Link</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
